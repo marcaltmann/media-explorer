@@ -1,3 +1,6 @@
+import videojs from "video.js";
+import "video.js/dist/video-js.css";
+
 const READY_STATE_HAVE_CURRENT_DATA = 2;
 
 const player = videojs('resource-media');

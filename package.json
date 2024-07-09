@@ -16,7 +16,8 @@
     "author": "Marc Altmann <marcaltmann@posteo.de>",
     "license": "AGPL-3.0",
     "dependencies": {
-        "jquery": "^3.7.1"
+        "jquery": "^3.7.1",
+        "video.js": "^8.16.1"
     },
     "devDependencies": {
         "django-vite-plugin": "^4.0.1"
