@@ -1,7 +1,7 @@
 .form__label {
-  display: block;
   font-size: var(--font-size-small);
   font-weight: bold;
+  vertical-align: bottom;  /* Because it is in a div. */
 }
 
 .form__input {
@@ -32,4 +32,9 @@
 .form__help {
   color: var(--subdued-text-color);
   font-size: var(--font-size-small);
+}
+
+.form__help > ul {
+  margin-bottom: 0;
+  margin-top: 0;
 }
