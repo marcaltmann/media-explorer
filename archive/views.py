@@ -2,8 +2,10 @@ from django.contrib.auth.decorators import login_required
 from django.db.models.query import QuerySet
 from django.views import generic
 from django.shortcuts import get_object_or_404, render
+
 from archive.models import Resource, Collection
 from materials.models import ImageMaterial
+from search.query import query_resource
 
 
 class CollectionIndexView(generic.ListView):
@@ -25,11 +27,14 @@ def collection_detail(request, collection_id):
 
 
 def search(request):
-    q = request.GET.get("q", "")
-    resources = Resource.objects.filter(title__contains=q).order_by("title")
+    q = request.GET.get("q", "") or "*"
+
+    resources, count = query_resource(q)  # These are Solr docs.
+
     context = {
         "q": q,
         "resources": resources,
+        "count": count,
     }
     return render(request, "archive/search_results.html", context)
 

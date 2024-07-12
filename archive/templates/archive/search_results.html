@@ -11,7 +11,7 @@
     {% blocktranslate %}Search for <i>{{ q }}</i>{% endblocktranslate %}
   </h1>
   <p>
-    {% blocktranslate count counter=resources.count %}{{ counter }} search result{% plural %}{{ counter }} search results{% endblocktranslate %}
+    {% blocktranslate count counter=count %}{{ counter }} search result{% plural %}{{ counter }} search results{% endblocktranslate %}
   </p>
 
   {% if resources %}

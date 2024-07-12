@@ -4,7 +4,7 @@ from .models import Entity
 
 
 def entity_index(request):
-    type_filter = request.GET.get('type')
+    type_filter = request.GET.get("type")
     if type_filter:
         entities = Entity.objects.filter(type=type_filter)
     else:

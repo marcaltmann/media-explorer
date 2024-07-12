@@ -1,15 +1,15 @@
 <li class="card card--resource">
   <h3 class="card__title">
     <a class="card__link"
-       href="{% url 'archive:resource_detail' resource.id %}">
-      {{ resource.title }}
+       href="">
+      {{ resource.title_s }}
     </a>
   </h3>
   <p class="card__detail">
     {{ resource.duration }}
     <br>
-    {{ resource.media_type }}
+    {{ resource.media_type_s }}
     <br>
-    {{ resource.pub_date|date:"SHORT_DATE_FORMAT" }}
+    {{ resource.pub_date_dt|date:"SHORT_DATE_FORMAT" }}
   </p>
 </li>
