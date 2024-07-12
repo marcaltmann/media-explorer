@@ -6,8 +6,10 @@ SOLR_URL = "http://localhost:8983/solr/media_explorer/"
 def index_resource(resource):
     url = SOLR_URL + "update/json/docs"
     doc = {
+        "id": str(resource.id),
         "title_s": resource.title,
         "media_type_s": resource.media_type,
+        "duration_i": resource.duration.seconds,
         "pub_date_dt": str(resource.pub_date),
         "public_b": resource.public,
     }
