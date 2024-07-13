@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}
+  {% blocktranslate %}Search for {{ q }}{% endblocktranslate %} | {{ block.super }}
+{% endblock %}
+{% block content %}
+  <nav class="breadcrumbs">
+    {% translate "Search" %}
+  </nav>
+  <h1 class="h1">
+    {% blocktranslate %}Search for <i>{{ q }}</i>{% endblocktranslate %}
+  </h1>
+  <p class="u-ll">
+    {% translate "Could not connect to the Solr search server. Is it running?" %}
+  </p>
+{% endblock %}

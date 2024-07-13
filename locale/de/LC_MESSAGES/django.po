@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-30 20:52+0200\n"
+"POT-Creation-Date: 2024-07-13 11:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,24 +52,24 @@ msgid "Date joined"
 msgstr "Registrierungsdatum"
 
 #: accounts/templates/accounts/profile.html:50
-#: accounts/templates/registration/password_change_form.html:4
-#: accounts/templates/registration/password_change_form.html:8
+#: accounts/templates/registration/password_change_form.html:5
+#: accounts/templates/registration/password_change_form.html:9
 #: accounts/templates/registration/password_reset_confirm.html:18
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: accounts/templates/accounts/register.html:4
-#: accounts/templates/accounts/register.html:8
-#: accounts/templates/accounts/register.html:17
-#: accounts/templates/registration/login.html:48
+#: accounts/templates/accounts/register.html:5
+#: accounts/templates/accounts/register.html:9
+#: accounts/templates/accounts/register.html:48
+#: accounts/templates/registration/login.html:57
 #: archive/templates/header.html:52
 msgid "Register"
 msgstr "Registrieren"
 
-#: accounts/templates/accounts/register.html:23
-#: accounts/templates/registration/login.html:4
-#: accounts/templates/registration/login.html:7
-#: accounts/templates/registration/login.html:37
+#: accounts/templates/accounts/register.html:54
+#: accounts/templates/registration/login.html:5
+#: accounts/templates/registration/login.html:9
+#: accounts/templates/registration/login.html:46
 #: accounts/templates/registration/password_reset_complete.html:12
 msgid "Login"
 msgstr "Anmelden"
@@ -83,13 +83,13 @@ msgstr "Registrierung fertig"
 msgid "Your registration is complete."
 msgstr "Sie sind fertig registriert."
 
-#: accounts/templates/registration/login.html:10
+#: accounts/templates/registration/login.html:13
 msgid "Your username and password didn't match. Please try again."
 msgstr ""
 "Ihr Nutzername und Ihr Passwort stimmen nicht überein. Bitte versuchen Sie "
 "es nochmals."
 
-#: accounts/templates/registration/login.html:16
+#: accounts/templates/registration/login.html:19
 msgid ""
 "Your account doesn't have access to this page. To proceed, please login with "
 "an account that has access."
@@ -97,11 +97,11 @@ msgstr ""
 "Ihr Konto hat keinen Zugang zu dieser Seite. Um fortzufahren, melden Sie "
 "sich mit einem Konto an, das Zugang hat."
 
-#: accounts/templates/registration/login.html:20
+#: accounts/templates/registration/login.html:23
 msgid "Please login to see this page."
 msgstr "Bitte melden Sie sich an, um diese Seite zu sehen."
 
-#: accounts/templates/registration/login.html:43
+#: accounts/templates/registration/login.html:52
 msgid "Lost password?"
 msgstr "Passwort vergessen?"
 
@@ -118,11 +118,11 @@ msgstr "Ihr Passwort wurde geändert."
 msgid "Back to profile"
 msgstr "Zurück zum Profil"
 
-#: accounts/templates/registration/password_change_form.html:12
+#: accounts/templates/registration/password_change_form.html:13
 msgid "Errors"
 msgstr "Fehler"
 
-#: accounts/templates/registration/password_change_form.html:21
+#: accounts/templates/registration/password_change_form.html:44
 msgid "Submit"
 msgstr "Absenden"
 
@@ -166,13 +166,13 @@ msgstr ""
 "Adresse eingegeben haben, mit der Sie sich registriert haben, und überprüfen "
 "Sie Ihren Spam-Ordner."
 
-#: accounts/templates/registration/password_reset_form.html:4
-#: accounts/templates/registration/password_reset_form.html:8
-#: accounts/templates/registration/password_reset_form.html:23
+#: accounts/templates/registration/password_reset_form.html:5
+#: accounts/templates/registration/password_reset_form.html:9
+#: accounts/templates/registration/password_reset_form.html:30
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
-#: accounts/templates/registration/password_reset_form.html:11
+#: accounts/templates/registration/password_reset_form.html:12
 msgid ""
 "Forgotten your password? Enter your email address below, and we'll email "
 "instructions for setting a new one."
@@ -508,20 +508,27 @@ msgstr "Transkripte"
 msgid "Timecode"
 msgstr "Zeitcode"
 
+#: archive/templates/archive/search_error.html:4
 #: archive/templates/archive/search_results.html:4
 #, python-format
 msgid "Search for %(q)s"
 msgstr "Suche nach %(q)s"
 
+#: archive/templates/archive/search_error.html:8
 #: archive/templates/archive/search_results.html:8
 #: pages/templates/pages/welcome.html:16
 msgid "Search"
 msgstr "Suchen"
 
+#: archive/templates/archive/search_error.html:11
 #: archive/templates/archive/search_results.html:11
 #, python-format
 msgid "Search for <i>%(q)s</i>"
 msgstr "Suche nach <i>%(q)s</i>"
+
+#: archive/templates/archive/search_error.html:14
+msgid "Could not connect to the Solr search server. Is it running?"
+msgstr "Konnte keine Verbindung zum Solr-Suchserver herstellen. Läuft er?"
 
 #: archive/templates/archive/search_results.html:14
 #, python-format
@@ -696,11 +703,11 @@ msgstr "Bild-Materialien"
 msgid "Back to resource"
 msgstr "Zurück zur Ressource"
 
-#: media_explorer/settings.py:125
+#: media_explorer/settings.py:127
 msgid "German"
 msgstr "Deutsch"
 
-#: media_explorer/settings.py:126
+#: media_explorer/settings.py:128
 msgid "English"
 msgstr "Englisch"
 

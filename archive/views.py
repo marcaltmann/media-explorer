@@ -1,3 +1,4 @@
+from requests import ConnectionError
 from django.contrib.auth.decorators import login_required
 from django.db.models.query import QuerySet
 from django.views import generic
@@ -29,14 +30,19 @@ def collection_detail(request, collection_id):
 def search(request):
     q = request.GET.get("q", "") or "*"
 
-    resources, count = query_resource(q)  # These are Solr docs.
-
-    context = {
-        "q": q,
-        "resources": resources,
-        "count": count,
-    }
-    return render(request, "archive/search_results.html", context)
+    try:
+        resources, count = query_resource(q)  # These are Solr docs.
+        context = {
+            "q": q,
+            "resources": resources,
+            "count": count,
+        }
+        return render(request, "archive/search_results.html", context)
+    except ConnectionError as e:
+        context = {
+            "q": q,
+        }
+        return render(request, "archive/search_error.html", context)
 
 
 class ResourceIndexView(generic.ListView):
