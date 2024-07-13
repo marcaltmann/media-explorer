@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-13 11:50+0200\n"
+"POT-Creation-Date: 2024-07-13 12:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -442,7 +442,6 @@ msgstr "letzte"
 
 #: archive/templates/archive/resource_detail.html:15
 #: archive/templates/archive/resource_index.html:6
-#: archive/templates/header.html:14
 #: materials/templates/materials/image_material_detail.html:7
 #: pages/templates/pages/welcome.html:24
 msgid "Resources"
@@ -516,12 +515,13 @@ msgstr "Suche nach %(q)s"
 
 #: archive/templates/archive/search_error.html:8
 #: archive/templates/archive/search_results.html:8
-#: pages/templates/pages/welcome.html:16
+#: archive/templates/archive/search_results.html:11
+#: archive/templates/archive/search_results.html:21
+#: archive/templates/header.html:14 pages/templates/pages/welcome.html:16
 msgid "Search"
 msgstr "Suchen"
 
 #: archive/templates/archive/search_error.html:11
-#: archive/templates/archive/search_results.html:11
 #, python-format
 msgid "Search for <i>%(q)s</i>"
 msgstr "Suche nach <i>%(q)s</i>"
@@ -530,12 +530,18 @@ msgstr "Suche nach <i>%(q)s</i>"
 msgid "Could not connect to the Solr search server. Is it running?"
 msgstr "Konnte keine Verbindung zum Solr-Suchserver herstellen. Läuft er?"
 
-#: archive/templates/archive/search_results.html:14
+#: archive/templates/archive/search_results.html:16
+#: archive/templates/archive/search_results.html:17
+#: pages/templates/pages/welcome.html:13 pages/templates/pages/welcome.html:14
+msgid "Search resources"
+msgstr "Ressourcen suchen"
+
+#: archive/templates/archive/search_results.html:26
 #, python-format
-msgid "%(counter)s search result"
-msgid_plural "%(counter)s search results"
-msgstr[0] "%(counter)s Suchergebnis"
-msgstr[1] "%(counter)s Suchergebnisse"
+msgid "%(counter)s search result for <i>%(q)s</i>"
+msgid_plural "%(counter)s search results for <i>%(q)s</i>"
+msgstr[0] "%(counter)s Suchergebnis für <i>%(q)s</i>"
+msgstr[1] "%(counter)s Suchergebnisse für <i>%(q)s</i>"
 
 #: archive/templates/base.html:13 archive/templates/footer.html:5
 #: archive/templates/header.html:6
@@ -719,10 +725,6 @@ msgstr "Impressum"
 #: pages/templates/pages/welcome.html:6
 msgid "Research and presentation software for multimedia resources"
 msgstr "Forschungs- und Präsentationssoftware für Multimedia-Ressourcen"
-
-#: pages/templates/pages/welcome.html:13 pages/templates/pages/welcome.html:14
-msgid "Search resources"
-msgstr "Ressourcen suchen"
 
 #: templates/admin/base_site.html:5
 msgid "Django site admin"

@@ -8,10 +8,22 @@
     {% translate "Search" %}
   </nav>
   <h1 class="h1">
-    {% blocktranslate %}Search for <i>{{ q }}</i>{% endblocktranslate %}
+    {% translate "Search" %}
   </h1>
-  <p>
-    {% blocktranslate count counter=count %}{{ counter }} search result{% plural %}{{ counter }} search results{% endblocktranslate %}
+
+  <form method="get" action="{% url "archive:search" %}" class="form">
+    <input type="search" name="q"
+           placeholder="{% translate 'Search resources' %}"
+           aria-label="{% translate 'Search resources' %}"
+           class="form__input"
+           value="{{ q }}" autofocus />
+    <button type="button" class="form__button">
+      {% translate "Search" %}
+    </button>
+  </form>
+
+  <p class="u-mt">
+    {% blocktranslate count counter=count %}{{ counter }} search result for <i>{{ q }}</i>{% plural %}{{ counter }} search results for <i>{{ q }}</i>{% endblocktranslate %}
   </p>
 
   {% if resources %}
