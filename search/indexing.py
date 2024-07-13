@@ -4,7 +4,7 @@ SOLR_URL = "http://localhost:8983/solr/media_explorer/"
 
 
 def index_resource(resource):
-    url = SOLR_URL + "update/json/docs"
+    url = SOLR_URL + "update/json/docs?commit=true"
     doc = {
         "id": str(resource.id),
         "title_t": resource.title,
@@ -13,11 +13,17 @@ def index_resource(resource):
         "pub_date_dt": str(resource.pub_date),
         "public_b": resource.public,
     }
-    response = requests.post(url, json=doc)
-    print(response.json())
+    requests.post(url, json=doc)
+
+
+def delete_all():
+    url = SOLR_URL + "update?commit=true"
+    data = {
+        "delete": {"query": "*:*"},
+    }
+    requests.post(url, json=data)
 
 
 def commit():
     url = SOLR_URL + "update?commit=true"
-    response = requests.post(url, headers={"Content-Type": "application/json"})
-    print(response.json())
+    requests.post(url, headers={"Content-Type": "application/json"})
