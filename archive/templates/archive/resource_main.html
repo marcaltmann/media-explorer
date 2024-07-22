@@ -13,7 +13,14 @@
             type="{{ resource.media_type }}" />
   </audio>
 {% endif %}
-<form action="{% url 'archive:bookmark_resource' resource.id %}" method="post" class="u-mt">
+<h1 class="h1">
+  {% if perms.archive.view_resource %}
+    {{ resource.title }}
+  {% else %}
+    {{ resource.anon_title }}
+  {% endif %}
+</h1>
+<form action="{% url 'archive:bookmark_resource' resource.id %}" method="post" class="u-mt-small">
   {% csrf_token %}
   <button type="submit">
     {% include "icons/bookmark.svg" %}

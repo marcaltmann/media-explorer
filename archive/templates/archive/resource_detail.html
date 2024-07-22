@@ -21,14 +21,7 @@
       {{ resource.anon_title|truncatechars:25 }}
     {% endif %}
   </nav>
-  <h1 class="h1">
-    {% if perms.archive.view_resource %}
-      {{ resource.title }}
-    {% else %}
-      {{ resource.anon_title }}
-    {% endif %}
-  </h1>
-  <div class="grid grid--resource-page">
+  <div class="grid grid--resource-page u-mt">
     <div>{% include "archive/resource_main.html" %}</div>
     <div>{% include "archive/resource_sidebar.html" %}</div>
   </div>
