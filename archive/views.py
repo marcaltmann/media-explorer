@@ -2,11 +2,11 @@ from requests import ConnectionError
 from django.contrib.auth.decorators import login_required
 from django.db.models.query import QuerySet
 from django.views import generic
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 
 from archive.models import Resource, Collection
-from materials.models import ImageMaterial
 from search.query import query_resource
+from accounts.models import Bookmark
 
 
 class CollectionIndexView(generic.ListView):
@@ -55,11 +55,26 @@ class ResourceIndexView(generic.ListView):
 def resource_detail(request, resource_id):
     resource = get_object_or_404(Resource, pk=resource_id)
     timecode = request.GET.get("tc", 0)
+    user = request.user
+    is_bookmarked = user.bookmark_set.filter(resource=resource).exists()
     context = {
         "resource": resource,
         "timecode": timecode,
         "collections": resource.collection_set.all(),
         "transcripts": resource.transcript_set.all(),
         "image_materials": resource.imagematerial_set.all(),
+        "is_bookmarked": is_bookmarked,
     }
     return render(request, "archive/resource_detail.html", context)
+
+
+@login_required()
+def bookmark_resource(request, resource_id):
+    resource = get_object_or_404(Resource, pk=resource_id)
+    user = request.user
+    is_bookmarked = user.bookmark_set.filter(resource=resource).exists()
+    if is_bookmarked:
+        user.bookmark_set.filter(resource=resource).delete()
+    else:
+        Bookmark.objects.create(user=user, resource=resource)
+    return redirect("archive:resource_detail", resource_id=resource_id)

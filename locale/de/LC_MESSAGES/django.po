@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-13 12:31+0200\n"
+"POT-Creation-Date: 2024-07-22 21:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,6 +22,34 @@ msgstr ""
 msgid "Accounts"
 msgstr "Konten"
 
+#: accounts/models.py:14
+msgid "user"
+msgstr "Benutzer"
+
+#: accounts/models.py:17 archive/models.py:45 archive/models.py:163
+#: archive/models.py:182 archive/models.py:217 materials/models.py:11
+#: materials/models.py:35
+msgid "resource"
+msgstr "Ressource"
+
+#: accounts/models.py:20 archive/models.py:185
+msgid "timecodes"
+msgstr "Zeitcodes"
+
+#: accounts/models.py:23 archive/models.py:188
+msgid ""
+"Enter timecodes in seconds as a comma separated list, e.g.: [124.3, 210.5]"
+msgstr ""
+"Geben Sie die Zeitcodes als komma-getrennte Liste ein, z.B.: [124.3, 210.5]"
+
+#: accounts/models.py:28
+msgid "bookmark"
+msgstr "Lesezeichen"
+
+#: accounts/models.py:29
+msgid "bookmarks"
+msgstr "Lesezeichen"
+
 #: accounts/templates/accounts/profile.html:4
 #: accounts/templates/accounts/profile.html:8
 msgid "Profile"
@@ -29,7 +57,7 @@ msgstr "Profil"
 
 #: accounts/templates/accounts/profile.html:12
 msgid "Username"
-msgstr "Nutzername"
+msgstr "Benutzername"
 
 #: accounts/templates/accounts/profile.html:18
 msgid "First name"
@@ -57,6 +85,10 @@ msgstr "Registrierungsdatum"
 #: accounts/templates/registration/password_reset_confirm.html:18
 msgid "Change password"
 msgstr "Passwort ändern"
+
+#: accounts/templates/accounts/profile.html:55
+msgid "Bookmarks"
+msgstr "Lesezeichen"
 
 #: accounts/templates/accounts/register.html:5
 #: accounts/templates/accounts/register.html:9
@@ -86,7 +118,7 @@ msgstr "Sie sind fertig registriert."
 #: accounts/templates/registration/login.html:13
 msgid "Your username and password didn't match. Please try again."
 msgstr ""
-"Ihr Nutzername und Ihr Passwort stimmen nicht überein. Bitte versuchen Sie "
+"Ihr Benutzername und Ihr Passwort stimmen nicht überein. Bitte versuchen Sie "
 "es nochmals."
 
 #: accounts/templates/registration/login.html:19
@@ -237,11 +269,6 @@ msgstr "öffentlich"
 msgid "agents"
 msgstr "Mitwirkende"
 
-#: archive/models.py:45 archive/models.py:163 archive/models.py:182
-#: archive/models.py:217 materials/models.py:11 materials/models.py:35
-msgid "resource"
-msgstr "Ressource"
-
 #: archive/models.py:46 archive/models.py:73
 #: archive/templates/archive/collection_index.html:20
 msgid "resources"
@@ -352,16 +379,6 @@ msgstr "Funktionen"
 msgid "entity"
 msgstr "Entität"
 
-#: archive/models.py:185
-msgid "timecodes"
-msgstr "Zeitcodes"
-
-#: archive/models.py:188
-msgid ""
-"Enter timecodes in seconds as a comma separated list, e.g.: [124.3, 210.5]"
-msgstr ""
-"Geben Sie die Zeitcodes als komma-getrennte Liste ein, z.B.: [124.3, 210.5]"
-
 #: archive/models.py:193
 msgid "entity reference"
 msgstr "Entitätsreferenz"
@@ -397,7 +414,7 @@ msgstr "Zeichenketten-Metadaten"
 #: archive/templates/archive/collection_detail.html:7
 #: archive/templates/archive/collection_index.html:6
 #: archive/templates/archive/collection_index.html:8
-#: archive/templates/archive/resource_main.html:33
+#: archive/templates/archive/resource_main.html:44
 #: archive/templates/header.html:20 pages/templates/pages/welcome.html:29
 msgid "Collections"
 msgstr "Sammlungen"
@@ -452,35 +469,43 @@ msgstr "Ressourcen"
 msgid "All resources"
 msgstr "Alle Ressourcen"
 
-#: archive/templates/archive/resource_main.html:16
+#: archive/templates/archive/resource_main.html:21
+msgid "Remove bookmark"
+msgstr "Lesezeichen entfernen"
+
+#: archive/templates/archive/resource_main.html:23
+msgid "Add bookmark"
+msgstr "Lesezeichen hinzufügen"
+
+#: archive/templates/archive/resource_main.html:27
 msgid "Metadata"
 msgstr "Metadaten"
 
-#: archive/templates/archive/resource_main.html:18
+#: archive/templates/archive/resource_main.html:29
 msgid "Basic"
 msgstr "Einfach"
 
-#: archive/templates/archive/resource_main.html:20
+#: archive/templates/archive/resource_main.html:31
 msgid "Media type"
 msgstr "Medientyp"
 
-#: archive/templates/archive/resource_main.html:21
+#: archive/templates/archive/resource_main.html:32
 msgid "Published"
 msgstr "Veröffentlicht"
 
-#: archive/templates/archive/resource_main.html:22
+#: archive/templates/archive/resource_main.html:33
 msgid "Duration"
 msgstr "Dauer"
 
-#: archive/templates/archive/resource_main.html:24
+#: archive/templates/archive/resource_main.html:35
 msgid "Custom"
 msgstr "Individuell"
 
-#: archive/templates/archive/resource_main.html:41
+#: archive/templates/archive/resource_main.html:52
 msgid "Agents"
 msgstr "Mitwirkende"
 
-#: archive/templates/archive/resource_main.html:50
+#: archive/templates/archive/resource_main.html:61
 #: archive/templates/header.html:26 entities/apps.py:8
 #: entities/templates/entities/entity_detail.html:9
 #: entities/templates/entities/entity_index.html:5
@@ -491,11 +516,11 @@ msgstr "Mitwirkende"
 msgid "Entities"
 msgstr "Entitäten"
 
-#: archive/templates/archive/resource_main.html:65
+#: archive/templates/archive/resource_main.html:76
 msgid "You do not have the permissions to view metadata."
 msgstr "Sie haben nicht das Recht, die Metadaten zu sehen."
 
-#: archive/templates/archive/resource_main.html:71
+#: archive/templates/archive/resource_main.html:82
 msgid "Image Materials"
 msgstr "Bild-Materialien"
 

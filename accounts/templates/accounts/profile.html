@@ -50,4 +50,17 @@
       {% translate "Change password" %}
     </a>
   </p>
+
+  <section class="u-mt">
+    <h2>{% translate "Bookmarks" %}</h2>
+    <ul>
+      {% for bookmark in bookmarks %}
+        <li>
+          <a href="{% url 'archive:resource_detail' bookmark.resource_id %}">
+            {{ bookmark.resource }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
 {% endblock %}

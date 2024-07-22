@@ -13,6 +13,17 @@
             type="{{ resource.media_type }}" />
   </audio>
 {% endif %}
+<form action="{% url 'archive:bookmark_resource' resource.id %}" method="post" class="u-mt">
+  {% csrf_token %}
+  <button type="submit">
+    {% include "icons/bookmark.svg" %}
+    {% if is_bookmarked %}
+      {% translate "Remove bookmark" %}
+    {% else %}
+      {% translate "Add bookmark" %}
+    {% endif %}
+  </button>
+</form>
 <h2>{% translate "Metadata" %}</h2>
 {% if perms.archive.view_resource %}
   <h3>{% translate "Basic" %}</h3>

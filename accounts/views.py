@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import render, redirect
 
 from .forms import RegisterForm, RegistrationForm
+from .models import Bookmark
 
 User = get_user_model()
 
@@ -33,5 +34,6 @@ def registration_complete(request):
 
 @login_required()
 def profile(request):
-    context = {}
+    bookmarks = Bookmark.objects.filter(user=request.user)
+    context = {"bookmarks": bookmarks}
     return render(request, "accounts/profile.html", context)
