@@ -39,6 +39,7 @@ class Command(BaseCommand):
         create_transcripts()
         create_entities_kende()
         create_entities_malkovich()
+        create_collections()
 
 
 def create_users():
@@ -254,3 +255,29 @@ def create_entities_malkovich():
     manager.create(entity=hampton, timecodes=[20.277, 250.919, 263.348])
     manager.create(entity=malkovich, timecodes=[4.708, 355.198, 406.0, 413.236])
     manager.create(entity=cassel, timecodes=[101.219])
+
+
+def create_collections():
+    """Creates example collections and adds resources to them."""
+    malkovich_interview = Resource.objects.get(title__startswith="John Malkovich")
+    kende_interview = Resource.objects.get(title__startswith="Michael Kende")
+    chen_interview = Resource.objects.get(title__startswith="灣區")
+    arakawa_interview = Resource.objects.get(title__startswith="Minoru Arakawa")
+
+    video_interviews = Collection.objects.create(
+        name="Video Interviews",
+        description="A collection of video interviews",
+    )
+    video_interviews.resources.add(kende_interview, malkovich_interview)
+
+    audio_interviews = Collection.objects.create(
+        name="Audio interviews",
+        description="A collection of audio interviews",
+    )
+    audio_interviews.resources.add(arakawa_interview, chen_interview)
+
+    internet_collection = Collection.objects.create(
+        name="Internet Collection",
+        description="A collection of resources about the internet",
+    )
+    internet_collection.resources.add(kende_interview)

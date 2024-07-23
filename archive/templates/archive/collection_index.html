@@ -17,7 +17,7 @@
               </a>
             </h3>
             <p class="card__detail">
-              {{ collection.resource_count }} {% translate "resources" %}
+              {% blocktranslate count counter=collection.resource_count %}{{ counter }} resource{% plural %}{{ counter }} resources{% endblocktranslate %}
             </p>
           </li>
         {% endfor %}
