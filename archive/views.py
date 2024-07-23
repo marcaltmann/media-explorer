@@ -28,7 +28,7 @@ def collection_detail(request, collection_id):
 
 
 def search(request):
-    q = request.GET.get("q", "") or "*"
+    q = request.GET.get("q", "")
 
     try:
         resources, count = query_resource(q)  # These are Solr docs.

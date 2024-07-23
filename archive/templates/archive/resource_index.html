@@ -13,7 +13,7 @@
     <div class="grid-wrapper u-mt u-mb">
       <ul class="grid grid--resource">
         {% for resource in page_obj %}
-          {% include "archive/resource_preview.html" with resource=resource only %}
+          {% include "archive/resource_card_default.html" with resource=resource only %}
         {% endfor %}
       </ul>
     </div>
