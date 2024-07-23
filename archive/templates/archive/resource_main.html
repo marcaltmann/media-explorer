@@ -1,6 +1,7 @@
 {% load static %}
 {% load i18n %}
 {% load l10n %}
+{% load django_htmx %}
 {% load archive_extras %}
 {% if resource.is_video %}
   <video id="resource-media" class="video video-js vjs-fluid" controls>
@@ -20,17 +21,16 @@
     {{ resource.anon_title }}
   {% endif %}
 </h1>
-<form action="{% url 'archive:bookmark_resource' resource.id %}" method="post" class="u-mt-small">
-  {% csrf_token %}
-  <button type="submit">
-    {% include "icons/bookmark.svg" %}
-    {% if is_bookmarked %}
-      {% translate "Remove bookmark" %}
-    {% else %}
-      {% translate "Add bookmark" %}
-    {% endif %}
-  </button>
+
+<form hx-post="{% url 'archive:bookmark_resource' resource.id %}"
+      hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+      hx-target="#result"
+      hx-disabled-elt="find button"
+      id="result"
+      class="form u-mt-small">
+  {% include "archive/resource_bookmark_button.html" with is_bookmarked=is_bookmarked %}
 </form>
+
 <h2>{% translate "Metadata" %}</h2>
 {% if perms.archive.view_resource %}
   <h3>{% translate "Basic" %}</h3>

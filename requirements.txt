@@ -1,6 +1,7 @@
 black==24.4.2
 Django==5.1b1
 django-debug-toolbar==4.4.6
+django-htmx==1.18.0
 django-json-widget==2.0.1
 django-widget-tweaks==1.5.0
 django_vite_plugin==3.0.2

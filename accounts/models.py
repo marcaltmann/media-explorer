@@ -10,9 +10,7 @@ class User(AbstractUser):
 
 
 class Bookmark(models.Model):
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, verbose_name=_("user")
-    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("user"))
     resource = models.ForeignKey(
         Resource, on_delete=models.CASCADE, verbose_name=_("resource")
     )

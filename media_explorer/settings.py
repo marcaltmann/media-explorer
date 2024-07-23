@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "widget_tweaks",
     "django_vite_plugin",
     "debug_toolbar",
+    "django_htmx",
     "django_json_widget",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -65,6 +66,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django_htmx.middleware.HtmxMiddleware",
 ]
 
 ROOT_URLCONF = "media_explorer.urls"

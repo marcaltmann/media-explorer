@@ -14,5 +14,9 @@ urlpatterns = [
     ),
     path("resources/", views.ResourceIndexView.as_view(), name="resource_index"),
     path("resources/<int:resource_id>/", views.resource_detail, name="resource_detail"),
-    path("resources/<int:resource_id>/bookmark/", views.bookmark_resource, name="bookmark_resource"),
+    path(
+        "resources/<int:resource_id>/bookmark/",
+        views.bookmark_resource,
+        name="bookmark_resource",
+    ),
 ]

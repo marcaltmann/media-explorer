@@ -2,7 +2,8 @@ from requests import ConnectionError
 from django.contrib.auth.decorators import login_required
 from django.db.models.query import QuerySet
 from django.views import generic
-from django.shortcuts import get_object_or_404, render, redirect
+from django.views.decorators.http import require_GET, require_POST
+from django.shortcuts import get_object_or_404, render
 
 from archive.models import Resource, Collection
 from search.query import query_resource
@@ -18,6 +19,7 @@ class CollectionIndexView(generic.ListView):
         return Collection.objects.order_by("name")
 
 
+@require_GET
 def collection_detail(request, collection_id):
     collection = get_object_or_404(Collection, pk=collection_id)
     context = {
@@ -27,6 +29,7 @@ def collection_detail(request, collection_id):
     return render(request, "archive/collection_detail.html", context)
 
 
+@require_GET
 def search(request):
     q = request.GET.get("q", "")
 
@@ -52,6 +55,7 @@ class ResourceIndexView(generic.ListView):
 
 
 @login_required()
+@require_GET
 def resource_detail(request, resource_id):
     resource = get_object_or_404(Resource, pk=resource_id)
     timecode = request.GET.get("tc", 0)
@@ -69,12 +73,15 @@ def resource_detail(request, resource_id):
 
 
 @login_required()
+@require_POST
 def bookmark_resource(request, resource_id):
     resource = get_object_or_404(Resource, pk=resource_id)
     user = request.user
-    is_bookmarked = user.bookmark_set.filter(resource=resource).exists()
-    if is_bookmarked:
+    was_bookmarked = user.bookmark_set.filter(resource=resource).exists()
+    if was_bookmarked:
         user.bookmark_set.filter(resource=resource).delete()
     else:
         Bookmark.objects.create(user=user, resource=resource)
-    return redirect("archive:resource_detail", resource_id=resource_id)
+
+    context = {"is_bookmarked": not was_bookmarked}
+    return render(request, "archive/resource_bookmark_button.html", context=context)

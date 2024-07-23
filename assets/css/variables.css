@@ -1,32 +1,37 @@
 :root {
-    --base-unit: 1.5rem;
-    --line-height: var(--base-unit);
-    --border-radius: 3px;
-    --primary-color: #0a3782;
-    --color-scheme-1: #6080b3;
-    --color-scheme-2: #c8d4e7;
-    --color-scheme-3: #050609;
-    --color-scheme-4: #1c2533;
-    --color-scheme-5: #32435e;
-    --color-scheme-6: #496288;
-    --text-color:     #333;
-    --text-color-bright: #fff;
-    --subdued-text-color: #555;
-    --heading-color:  #000;
-    --ui-color:      #555;
-    --ui-color-bright: #999;
-    --ui-mid-neutral-color: #888;
-    --header-color:    var(--primary-color);
-    --footer-color:    var(--color-scheme-2);
-    --page-width:      calc(var(--base-unit) * 48);
-    --page-width-wide: calc(var(--base-unit) * 60);
-    --line-length:     calc(var(--base-unit) * 25);
-    --font-stack: Corbel, "Lucida Grande", "Lucida Sans Unicode", "DejaVu Sans",
-        "Bitstream Vera Sans", "Liberation Sans", Verdana, "Verdana Ref",
-        sans-serif;
-    --font-size-normal: 1rem;
-    --font-size-small: 0.875rem;
-    --font-size-large: 1.25rem;
-    --transition-duration: 125ms;
+  --base-unit: 1.5rem;
+  --line-height: var(--base-unit);
+  /* Colors */
+  --primary-color: #0a3782;
+  --color-scheme-1: #6080b3;
+  --color-scheme-2: #c8d4e7;
+  --color-scheme-3: #050609;
+  --color-scheme-4: #1c2533;
+  --color-scheme-5: #32435e;
+  --color-scheme-6: #496288;
+  --text-color:     #333;
+  --text-color-bright: #fff;
+  --subdued-text-color: #555;
+  --heading-color:  #000;
+  --ui-color:      #555;
+  --ui-color-bright: #999;
+  --ui-mid-neutral-color: #888;
+  --active-color: darkgreen;
+  --header-color: var(--primary-color);
+  --footer-color: var(--color-scheme-2);
+  /* Spacing */
+  --page-width: calc(var(--base-unit) * 48);
+  --page-width-wide: calc(var(--base-unit) * 60);
+  /* Typography */
+  --line-length: calc(var(--base-unit) * 25);
+  --font-stack: Corbel, "Lucida Grande", "Lucida Sans Unicode", "DejaVu Sans",
+    "Bitstream Vera Sans", "Liberation Sans", Verdana, "Verdana Ref",
+    sans-serif;
+  --font-size-normal: 1rem;
+  --font-size-small: 0.875rem;
+  --font-size-large: 1.25rem;
   --icon-size: calc(var(--base-unit) / 2);
+  /* Other */
+  --border-radius: 3px;
+  --transition-duration: 125ms;
 }

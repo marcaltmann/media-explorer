@@ -1,0 +1,10 @@
+{% load i18n %}
+<button type="submit"
+        class="form__button {% if is_bookmarked %} form__button--active{% endif %}">
+  {% include "icons/bookmark.svg" %}
+  {% if is_bookmarked %}
+    {% translate "Remove bookmark" %}
+  {% else %}
+    {% translate "Add bookmark" %}
+  {% endif %}
+</button>

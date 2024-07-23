@@ -29,6 +29,10 @@
   opacity: 0.5;
 }
 
+.form__button--active {
+  background-color: var(--active-color);
+}
+
 .form__help {
   color: var(--subdued-text-color);
   font-size: var(--font-size-small);
