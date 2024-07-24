@@ -3,7 +3,9 @@
 {% block title %}{% translate "All collections" %} | {{ block.super }}{% endblock %}
 {% block content %}
   <nav class="breadcrumbs">
-    {% translate "Collections" %}
+    <p>
+      <a>{% translate "Collections" %}</a>
+    </p>
   </nav>
   <h1 class="h1">{% translate "Collections" %}</h1>
   {% if collection_list %}

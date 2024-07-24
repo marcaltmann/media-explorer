@@ -36,8 +36,14 @@
   <h3>{% translate "Basic" %}</h3>
   <ul>
     <li>{% translate "Media type" %}: {{ resource.media_type }}</li>
-    <li>{% translate "Published" %}: {{ resource.pub_date|date:"SHORT_DATE_FORMAT" }}</li>
-    <li>{% translate "Duration" %}: {{ resource.duration }}</li>
+    <li>
+      {% translate "Published" %}:
+      <time datetime="{{ resource.pub_date|date:"Y-m-d" }}">{{ resource.pub_date|date:"SHORT_DATE_FORMAT" }}</time>
+    </li>
+    <li>
+      {% translate "Duration" %}:
+      <time datetime="{{ resource.duration.seconds|timecode:"iso8601" }}">{{ resource.duration }}</time>
+    </li>
   </ul>
   <h3>{% translate "Custom" %}</h3>
   <ul>

@@ -5,7 +5,9 @@
 {% endblock %}
 {% block content %}
   <nav class="breadcrumbs">
-    {% translate "Search" %}
+    <p>
+      <a>{% translate "Search" %}</a>
+    </p>
   </nav>
   <h1 class="h1">
     {% blocktranslate %}Search for <i>{{ q }}</i>{% endblocktranslate %}

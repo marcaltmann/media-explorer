@@ -5,10 +5,11 @@
 {% endblock title %}
 {% block content %}
   <nav class="breadcrumbs">
-    <a class="breadcrumbs__link"
-       href="{% url 'entities:entity_index' %}">{% translate "Entities" %}</a>
-    /
-    {{ entity.name }}
+    <p>
+      <a class="breadcrumbs__link"
+         href="{% url 'entities:entity_index' %}">{% translate "Entities" %}</a> ▸
+      <a>{{ entity.name }}</a>
+    </p>
   </nav>
   <h1 class="h1">{{ entity.name }}</h1>
   {% if entity.gnd_id %}

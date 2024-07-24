@@ -3,13 +3,13 @@
 {% block title %}{{ image_material.identifier }} | {{ block.super }}{% endblock %}
 {% block content %}
   <nav class="breadcrumbs">
-    <a class="breadcrumbs__link"
-       href="{% url 'archive:resource_index' %}">{% translate "Resources" %}</a>
-    /
-    <a class="breadcrumbs__link"
-       href="{% url 'archive:resource_detail' resource.id %}">{{ resource.title|truncatechars:25 }}</a>
-    /
-    {{ image_material.identifier }}
+    <p>
+      <a class="breadcrumbs__link"
+         href="{% url 'archive:resource_index' %}">{% translate "Resources" %}</a> ▸
+      <a class="breadcrumbs__link"
+         href="{% url 'archive:resource_detail' resource.id %}">{{ resource.title|truncatechars:25 }}</a> ▸
+      <a>{{ image_material.identifier }}</a>
+    </p>
   </nav>
   <h1 class="h1 u-mt">{{ image_material.identifier }}</h1>
 

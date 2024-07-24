@@ -7,7 +7,9 @@
     </a>
   </h3>
   <p class="card__detail">
-    {{ resource.duration_i|timecode }}
+    <time datetime="{{ resource.duration_i|timecode:"iso8601" }}">
+      {{ resource.duration_i|timecode }}
+    </time>
     <br>
     {{ resource.media_type_s }}
   </p>

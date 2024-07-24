@@ -11,15 +11,18 @@
 {% endblock %}
 {% block content %}
   <nav class="breadcrumbs">
-    <a class="breadcrumbs__link"
-       href="{% url 'archive:resource_index' %}">{% translate "Resources" %}</a>
-    /
-    {# This is logic and does not belong here. #}
-    {% if perms.archive.view_resource %}
-      {{ resource.title|truncatechars:25 }}
-    {% else %}
-      {{ resource.anon_title|truncatechars:25 }}
-    {% endif %}
+    <p>
+      <a class="breadcrumbs__link"
+         href="{% url 'archive:resource_index' %}">{% translate "Resources" %}</a> ▸
+      <a>
+        {# This is logic and does not belong here. #}
+        {% if perms.archive.view_resource %}
+          {{ resource.title|truncatechars:25 }}
+        {% else %}
+          {{ resource.anon_title|truncatechars:25 }}
+        {% endif %}
+      </a>
+    </p>
   </nav>
   <div class="grid grid--resource-page u-mt">
     <div>{% include "archive/resource_main.html" %}</div>

@@ -5,13 +5,13 @@
 {% endblock title %}
 {% block content %}
   <nav class="breadcrumbs">
-    <a class="breadcrumbs__link"
-       href="{% url 'entities:index' %}">{% translate "Entities" %}</a>
-    /
-    <a class="breadcrumbs__link"
-       href="{% url 'entities:location_index' %}">{% translate "Locations" %}</a>
-    /
-    {{ location.name }}
+    <p>
+      <a class="breadcrumbs__link"
+         href="{% url 'entities:index' %}">{% translate "Entities" %}</a> ▸
+      <a class="breadcrumbs__link"
+         href="{% url 'entities:location_index' %}">{% translate "Locations" %}</a> ▸
+      <a>{{ location.name }}</a>
+    </p>
   </nav>
   <div class="grid grid--location-page">
     <div>

@@ -7,10 +7,14 @@
     </a>
   </h3>
   <p class="card__detail">
-    {{ resource.duration }}
+    <time datetime="{{ resource.duration.seconds|timecode:"iso8601" }}">
+      {{ resource.duration }}
+    </time>
     <br>
     {{ resource.media_type }}
     <br>
-    {{ resource.pub_date|date:"SHORT_DATE_FORMAT" }}
+    <time datetime="{{ resource.pub_date|date:"Y-m-d" }}">
+      {{ resource.pub_date|date:"SHORT_DATE_FORMAT" }}
+    </time>
   </p>
 </li>

@@ -3,10 +3,11 @@
 {% block title %}{{ collection.name }} | {{ block.super }}{% endblock %}
 {% block content %}
   <nav class="breadcrumbs">
-    <a class="breadcrumbs__link"
-       href="{% url 'archive:collection_index' %}">{% translate "Collections" %}</a>
-    /
-    {{ collection.name }}
+    <p>
+      <a class="breadcrumbs__link"
+         href="{% url 'archive:collection_index' %}">{% translate "Collections" %}</a> ▸
+      <a>{{ collection.name }}</a>
+    </p>
   </nav>
   <h1 class="h1 u-mt">{{ collection.name }}</h1>
   <p class="p">{{ collection.description }}</p>
