@@ -5,18 +5,20 @@
   <h1 class="h1">
     {% translate "Research and presentation software for multimedia resources" %}
   </h1>
-  <form action="{% url 'archive:search' %}" method="get" class="form">
-    <div>
-      <input type="search"
-             name="q"
-             class="form__input"
-             placeholder="{% translate 'Search resources' %}"
-             aria-label="{% translate 'Search resources' %}"/>
-      <button type="submit" class="form__button">
-        {% translate "Search" %}
-      </button>
-    </div>
-  </form>
+  <search>
+    <form action="{% url 'archive:search' %}" method="get" class="form">
+      <div>
+        <input type="search"
+               name="q"
+               class="form__input"
+               placeholder="{% translate 'Search resources' %}"
+               aria-label="{% translate 'Search resources' %}"/>
+        <button type="submit" class="form__button">
+          {% translate "Search" %}
+        </button>
+      </div>
+    </form>
+  </search>
   <nav class="u-mt">
     <ul class="welcome__link-list">
       <li>
