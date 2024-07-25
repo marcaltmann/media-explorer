@@ -1,5 +1,6 @@
 from requests import ConnectionError
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.query import QuerySet
 from django.views import generic
 from django.views.decorators.http import require_GET, require_POST
@@ -48,7 +49,7 @@ def search(request):
         return render(request, "archive/search_error.html", context)
 
 
-class ResourceIndexView(generic.ListView):
+class ResourceIndexView(LoginRequiredMixin, generic.ListView):
     template_name = "archive/resource_index.html"
     paginate_by = 12
     model = Resource
