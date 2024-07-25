@@ -9,7 +9,7 @@ def main():
     settings = (
         "media_explorer.test_settings"
         if "test" in sys.argv
-        else "media_explorer.settings"
+        else "media_explorer.dev_settings"
     )
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", settings)
     try:
