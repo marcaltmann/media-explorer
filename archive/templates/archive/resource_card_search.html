@@ -6,11 +6,19 @@
       {{ resource.title_t }}
     </a>
   </h3>
-  <p class="card__detail">
-    <time datetime="{{ resource.duration_i|timecode:"iso8601" }}">
-      {{ resource.duration_i|timecode }}
-    </time>
-    <br>
-    {{ resource.media_type_s }}
-  </p>
+  <ul class="card__detail">
+    <li>
+      <time datetime="{{ resource.duration_i|timecode:"iso8601" }}">
+        {{ resource.duration_i|timecode }}
+      </time>
+    </li>
+    <li>
+      {{ resource.media_type_s }}
+    </li>
+    <li>
+      <time datetime="{{ resource.production_date_dt }}">
+        {{ resource.production_date_dt }}
+      </time>
+    </li>
+  </ul>
 </li>

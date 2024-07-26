@@ -32,7 +32,7 @@ class Resource(models.Model):
     )
     media_url = models.URLField(_("media url"), max_length=300, default="")
     poster = models.ImageField(_("poster image"), default="", blank=True)
-    pub_date = models.DateTimeField(_("date published"), null=True)
+    production_date = models.DateTimeField(_("production date"), null=True)
     duration = models.DurationField(_("duration"), default=timedelta(seconds=0))
     public = models.BooleanField(_("public"), default=True)
     agents = models.ManyToManyField("Agent", through="Agency", verbose_name=_("agents"))

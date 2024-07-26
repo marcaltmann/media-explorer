@@ -10,7 +10,7 @@ def index_resource(resource):
         "title_t": resource.title,
         "media_type_s": resource.media_type,
         "duration_i": resource.duration.seconds,
-        "pub_date_dt": str(resource.pub_date),
+        "production_date_dt": str(resource.production_date),
         "public_b": resource.public,
     }
     requests.post(url, json=doc)

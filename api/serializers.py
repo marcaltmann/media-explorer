@@ -11,6 +11,6 @@ class ResourceSerializer(serializers.HyperlinkedModelSerializer):
             "anon_title",
             "media_type",
             "duration",
-            "pub_date",
+            "production_date",
             "public",
         ]

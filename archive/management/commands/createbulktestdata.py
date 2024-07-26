@@ -66,7 +66,7 @@ def create_resources(agents, locations):
             media_type=fake.mime_type(
                 category=random.choice(("video", "audio")),
             ),
-            pub_date=fake.date_time(
+            production_date=fake.date_time(
                 tzinfo=datetime.timezone(datetime.timedelta(hours=2), name="CET")
             ),
         )

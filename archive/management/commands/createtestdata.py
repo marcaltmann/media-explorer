@@ -111,7 +111,7 @@ def create_resources():
                 media_type="video/webm",
                 media_url="https://upload.wikimedia.org/wikipedia/commons/transcoded/6/6d/Internet_Hall_of_Fame_2014_Michael_Kende_interview.webm/Internet_Hall_of_Fame_2014_Michael_Kende_interview.webm.720p.vp9.webm",
                 poster="doggy.jpg",
-                pub_date=datetime.datetime(
+                production_date=datetime.datetime(
                     2024, 3, 8, 12, 6, 35, tzinfo=get_current_timezone()
                 ),
                 duration=datetime.timedelta(minutes=3, seconds=55),
@@ -122,7 +122,7 @@ def create_resources():
                 media_type="video/webm",
                 media_url="https://upload.wikimedia.org/wikipedia/commons/7/74/John_Malkovich_-_Les_Liaisons_dangereuses.webm",
                 poster="doggy.jpg",
-                pub_date=datetime.datetime(
+                production_date=datetime.datetime(
                     2024, 3, 9, 7, 42, 22, tzinfo=get_current_timezone()
                 ),
                 duration=datetime.timedelta(minutes=7, seconds=11),
@@ -133,7 +133,7 @@ def create_resources():
                 media_type="audio/mp3",
                 media_url="https://upload.wikimedia.org/wikipedia/commons/5/5c/Minoru_Arakawa_%E2%80%93_Nintendo_%E2%80%93_Gameboy%2C_interviewed_by_Maximilian_Sch%C3%B6nherr_1990.mp3",
                 poster="",
-                pub_date=datetime.datetime(
+                production_date=datetime.datetime(
                     2024, 3, 14, 17, 38, 53, tzinfo=get_current_timezone()
                 ),
                 duration=datetime.timedelta(minutes=3, seconds=46),
@@ -144,7 +144,7 @@ def create_resources():
                 media_type="audio/ogg",
                 media_url="https://upload.wikimedia.org/wikipedia/commons/2/2a/%E7%81%A3%E5%8D%80%E9%9D%92%E5%B9%B4%E8%AA%AA_%C2%B7_%E5%B0%8D%E8%A9%B1%E9%A6%99%E6%B8%AF_TVB_%E4%B8%BB%E6%8C%81%E4%BA%BA%E9%99%B3%E8%B2%9D%E5%85%92.ogg",
                 poster="",
-                pub_date=datetime.datetime(
+                production_date=datetime.datetime(
                     2024, 3, 14, 19, 27, 51, tzinfo=get_current_timezone()
                 ),
                 duration=datetime.timedelta(minutes=42, seconds=4),

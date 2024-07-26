@@ -6,15 +6,19 @@
       {{ resource.title }}
     </a>
   </h3>
-  <p class="card__detail">
-    <time datetime="{{ resource.duration.seconds|timecode:"iso8601" }}">
-      {{ resource.duration }}
-    </time>
-    <br>
-    {{ resource.media_type }}
-    <br>
-    <time datetime="{{ resource.pub_date|date:"Y-m-d" }}">
-      {{ resource.pub_date|date:"SHORT_DATE_FORMAT" }}
-    </time>
-  </p>
+  <ul class="card__detail">
+    <li>
+      <time datetime="{{ resource.duration.seconds|timecode:"iso8601" }}">
+        {{ resource.duration }}
+      </time>
+    </li>
+    <li>
+      {{ resource.media_type }}
+    </li>
+    <li>
+      <time datetime="{{ resource.production_date|date:"Y-m-d" }}">
+        {{ resource.production_date|date:"SHORT_DATE_FORMAT" }}
+      </time>
+    </li>
+  </ul>
 </li>

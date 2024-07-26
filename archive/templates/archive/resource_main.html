@@ -33,18 +33,15 @@
 
 <h2>{% translate "Metadata" %}</h2>
 {% if perms.archive.view_resource %}
-  <h3>{% translate "Basic" %}</h3>
-  <ul>
-    <li>{% translate "Media type" %}: {{ resource.media_type }}</li>
-    <li>
-      {% translate "Published" %}:
-      <time datetime="{{ resource.pub_date|date:"Y-m-d" }}">{{ resource.pub_date|date:"SHORT_DATE_FORMAT" }}</time>
-    </li>
-    <li>
-      {% translate "Duration" %}:
-      <time datetime="{{ resource.duration.seconds|timecode:"iso8601" }}">{{ resource.duration }}</time>
-    </li>
-  </ul>
+  <h3>{% translate "Default" %}</h3>
+  <dl>
+    <dt>{% translate "Media type" %}</dt>
+    <dd>{{ resource.media_type }}</dd>
+    <dt>{% translate "Produced" %}</dt>
+    <dd><time datetime="{{ resource.production_date|date:"Y-m-d" }}">{{ resource.production_date|date:"SHORT_DATE_FORMAT" }}</time></dd>
+    <dt>{% translate "Duration" %}</dt>
+    <dd><time datetime="{{ resource.duration.seconds|timecode:"iso8601" }}">{{ resource.duration }}</time></dd>
+  </dl>
   <h3>{% translate "Custom" %}</h3>
   <ul>
     {% for char_field_metadata in resource.charfieldmetadata_set.all %}
