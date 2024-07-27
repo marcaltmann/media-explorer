@@ -36,6 +36,7 @@ class Command(BaseCommand):
         create_users()
         create_agents()
         create_resources()
+        create_agencies()
         create_transcripts()
         create_entities_kende()
         create_entities_malkovich()
@@ -51,11 +52,10 @@ def create_users():
 def create_agents():
     """Creates agent records."""
     Agent.objects.create(
-        first_name="Winston",
-        last_name="Churchill",
-        date_of_birth=datetime.date(1874, 11, 13),
+        first_name="Marc",
+        last_name="Delomez",
+        date_of_birth=datetime.date(1954, 9, 5),
         gender="M",
-        gnd_id="118520776",
     )
     Agent.objects.create(
         first_name="Michael",
@@ -97,13 +97,6 @@ def create_agents():
 
 def create_resources():
     """Creates resource records."""
-    churchill = Agent.objects.get(last_name="Churchill")
-    kende = Agent.objects.get(last_name="Kende")
-    malkovich = Agent.objects.get(last_name="Malkovich")
-    arakawa = Agent.objects.get(last_name="Arakawa")
-    schoenherr = Agent.objects.get(last_name="Schönherr")
-    chen = Agent.objects.get(last_name="陳")
-
     Resource.objects.bulk_create(
         [
             Resource(
@@ -149,6 +142,47 @@ def create_resources():
                 ),
                 duration=datetime.timedelta(minutes=42, seconds=4),
                 public=True,
+            ),
+        ]
+    )
+
+
+def create_agencies():
+    kende_interview = Resource.objects.get(title__startswith="Michael Kende")
+    malkovich_interview = Resource.objects.get(title__startswith="John Malkovich")
+    arakawa_interview = Resource.objects.get(title__startswith="Minoru Arakawa")
+    kende = Agent.objects.get(last_name="Kende")
+    malkovich = Agent.objects.get(last_name="Malkovich")
+    delomez = Agent.objects.get(last_name="Delomez")
+    schoenherr = Agent.objects.get(last_name="Schönherr")
+    arakawa = Agent.objects.get(last_name="Arakawa")
+
+    Agency.objects.bulk_create(
+        [
+            Agency(
+                resource=kende_interview,
+                agent=kende,
+                type=Agency.INTERVIEWEE,
+            ),
+            Agency(
+                resource=malkovich_interview,
+                agent=malkovich,
+                type=Agency.INTERVIEWEE,
+            ),
+            Agency(
+                resource=malkovich_interview,
+                agent=delomez,
+                type=Agency.INTERVIEWER,
+            ),
+            Agency(
+                resource=arakawa_interview,
+                agent=arakawa,
+                type=Agency.INTERVIEWEE,
+            ),
+            Agency(
+                resource=arakawa_interview,
+                agent=schoenherr,
+                type=Agency.INTERVIEWER,
             ),
         ]
     )

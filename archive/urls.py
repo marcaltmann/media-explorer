@@ -19,4 +19,6 @@ urlpatterns = [
         views.bookmark_resource,
         name="bookmark_resource",
     ),
+    path("agents/", views.agent_index, name="agent_index"),
+    path("agents/<int:agent_id>/", views.agent_detail, name="agent_detail"),
 ]

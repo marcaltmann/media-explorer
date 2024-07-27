@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}
+  {{ agent.name }} | {{ block.super }}
+{% endblock title %}
+{% block content %}
+  <nav class="breadcrumbs">
+    <p>
+      <a class="breadcrumbs__link"
+         href="{% url 'archive:agent_index' %}">{% translate "Agents" %}</a> ▸
+      <a>{{ agent.last_name }}, {{ agent.first_name }}</a>
+    </p>
+  </nav>
+  <h1 class="h1">{{ agent.last_name }}, {{ agent.first_name }}</h1>
+  {% if agent.gnd_id %}
+    <p class="u-mt">
+      {% translate "GND id" %}:
+      <a href="https://explore.gnd.network/gnd/{{ agent.gnd_id }}">
+        {{ agent.gnd_id }}
+      </a>
+    </p>
+  {% endif %}
+
+  <section class="u-mt">
+    <h2>
+      {% translate "Agencies in resources" %}
+    </h2>
+    <ul class="u-mt-1/2">
+      {% for agency in agencies %}
+        <li>
+          <a href="{% url 'archive:resource_detail' agency.resource_id %}">{{ agency.resource }}</a>
+          ({{ agency.get_type_display }})
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endblock content %}

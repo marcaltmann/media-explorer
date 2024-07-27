@@ -6,7 +6,7 @@ from django.views import generic
 from django.views.decorators.http import require_GET, require_POST
 from django.shortcuts import get_object_or_404, render
 
-from archive.models import Resource, Collection
+from archive.models import Resource, Collection, Agent, Agency
 from search.query import query_resource
 from accounts.models import Bookmark
 
@@ -55,7 +55,7 @@ class ResourceIndexView(LoginRequiredMixin, generic.ListView):
     model = Resource
 
 
-@login_required()
+@login_required
 @require_GET
 def resource_detail(request, resource_id):
     resource = get_object_or_404(Resource, pk=resource_id)
@@ -73,7 +73,7 @@ def resource_detail(request, resource_id):
     return render(request, "archive/resource_detail.html", context)
 
 
-@login_required()
+@login_required
 @require_POST
 def bookmark_resource(request, resource_id):
     resource = get_object_or_404(Resource, pk=resource_id)
@@ -86,3 +86,23 @@ def bookmark_resource(request, resource_id):
 
     context = {"is_bookmarked": not was_bookmarked}
     return render(request, "archive/resource_bookmark_button.html", context=context)
+
+
+@login_required
+@require_GET
+def agent_index(request):
+    agents = Agent.objects.all()
+    context = {"agents": agents}
+    return render(request, "archive/agent_index.html", context=context)
+
+
+@login_required
+@require_GET
+def agent_detail(request, agent_id):
+    agent = get_object_or_404(Agent, pk=agent_id)
+    agencies = agent.agency_set.all()
+    context = {
+        "agent": agent,
+        "agencies": agencies,
+    }
+    return render(request, "archive/agent_detail.html", context=context)

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-26 08:56+0200\n"
+"POT-Creation-Date: 2024-07-28 00:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -321,8 +321,8 @@ msgstr "östliche Namensreihenfolge"
 msgid "Select if the last name should appear first."
 msgstr "Wählen Sie dies falls der Nachnahme zuerst stehen soll."
 
-#: archive/models.py:115 entities/models.py:25
-#: entities/templates/entities/entity_detail.html:17
+#: archive/models.py:115 archive/templates/archive/agent_detail.html:17
+#: entities/models.py:25 entities/templates/entities/entity_detail.html:17
 msgid "GND id"
 msgstr "GND-ID"
 
@@ -410,10 +410,22 @@ msgstr "Wert"
 msgid "char field metadata"
 msgstr "Zeichenketten-Metadaten"
 
+#: archive/templates/archive/agent_detail.html:10
+#: archive/templates/archive/agent_index.html:5
+#: archive/templates/archive/agent_index.html:10
+#: archive/templates/archive/agent_index.html:14
+#: archive/templates/archive/resource_main.html:68
+msgid "Agents"
+msgstr "Mitwirkende"
+
+#: archive/templates/archive/agent_detail.html:26
+msgid "Agencies in resources"
+msgstr "Mitwirkung in Ressourcen"
+
 #: archive/templates/archive/collection_detail.html:8
 #: archive/templates/archive/collection_index.html:7
 #: archive/templates/archive/collection_index.html:10
-#: archive/templates/archive/resource_main.html:54
+#: archive/templates/archive/resource_main.html:60
 #: archive/templates/header.html:20 pages/templates/pages/welcome.html:31
 msgid "Collections"
 msgstr "Sammlungen"
@@ -483,35 +495,31 @@ msgstr "Ressourcen"
 msgid "All resources"
 msgstr "Alle Ressourcen"
 
-#: archive/templates/archive/resource_main.html:34
+#: archive/templates/archive/resource_main.html:40
 msgid "Metadata"
 msgstr "Metadaten"
 
-#: archive/templates/archive/resource_main.html:36
+#: archive/templates/archive/resource_main.html:42
 msgid "Default"
 msgstr "Standard"
 
-#: archive/templates/archive/resource_main.html:38
+#: archive/templates/archive/resource_main.html:44
 msgid "Media type"
 msgstr "Medientyp"
 
-#: archive/templates/archive/resource_main.html:40
+#: archive/templates/archive/resource_main.html:46
 msgid "Produced"
 msgstr "Produziert"
 
-#: archive/templates/archive/resource_main.html:42
+#: archive/templates/archive/resource_main.html:48
 msgid "Duration"
 msgstr "Dauer"
 
-#: archive/templates/archive/resource_main.html:45
+#: archive/templates/archive/resource_main.html:51
 msgid "Custom"
 msgstr "Individuell"
 
-#: archive/templates/archive/resource_main.html:62
-msgid "Agents"
-msgstr "Mitwirkende"
-
-#: archive/templates/archive/resource_main.html:71
+#: archive/templates/archive/resource_main.html:79
 #: archive/templates/header.html:26 entities/apps.py:8
 #: entities/templates/entities/entity_detail.html:10
 #: entities/templates/entities/entity_index.html:5
@@ -522,11 +530,11 @@ msgstr "Mitwirkende"
 msgid "Entities"
 msgstr "Entitäten"
 
-#: archive/templates/archive/resource_main.html:86
+#: archive/templates/archive/resource_main.html:94
 msgid "You do not have the permissions to view metadata."
 msgstr "Sie haben nicht das Recht, die Metadaten zu sehen."
 
-#: archive/templates/archive/resource_main.html:92
+#: archive/templates/archive/resource_main.html:100
 msgid "Image Materials"
 msgstr "Bild-Materialien"
 

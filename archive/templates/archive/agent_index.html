@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block title %}
+  {% translate "Agents" %} | {{ block.super }}
+{% endblock title %}
+{% block content %}
+  <nav class="breadcrumbs">
+    <p>
+      <a>{% translate "Agents" %}</a>
+    </p>
+  </nav>
+  <h1 class="h1">
+    {% translate "Agents" %}
+  </h1>
+  <ul class="u-mt">
+    {% for agent in agents %}
+      <li>
+        <a href="{% url 'archive:agent_detail' agent.id %}">
+          {{ agent.last_name }}, {{ agent.first_name }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock content %}

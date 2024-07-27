@@ -69,8 +69,8 @@
   <ul>
     {% for agency in resource.agency_set.all %}
       <li>
-        {{ agency.type }}:
-        <a href="">{{ agency.agent }}</a>
+        <a href="{% url 'archive:agent_detail' agency.agent_id %}">{{ agency.agent }}</a>
+        ({{ agency.get_type_display }})
       </li>
     {% endfor %}
   </ul>
