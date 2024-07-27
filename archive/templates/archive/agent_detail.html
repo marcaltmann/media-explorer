@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% block title %}
-  {{ agent.name }} | {{ block.super }}
+  {{ agent.last_name }}, {{ agent.first_name }} | {{ block.super }}
 {% endblock title %}
 {% block content %}
   <nav class="breadcrumbs">
