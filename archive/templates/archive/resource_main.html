@@ -6,12 +6,18 @@
 {% if resource.is_video %}
   <video id="resource-media" class="video video-js vjs-fluid" controls>
     <source src="{{ resource.media_url }}#t={{ timecode }}"
-            type="{{ resource.media_type }}" />
+            type="{{ resource.media_type }}">
+    {% for transcript in transcripts %}
+      {% if transcript.vtt %}
+      <track kind="captions" src="{% url 'materials:transcript_vtt' transcript.id %}"
+             srclang="{{ transcript.language }}" label="{{ transcript.language }}">
+      {% endif %}
+    {% endfor %}
   </video>
 {% else %}
   <audio id="resource-media" class="audio video-js vjs-default-skin" controls>
     <source src="{{ resource.media_url }}#t={{ timecode }}"
-            type="{{ resource.media_type }}" />
+            type="{{ resource.media_type }}">
   </audio>
 {% endif %}
 <h1 class="h1 u-mt">
