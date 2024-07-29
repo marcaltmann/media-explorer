@@ -32,6 +32,7 @@ class Entity(models.Model):
     extra = models.JSONField(
         _("extra"),
         default=dict,
+        blank=True,
         help_text=_("Extra information specific to entity types"),
     )
 

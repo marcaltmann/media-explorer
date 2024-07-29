@@ -234,10 +234,14 @@ def create_entities_kende():
 
     usa = Entity.objects.create(type=Entity.TYPE_LOCATION, name="USA")
     fcc = Entity.objects.create(
-        type=Entity.TYPE_ORGANISATION, name="Federal Communications Commission"
+        type=Entity.TYPE_ORGANISATION,
+        name="Federal Communications Commission",
+        gnd_id="16300677-5"
     )
     internet_society = Entity.objects.create(
-        type=Entity.TYPE_ORGANISATION, name="Internet Society"
+        type=Entity.TYPE_ORGANISATION,
+        name="Internet Society",
+        gnd_id="5174445-4",
     )
     mci = Entity.objects.create(
         type=Entity.TYPE_ORGANISATION, name="MCI Communications"
@@ -279,6 +283,7 @@ def create_entities_malkovich():
     malkovich = Entity.objects.create(
         type=Entity.TYPE_PERSON,
         name="John Malkovich",
+        gnd_id="128617381",
         extra={"date_of_birth": "1953-12-09", "sex": "M"},
     )
     cassel = Entity.objects.create(type=Entity.TYPE_PERSON, name="Vincent Cassel")
