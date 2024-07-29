@@ -18,7 +18,7 @@
     "dependencies": {
         "htmx.org": "^2.0.1",
         "jquery": "^3.7.1",
-        "video.js": "^8.16.1"
+        "video.js": "^8.17.1"
     },
     "devDependencies": {
         "django-vite-plugin": "^4.0.1"
