@@ -5,7 +5,9 @@ __pycache__
 /.hotfile
 /.idea
 /.venv
+/assets/webpack_bundles
 /db.sqlite3
 /media
 /node_modules
 /static
+/webpack-stats.json

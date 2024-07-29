@@ -143,6 +143,17 @@ def create_resources():
                 duration=datetime.timedelta(minutes=42, seconds=4),
                 public=True,
             ),
+            Resource(
+                title="The Time Machine",
+                media_type="audio/mp3",
+                media_url="https://ia902804.us.archive.org/13/items/timemachine_sjm_librivox/timemachine_01_wells.mp3",
+                poster="",
+                production_date=datetime.datetime(
+                    2011, 8, 9, 0, 0, 0, tzinfo=get_current_timezone()
+                ),
+                duration=datetime.timedelta(hours=3, minutes=39, seconds=41),
+                public=True,
+            )
         ]
     )
 
@@ -199,10 +210,13 @@ def create_transcripts():
     with open(dir / "transcript_malkovich_fr.json") as f:
         malkovich_transcript = json.load(f)
     chen_interview = Resource.objects.get(title__startswith="灣區")
+    time_machine = Resource.objects.get(title__startswith="The Time Machine")
     with open(dir / "transcript_chen_en.json") as f:
         chen_transcript = json.load(f)
     with open(dir / "subtitles_chen_en.vtt") as f:
         chen_subtitles = f.read()
+    with open(dir / "transcript_timemachine_01_en.json") as f:
+        timemachine_01_transcript = json.load(f)
 
     Transcript.objects.bulk_create(
         [
@@ -224,6 +238,11 @@ def create_transcripts():
                 vtt=chen_subtitles,
                 language="zh",
             ),
+            Transcript(
+                resource=time_machine,
+                json=timemachine_01_transcript,
+                language="en"
+            )
         ]
     )
 
@@ -302,6 +321,7 @@ def create_collections():
     kende_interview = Resource.objects.get(title__startswith="Michael Kende")
     chen_interview = Resource.objects.get(title__startswith="灣區")
     arakawa_interview = Resource.objects.get(title__startswith="Minoru Arakawa")
+    time_machine = Resource.objects.get(title__startswith="The Time Machine")
 
     video_interviews = Collection.objects.create(
         name="Video Interviews",
@@ -320,3 +340,9 @@ def create_collections():
         description="A collection of resources about the internet",
     )
     internet_collection.resources.add(kende_interview)
+
+    audio_books_collection = Collection.objects.create(
+        name="Audio Books",
+        description="A collection of audio books",
+    )
+    audio_books_collection.resources.add(time_machine)
