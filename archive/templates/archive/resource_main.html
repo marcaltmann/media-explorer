@@ -5,7 +5,7 @@
 {% load archive_extras %}
 <nav>
   {% for file in media_files %}
-    <a href="{% url 'archive:media_file_detail' file.resource_id order %}">file {{ file.order }}</a>
+    <a href="{% url 'archive:media_file_detail' file.resource_id file.order %}">{% blocktranslate with ord=file.order %}file {{ ord }}{% endblocktranslate %}</a>
   {% endfor %}
 </nav>
 {% if media_file.is_video %}
