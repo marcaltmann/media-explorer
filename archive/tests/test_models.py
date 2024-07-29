@@ -1,14 +1,14 @@
 from django.test import TestCase
 
-from archive.models import Resource
+from archive.models import MediaFile
 
 
 def video():
-    return Resource(media_type="video/mp4")
+    return MediaFile(media_type="video/mp4")
 
 
 def audio():
-    return Resource(media_type="audio/mp3")
+    return MediaFile(media_type="audio/mp3")
 
 
 class ResourceModelTests(TestCase):
