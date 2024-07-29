@@ -4,9 +4,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.query import QuerySet
 from django.views import generic
 from django.views.decorators.http import require_GET, require_POST
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 
-from archive.models import Resource, Collection, Agent, Agency
+from archive.models import Resource, Collection, Agent, Agency, MediaFile
 from search.query import query_resource
 from accounts.models import Bookmark
 
@@ -59,14 +59,27 @@ class ResourceIndexView(LoginRequiredMixin, generic.ListView):
 @require_GET
 def resource_detail(request, resource_id):
     resource = get_object_or_404(Resource, pk=resource_id)
+    first_media_file = resource.media_files.first()
+    return redirect(first_media_file)
+
+
+@login_required
+@require_GET
+def media_file_detail(request, resource_id, order):
+    resource = get_object_or_404(Resource, pk=resource_id)
+    media_files = resource.media_files.all()
+    media_file = media_files[order]
     timecode = request.GET.get("tc", 0)
     user = request.user
     is_bookmarked = user.bookmark_set.filter(resource=resource).exists()
     context = {
         "resource": resource,
+        "media_files": media_files,
+        "media_file": media_file,
+        "order": order,
         "timecode": timecode,
         "collections": resource.collection_set.all(),
-        "transcripts": resource.transcript_set.all(),
+        "transcripts": media_file.transcript_set.all(),
         "image_materials": resource.imagematerial_set.all(),
         "is_bookmarked": is_bookmarked,
     }

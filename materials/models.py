@@ -1,14 +1,14 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from archive.models import Resource
+from archive.models import Resource, MediaFile
 
 
 class Transcript(models.Model):
-    resource = models.ForeignKey(
-        Resource,
+    media_file = models.ForeignKey(
+        MediaFile,
         on_delete=models.CASCADE,
-        verbose_name=_("resource"),
+        verbose_name=_("media file"),
     )
     json = models.JSONField(
         _("JSON file"),
@@ -27,7 +27,7 @@ class Transcript(models.Model):
         verbose_name_plural = _("transcripts")
 
     def __str__(self):
-        return f"{self.resource} ({self.language})"
+        return f"{self.media_file} ({self.language})"
 
 
 class Material(models.Model):

@@ -24,16 +24,6 @@ class Resource(models.Model):
     )
     title = models.CharField(_("title"), max_length=200, default="")
     anon_title = models.CharField(_("anonymized title"), max_length=200, default="")
-    media_type = models.CharField(
-        _("media type"),
-        max_length=100,
-        default="video/mp4",
-        help_text="Enter MIME type e.g. 'video/mp4'.",
-    )
-    media_url = models.URLField(_("media url"), max_length=300, default="")
-    poster = models.ImageField(_("poster image"), default="", blank=True)
-    production_date = models.DateTimeField(_("production date"), null=True)
-    duration = models.DurationField(_("duration"), default=timedelta(seconds=0))
     public = models.BooleanField(_("public"), default=True)
     agents = models.ManyToManyField("Agent", through="Agency", verbose_name=_("agents"))
 
@@ -44,6 +34,52 @@ class Resource(models.Model):
         ]
         verbose_name = _("resource")
         verbose_name_plural = _("resources")
+
+    def duration(self):
+        return self.media_files.first().duration
+
+    def media_type(self):
+        return self.media_files.first().media_type
+
+    def production_date(self):
+        return self.media_files.first().production_date
+
+    def char_field_metadata(self):
+        return self.charfieldmetadata_set.all()
+
+    def get_absolute_url(self):
+        return reverse("archive:resource_detail", args=[self.id])
+
+    def __str__(self):
+        return self.title
+
+
+class MediaFile(models.Model):
+    resource = models.ForeignKey(
+        Resource,
+        on_delete=models.CASCADE,
+        verbose_name=_("resource"),
+        related_name="media_files",
+    )
+    order = models.PositiveSmallIntegerField(_("order"), default=0)
+    media_type = models.CharField(
+        _("media type"),
+        max_length=100,
+        default="video/mp4",
+        help_text="Enter MIME type e.g. 'video/mp4'.",
+    )
+    media_url = models.URLField(_("media url"), max_length=300, default="")
+    poster = models.ImageField(_("poster image"), default="", blank=True)
+    duration = models.DurationField(_("duration"), default=timedelta(seconds=0))
+    production_date = models.DateTimeField(_("production date"), null=True)
+
+    class Meta:
+        ordering = ["order"]
+        indexes = [
+            models.Index(fields=["order"]),
+        ]
+        verbose_name = _("media file")
+        verbose_name_plural = _("media files")
 
     def media_type_first_part(self) -> str:
         return self.media_type.split("/")[0]
@@ -59,14 +95,11 @@ class Resource(models.Model):
     def is_audio(self) -> bool:
         return self.media_type_first_part() == "audio"
 
-    def char_field_metadata(self):
-        return self.charfieldmetadata_set.all()
+    def __str__(self):
+        return f"{self.resource}-{self.order}"
 
     def get_absolute_url(self):
-        return reverse("archive:resource_detail", args=[self.id])
-
-    def __str__(self):
-        return self.title
+        return reverse("archive:media_file_detail", args=[self.resource_id, self.order])
 
 
 class Collection(models.Model):

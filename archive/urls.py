@@ -19,6 +19,11 @@ urlpatterns = [
         views.bookmark_resource,
         name="bookmark_resource",
     ),
+    path(
+        "resources/<int:resource_id>/file/<int:order>/",
+        views.media_file_detail,
+        name="media_file_detail",
+    ),
     path("agents/", views.agent_index, name="agent_index"),
     path("agents/<int:agent_id>/", views.agent_detail, name="agent_detail"),
 ]

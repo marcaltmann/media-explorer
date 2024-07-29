@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from archive.models import (
+    MediaFile,
     Resource,
     Collection,
     Agent,
@@ -19,27 +20,33 @@ class AgentAdmin(admin.ModelAdmin):
 
 class EntityReferenceInline(admin.TabularInline):
     model = EntityReference
-    extra = 1
+    extra = 0
 
 
 class AgencyInline(admin.TabularInline):
     model = Agency
-    extra = 1
+    extra = 0
+
+
+class MediaFileInline(admin.TabularInline):
+    model = MediaFile
+    extra = 0
 
 
 @admin.register(Resource)
 class ResourceAdmin(admin.ModelAdmin):
     search_fields = ["title"]
-    list_display = ["title", "type", "media_type", "duration", "public", "is_video"]
-    list_filter = ["production_date", "media_type", "public"]
+    list_display = ["title", "type", "public"]
+    list_filter = ["public"]
     fieldsets = [
-        (None, {"fields": ["title", "production_date", "duration", "public"]}),
+        (None, {"fields": ["title", "public"]}),
         (
             "Media information",
-            {"fields": ["type", "media_type", "media_url", "poster"]},
+            {"fields": ["type"]},
         ),
     ]
     inlines = [
+        MediaFileInline,
         AgencyInline,
         EntityReferenceInline,
     ]

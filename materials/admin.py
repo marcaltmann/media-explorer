@@ -8,7 +8,7 @@ from .models import Transcript, TextMaterial, ImageMaterial
 @admin.register(Transcript)
 class TranscriptAdmin(admin.ModelAdmin):
     search_fields = ["vtt"]
-    list_display = ["resource", "language"]
+    list_display = ["media_file", "language"]
     formfield_overrides = {
         JSONField: {"widget": JSONEditorWidget},
     }
