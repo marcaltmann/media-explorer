@@ -163,6 +163,7 @@ def create_resources():
     )
     time_machine_media_file_01 = MediaFile.objects.create(
         resource=time_machine,
+        order=0,
         media_type="audio/mp3",
         media_url="https://ia902804.us.archive.org/13/items/timemachine_sjm_librivox/timemachine_01_wells.mp3",
         poster="",
@@ -170,6 +171,28 @@ def create_resources():
             2011, 8, 9, 0, 0, 0, tzinfo=get_current_timezone()
         ),
         duration=datetime.timedelta(minutes=21, seconds=20),
+    )
+    time_machine_media_file_02 = MediaFile.objects.create(
+        resource=time_machine,
+        order=1,
+        media_type="audio/mp3",
+        media_url="https://ia802804.us.archive.org/13/items/timemachine_sjm_librivox/timemachine_02_wells.mp3",
+        poster="",
+        production_date=datetime.datetime(
+            2011, 8, 9, 0, 0, 0, tzinfo=get_current_timezone()
+        ),
+        duration=datetime.timedelta(minutes=13, seconds=48),
+    )
+    time_machine_media_file_03 = MediaFile.objects.create(
+        resource=time_machine,
+        order=2,
+        media_type="audio/mp3",
+        media_url="https://ia902804.us.archive.org/13/items/timemachine_sjm_librivox/timemachine_03_wells.mp3",
+        poster="",
+        production_date=datetime.datetime(
+            2011, 8, 9, 0, 0, 0, tzinfo=get_current_timezone()
+        ),
+        duration=datetime.timedelta(minutes=14, seconds=53),
     )
 
 
@@ -229,13 +252,20 @@ def create_transcripts():
     chen_interview = Resource.objects.get(title__startswith="灣區")
     chen_media_file = chen_interview.media_files.first()
     time_machine = Resource.objects.get(title__startswith="The Time Machine")
-    time_machine_media_file = time_machine.media_files.first()
+    time_machine_media_files = time_machine.media_files.all()
+    time_machine_media_file_01 = time_machine_media_files[0]
+    time_machine_media_file_02 = time_machine_media_files[1]
+    time_machine_media_file_03 = time_machine_media_files[2]
     with open(dir / "transcript_chen_en.json") as f:
         chen_transcript = json.load(f)
     with open(dir / "subtitles_chen_en.vtt") as f:
         chen_subtitles = f.read()
     with open(dir / "transcript_timemachine_01_en.json") as f:
         timemachine_01_transcript = json.load(f)
+    with open(dir / "transcript_timemachine_02_en.json") as f:
+        timemachine_02_transcript = json.load(f)
+    with open(dir / "transcript_timemachine_03_en.json") as f:
+        timemachine_03_transcript = json.load(f)
 
     Transcript.objects.bulk_create(
         [
@@ -258,8 +288,18 @@ def create_transcripts():
                 language="en",
             ),
             Transcript(
-                media_file=time_machine_media_file,
+                media_file=time_machine_media_file_01,
                 json=timemachine_01_transcript,
+                language="en",
+            ),
+            Transcript(
+                media_file=time_machine_media_file_02,
+                json=timemachine_02_transcript,
+                language="en",
+            ),
+            Transcript(
+                media_file=time_machine_media_file_03,
+                json=timemachine_03_transcript,
                 language="en",
             ),
         ]
