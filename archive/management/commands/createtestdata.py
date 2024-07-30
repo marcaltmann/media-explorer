@@ -194,6 +194,105 @@ def create_resources():
         ),
         duration=datetime.timedelta(minutes=14, seconds=53),
     )
+    time_machine_media_file_04 = MediaFile.objects.create(
+        resource=time_machine,
+        order=3,
+        media_type="audio/mp3",
+        media_url="https://ia802804.us.archive.org/13/items/timemachine_sjm_librivox/timemachine_04_wells_64kb.mp3",
+        poster="",
+        production_date=datetime.datetime(
+            2011, 8, 9, 0, 0, 0, tzinfo=get_current_timezone()
+        ),
+        duration=datetime.timedelta(minutes=25, seconds=49),
+    )
+    time_machine_media_file_05 = MediaFile.objects.create(
+        resource=time_machine,
+        order=4,
+        media_type="audio/mp3",
+        media_url="https://ia902804.us.archive.org/13/items/timemachine_sjm_librivox/timemachine_05_wells_64kb.mp3",
+        poster="",
+        production_date=datetime.datetime(
+            2011, 8, 9, 0, 0, 0, tzinfo=get_current_timezone()
+        ),
+        duration=datetime.timedelta(minutes=42, seconds=36),
+    )
+    time_machine_media_file_06 = MediaFile.objects.create(
+        resource=time_machine,
+        order=5,
+        media_type="audio/mp3",
+        media_url="https://ia802804.us.archive.org/13/items/timemachine_sjm_librivox/timemachine_06_wells_64kb.mp3",
+        poster="",
+        production_date=datetime.datetime(
+            2011, 8, 9, 0, 0, 0, tzinfo=get_current_timezone()
+        ),
+        duration=datetime.timedelta(minutes=14, seconds=20),
+    )
+    time_machine_media_file_07 = MediaFile.objects.create(
+        resource=time_machine,
+        order=6,
+        media_type="audio/mp3",
+        media_url="https://ia802804.us.archive.org/13/items/timemachine_sjm_librivox/timemachine_07_wells_64kb.mp3",
+        poster="",
+        production_date=datetime.datetime(
+            2011, 8, 9, 0, 0, 0, tzinfo=get_current_timezone()
+        ),
+        duration=datetime.timedelta(minutes=16, seconds=49),
+    )
+    time_machine_media_file_08 = MediaFile.objects.create(
+        resource=time_machine,
+        order=7,
+        media_type="audio/mp3",
+        media_url="https://ia902804.us.archive.org/13/items/timemachine_sjm_librivox/timemachine_08_wells_64kb.mp3",
+        poster="",
+        production_date=datetime.datetime(
+            2011, 8, 9, 0, 0, 0, tzinfo=get_current_timezone()
+        ),
+        duration=datetime.timedelta(minutes=16, seconds=54),
+    )
+    time_machine_media_file_09 = MediaFile.objects.create(
+        resource=time_machine,
+        order=8,
+        media_type="audio/mp3",
+        media_url="https://ia802804.us.archive.org/13/items/timemachine_sjm_librivox/timemachine_09_wells_64kb.mp3",
+        poster="",
+        production_date=datetime.datetime(
+            2011, 8, 9, 0, 0, 0, tzinfo=get_current_timezone()
+        ),
+        duration=datetime.timedelta(minutes=16, seconds=55),
+    )
+    time_machine_media_file_10 = MediaFile.objects.create(
+        resource=time_machine,
+        order=9,
+        media_type="audio/mp3",
+        media_url="https://ia902804.us.archive.org/13/items/timemachine_sjm_librivox/timemachine_10_wells_64kb.mp3",
+        poster="",
+        production_date=datetime.datetime(
+            2011, 8, 9, 0, 0, 0, tzinfo=get_current_timezone()
+        ),
+        duration=datetime.timedelta(minutes=7, seconds=45),
+    )
+    time_machine_media_file_11 = MediaFile.objects.create(
+        resource=time_machine,
+        order=10,
+        media_type="audio/mp3",
+        media_url="https://ia802804.us.archive.org/13/items/timemachine_sjm_librivox/timemachine_11_wells_64kb.mp3",
+        poster="",
+        production_date=datetime.datetime(
+            2011, 8, 9, 0, 0, 0, tzinfo=get_current_timezone()
+        ),
+        duration=datetime.timedelta(minutes=13, seconds=33),
+    )
+    time_machine_media_file_12 = MediaFile.objects.create(
+        resource=time_machine,
+        order=11,
+        media_type="audio/mp3",
+        media_url="https://ia902804.us.archive.org/13/items/timemachine_sjm_librivox/timemachine_12_wells_64kb.mp3",
+        poster="",
+        production_date=datetime.datetime(
+            2011, 8, 9, 0, 0, 0, tzinfo=get_current_timezone()
+        ),
+        duration=datetime.timedelta(minutes=14, seconds=59),
+    )
 
 
 def create_agencies():
@@ -256,6 +355,15 @@ def create_transcripts():
     time_machine_media_file_01 = time_machine_media_files[0]
     time_machine_media_file_02 = time_machine_media_files[1]
     time_machine_media_file_03 = time_machine_media_files[2]
+    time_machine_media_file_04 = time_machine_media_files[3]
+    time_machine_media_file_05 = time_machine_media_files[4]
+    time_machine_media_file_06 = time_machine_media_files[5]
+    time_machine_media_file_07 = time_machine_media_files[6]
+    time_machine_media_file_08 = time_machine_media_files[7]
+    time_machine_media_file_09 = time_machine_media_files[8]
+    time_machine_media_file_10 = time_machine_media_files[9]
+    time_machine_media_file_11 = time_machine_media_files[10]
+    time_machine_media_file_12 = time_machine_media_files[11]
     with open(dir / "transcript_chen_en.json") as f:
         chen_transcript = json.load(f)
     with open(dir / "subtitles_chen_en.vtt") as f:
@@ -266,6 +374,24 @@ def create_transcripts():
         timemachine_02_transcript = json.load(f)
     with open(dir / "transcript_timemachine_03_en.json") as f:
         timemachine_03_transcript = json.load(f)
+    with open(dir / "transcript_timemachine_04_en.json") as f:
+        timemachine_04_transcript = json.load(f)
+    with open(dir / "transcript_timemachine_05_en.json") as f:
+        timemachine_05_transcript = json.load(f)
+    with open(dir / "transcript_timemachine_06_en.json") as f:
+        timemachine_06_transcript = json.load(f)
+    with open(dir / "transcript_timemachine_07_en.json") as f:
+        timemachine_07_transcript = json.load(f)
+    with open(dir / "transcript_timemachine_08_en.json") as f:
+        timemachine_08_transcript = json.load(f)
+    with open(dir / "transcript_timemachine_09_en.json") as f:
+        timemachine_09_transcript = json.load(f)
+    with open(dir / "transcript_timemachine_10_en.json") as f:
+        timemachine_10_transcript = json.load(f)
+    with open(dir / "transcript_timemachine_11_en.json") as f:
+        timemachine_11_transcript = json.load(f)
+    with open(dir / "transcript_timemachine_12_en.json") as f:
+        timemachine_12_transcript = json.load(f)
 
     Transcript.objects.bulk_create(
         [
@@ -300,6 +426,51 @@ def create_transcripts():
             Transcript(
                 media_file=time_machine_media_file_03,
                 json=timemachine_03_transcript,
+                language="en",
+            ),
+            Transcript(
+                media_file=time_machine_media_file_04,
+                json=timemachine_04_transcript,
+                language="en",
+            ),
+            Transcript(
+                media_file=time_machine_media_file_05,
+                json=timemachine_05_transcript,
+                language="en",
+            ),
+            Transcript(
+                media_file=time_machine_media_file_06,
+                json=timemachine_06_transcript,
+                language="en",
+            ),
+            Transcript(
+                media_file=time_machine_media_file_07,
+                json=timemachine_07_transcript,
+                language="en",
+            ),
+            Transcript(
+                media_file=time_machine_media_file_08,
+                json=timemachine_08_transcript,
+                language="en",
+            ),
+            Transcript(
+                media_file=time_machine_media_file_09,
+                json=timemachine_09_transcript,
+                language="en",
+            ),
+            Transcript(
+                media_file=time_machine_media_file_10,
+                json=timemachine_10_transcript,
+                language="en",
+            ),
+            Transcript(
+                media_file=time_machine_media_file_11,
+                json=timemachine_11_transcript,
+                language="en",
+            ),
+            Transcript(
+                media_file=time_machine_media_file_12,
+                json=timemachine_12_transcript,
                 language="en",
             ),
         ]
