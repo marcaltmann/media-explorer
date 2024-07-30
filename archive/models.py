@@ -1,6 +1,7 @@
 from datetime import timedelta
 from django.contrib import admin
 from django.db import models
+from django.db.models import Sum
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
@@ -36,7 +37,8 @@ class Resource(models.Model):
         verbose_name_plural = _("resources")
 
     def duration(self):
-        return self.media_files.first().duration
+        db_result = self.media_files.aggregate(Sum("duration"))
+        return db_result["duration__sum"] or 0
 
     def media_type(self):
         return self.media_files.first().media_type
