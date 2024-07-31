@@ -8,6 +8,7 @@ def index_resource(resource):
     doc = {
         "id": str(resource.id),
         "title_t": resource.title,
+        "description_t": resource.description,
         "media_type_s": resource.media_type(),
         "duration_i": resource.duration().seconds,
         "production_date_dt": str(resource.production_date()),

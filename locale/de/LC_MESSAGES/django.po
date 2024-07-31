@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-29 21:56+0200\n"
+"POT-Creation-Date: 2024-07-31 21:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,17 +26,17 @@ msgstr "Konten"
 msgid "user"
 msgstr "Benutzer"
 
-#: accounts/models.py:15 archive/models.py:35 archive/models.py:61
-#: archive/models.py:196 archive/models.py:215 archive/models.py:250
+#: accounts/models.py:15 archive/models.py:37 archive/models.py:64
+#: archive/models.py:199 archive/models.py:218 archive/models.py:253
 #: materials/models.py:35
 msgid "resource"
 msgstr "Ressource"
 
-#: accounts/models.py:18 archive/models.py:218
+#: accounts/models.py:18 archive/models.py:221
 msgid "timecodes"
 msgstr "Zeitcodes"
 
-#: accounts/models.py:21 archive/models.py:221
+#: accounts/models.py:21 archive/models.py:224
 msgid ""
 "Enter timecodes in seconds as a comma separated list, e.g.: [124.3, 210.5]"
 msgstr ""
@@ -217,128 +217,129 @@ msgstr ""
 msgid "Archive"
 msgstr "Archiv"
 
-#: archive/models.py:15
+#: archive/models.py:16
 msgid "Interview"
 msgstr "Interview"
 
-#: archive/models.py:16
+#: archive/models.py:17
 msgid "Audiobook"
 msgstr "Hörbuch"
 
-#: archive/models.py:17 archive/models.py:191
+#: archive/models.py:18 archive/models.py:194
 msgid "Other"
 msgstr "Sonstiges"
 
-#: archive/models.py:20 archive/models.py:199 entities/models.py:18
+#: archive/models.py:21 archive/models.py:202 entities/models.py:18
 msgid "type"
 msgstr "Art"
 
-#: archive/models.py:25
+#: archive/models.py:26
 msgid "title"
 msgstr "Titel"
 
-#: archive/models.py:26
+#: archive/models.py:27
 msgid "anonymized title"
 msgstr "anonymisierter Titel"
 
-#: archive/models.py:27
-msgid "public"
-msgstr "öffentlich"
-
-#: archive/models.py:28 archive/models.py:166
-msgid "agents"
-msgstr "Mitwirkende"
-
-#: archive/models.py:36 archive/models.py:106
-msgid "resources"
-msgstr "Ressourcen"
-
-#: archive/models.py:64
-msgid "order"
-msgstr "Ordnungszahl"
-
-#: archive/models.py:66
-msgid "media type"
-msgstr "Medientyp"
-
-#: archive/models.py:71
-msgid "media url"
-msgstr "Medien-URL"
-
-#: archive/models.py:72
-msgid "poster image"
-msgstr "Plakatbild"
-
-#: archive/models.py:73
-msgid "duration"
-msgstr "Dauer"
-
-#: archive/models.py:74
-msgid "production date"
-msgstr "Produktionsdatum"
-
-#: archive/models.py:81 materials/models.py:11
-msgid "media file"
-msgstr "Mediendatei"
-
-#: archive/models.py:82
-msgid "media files"
-msgstr "Mediendateien"
-
-#: archive/models.py:107 entities/models.py:22
-msgid "name"
-msgstr "Name"
-
-#: archive/models.py:108 archive/models.py:235 entities/models.py:23
+#: archive/models.py:28 archive/models.py:111 archive/models.py:238
+#: entities/models.py:23
 msgid "description"
 msgstr "Beschreibung"
 
-#: archive/models.py:115
+#: archive/models.py:29
+msgid "public"
+msgstr "öffentlich"
+
+#: archive/models.py:30 archive/models.py:169
+msgid "agents"
+msgstr "Mitwirkende"
+
+#: archive/models.py:38 archive/models.py:109
+msgid "resources"
+msgstr "Ressourcen"
+
+#: archive/models.py:67
+msgid "order"
+msgstr "Ordnungszahl"
+
+#: archive/models.py:69
+msgid "media type"
+msgstr "Medientyp"
+
+#: archive/models.py:74
+msgid "media url"
+msgstr "Medien-URL"
+
+#: archive/models.py:75
+msgid "poster image"
+msgstr "Plakatbild"
+
+#: archive/models.py:76
+msgid "duration"
+msgstr "Dauer"
+
+#: archive/models.py:77
+msgid "production date"
+msgstr "Produktionsdatum"
+
+#: archive/models.py:84 materials/models.py:11
+msgid "media file"
+msgstr "Mediendatei"
+
+#: archive/models.py:85
+msgid "media files"
+msgstr "Mediendateien"
+
+#: archive/models.py:110 entities/models.py:22
+msgid "name"
+msgstr "Name"
+
+#: archive/models.py:118
 msgid "collection"
 msgstr "Sammlung"
 
-#: archive/models.py:116
+#: archive/models.py:119
 msgid "collections"
 msgstr "Sammlungen"
 
-#: archive/models.py:134
+#: archive/models.py:137
 msgid "Male"
 msgstr "männlich"
 
-#: archive/models.py:135
+#: archive/models.py:138
 msgid "Female"
 msgstr "weiblich"
 
-#: archive/models.py:136
+#: archive/models.py:139
 msgid "Diverse"
 msgstr "divers"
 
-#: archive/models.py:137
+#: archive/models.py:140
 msgid "Not specified"
 msgstr "nicht angegeben"
 
-#: archive/models.py:140
+#: archive/models.py:143
 msgid "first name"
 msgstr "Vorname"
 
-#: archive/models.py:141
+#: archive/models.py:144
 msgid "last name"
 msgstr "Nachname"
 
-#: archive/models.py:143
+#: archive/models.py:146
 msgid "eastern name order"
 msgstr "östliche Namensreihenfolge"
 
-#: archive/models.py:145
+#: archive/models.py:148
 msgid "Select if the last name should appear first."
 msgstr "Wählen Sie dies falls der Nachnahme zuerst stehen soll."
 
-#: archive/models.py:148 archive/templates/archive/agent_detail.html:17
+#: archive/models.py:151 archive/templates/archive/agent_detail.html:17
 #: entities/models.py:25 entities/templates/entities/entity_detail.html:17
 msgid "GND id"
 msgstr "GND-ID"
 
-#: archive/models.py:152 entities/models.py:29
+#: archive/models.py:155 entities/models.py:29
 msgid ""
 "<a href='https://d-nb.info/standards/elementset/gnd'>GND</a> authority file "
 "identifier"
@@ -346,79 +347,79 @@ msgstr ""
 "ID der <a href='https://d-nb.info/standards/elementset/gnd'>Gemeinsamen "
 "Normdatei</a>"
 
-#: archive/models.py:156
+#: archive/models.py:159
 msgid "gender"
 msgstr "Gender"
 
-#: archive/models.py:161
+#: archive/models.py:164
 msgid "date of birth"
 msgstr "Geburtsdatum"
 
-#: archive/models.py:165 archive/models.py:194
+#: archive/models.py:168 archive/models.py:197
 msgid "agent"
 msgstr "Mitwirkender"
 
-#: archive/models.py:186
+#: archive/models.py:189
 msgid "Interviewee"
 msgstr "Befragter"
 
-#: archive/models.py:187
+#: archive/models.py:190
 msgid "Interviewer"
 msgstr "Befrager"
 
-#: archive/models.py:188
+#: archive/models.py:191
 msgid "Camera"
 msgstr "Kamera"
 
-#: archive/models.py:189
+#: archive/models.py:192
 msgid "Sound"
 msgstr "Ton"
 
-#: archive/models.py:190
+#: archive/models.py:193
 msgid "Editor"
 msgstr "Schnitt"
 
-#: archive/models.py:203
+#: archive/models.py:206
 msgid "agency"
 msgstr "Funktion"
 
-#: archive/models.py:204
+#: archive/models.py:207
 msgid "agencies"
 msgstr "Funktionen"
 
-#: archive/models.py:212 entities/models.py:42
+#: archive/models.py:215 entities/models.py:42
 msgid "entity"
 msgstr "Entität"
 
-#: archive/models.py:226
+#: archive/models.py:229
 msgid "entity reference"
 msgstr "Entitätsreferenz"
 
-#: archive/models.py:227
+#: archive/models.py:230
 msgid "entity references"
 msgstr "Entitätsreferenzen"
 
-#: archive/models.py:234
+#: archive/models.py:237
 msgid "label"
 msgstr "Bezeichner"
 
-#: archive/models.py:238
+#: archive/models.py:241
 msgid "metadata key"
 msgstr "Metadaten-Schlüssel"
 
-#: archive/models.py:239
+#: archive/models.py:242
 msgid "metadata keys"
 msgstr "Metadaten-Schlüssel"
 
-#: archive/models.py:253
+#: archive/models.py:256
 msgid "key"
 msgstr "Schlüssel"
 
-#: archive/models.py:255
+#: archive/models.py:258
 msgid "value"
 msgstr "Wert"
 
-#: archive/models.py:258 archive/models.py:259
+#: archive/models.py:261 archive/models.py:262
 msgid "char field metadata"
 msgstr "Zeichenketten-Metadaten"
 
@@ -426,7 +427,7 @@ msgstr "Zeichenketten-Metadaten"
 #: archive/templates/archive/agent_index.html:5
 #: archive/templates/archive/agent_index.html:10
 #: archive/templates/archive/agent_index.html:14
-#: archive/templates/archive/resource_main.html:73
+#: archive/templates/archive/resource_main.html:77
 msgid "Agents"
 msgstr "Mitwirkende"
 
@@ -437,7 +438,7 @@ msgstr "Mitwirkung in Ressourcen"
 #: archive/templates/archive/collection_detail.html:8
 #: archive/templates/archive/collection_index.html:7
 #: archive/templates/archive/collection_index.html:10
-#: archive/templates/archive/resource_main.html:65
+#: archive/templates/archive/resource_main.html:69
 #: archive/templates/header.html:20 pages/templates/pages/welcome.html:31
 msgid "Collections"
 msgstr "Sammlungen"
@@ -508,34 +509,35 @@ msgid "All resources"
 msgstr "Alle Ressourcen"
 
 #: archive/templates/archive/resource_main.html:8
+#, python-format
 msgid "file %(ord)s"
 msgstr "Datei %(ord)s"
 
-#: archive/templates/archive/resource_main.html:45
+#: archive/templates/archive/resource_main.html:49
 msgid "Metadata"
 msgstr "Metadaten"
 
-#: archive/templates/archive/resource_main.html:47
+#: archive/templates/archive/resource_main.html:51
 msgid "Default"
 msgstr "Standard"
 
-#: archive/templates/archive/resource_main.html:49
+#: archive/templates/archive/resource_main.html:53
 msgid "Media type"
 msgstr "Medientyp"
 
-#: archive/templates/archive/resource_main.html:51
+#: archive/templates/archive/resource_main.html:55
 msgid "Produced"
 msgstr "Produziert"
 
-#: archive/templates/archive/resource_main.html:53
+#: archive/templates/archive/resource_main.html:57
 msgid "Duration"
 msgstr "Dauer"
 
-#: archive/templates/archive/resource_main.html:56
+#: archive/templates/archive/resource_main.html:60
 msgid "Custom"
 msgstr "Individuell"
 
-#: archive/templates/archive/resource_main.html:82
+#: archive/templates/archive/resource_main.html:86
 #: archive/templates/header.html:26 entities/apps.py:8
 #: entities/templates/entities/entity_detail.html:10
 #: entities/templates/entities/entity_index.html:5
@@ -546,11 +548,11 @@ msgstr "Individuell"
 msgid "Entities"
 msgstr "Entitäten"
 
-#: archive/templates/archive/resource_main.html:97
+#: archive/templates/archive/resource_main.html:101
 msgid "You do not have the permissions to view metadata."
 msgstr "Sie haben nicht das Recht, die Metadaten zu sehen."
 
-#: archive/templates/archive/resource_main.html:103
+#: archive/templates/archive/resource_main.html:107
 msgid "Image Materials"
 msgstr "Bild-Materialien"
 

@@ -99,7 +99,12 @@ def create_agents():
 def create_resources():
     """Creates resource records."""
     kende_interview = Resource.objects.create(
-        title="Michael Kende (Internet Society)", public=True
+        title="Michael Kende (Internet Society)",
+        description="Michael Kende, chief economist for the Internet Society, previously "
+                    "with the US Federal Communications Commissions, discusses Internet "
+                    "evolution and shares thoughts on the status of the Internet and the "
+                    "challenges and opportunities that lie ahead.",
+        public=True
     )
     kende_media_file = MediaFile.objects.create(
         resource=kende_interview,
@@ -114,6 +119,7 @@ def create_resources():
 
     malkovich_interview = Resource.objects.create(
         title="John Malkovich",
+        description="Marc Delomez interview John Malkovich sur sa nouvelle pièce de théâtre Les Liaisons Dangereuses.",
         public=True,
     )
     malkovich_media_file = MediaFile.objects.create(
@@ -129,6 +135,7 @@ def create_resources():
 
     arakawa_interview = Resource.objects.create(
         title="Minoru Arakawa (Nintendo)",
+        description="Minoru Arakawa – Nintendo – Gameboy, interviewed by Maximilian Schönherr 1990",
         public=True,
     )
     arakawa_media_file = MediaFile.objects.create(
@@ -144,6 +151,7 @@ def create_resources():
 
     chen_interview = Resource.objects.create(
         title="灣區青年說 · 對話香港 TVB 主持人陳貝兒",
+        description="陳貝兒接受中國新聞網大灣區頻道《灣區青年說》視像專訪",
         public=True,
     )
     chen_media_file = MediaFile.objects.create(

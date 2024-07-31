@@ -42,6 +42,10 @@
   {% include "archive/resource_bookmark_button.html" with is_bookmarked=is_bookmarked %}
 </form>
 
+{% if resource.description %}
+  <p class="u-mt">{{ resource.description }}</p>
+{% endif %}
+
 <h2>{% translate "Metadata" %}</h2>
 {% if perms.archive.view_resource %}
   <h3>{% translate "Default" %}</h3>

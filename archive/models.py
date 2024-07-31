@@ -25,6 +25,9 @@ class Resource(models.Model):
     )
     title = models.CharField(_("title"), max_length=200, default="")
     anon_title = models.CharField(_("anonymized title"), max_length=200, default="")
+    description = models.TextField(_("description"), default="", blank=True, null=False)
+    # Copyright status
+    # Copyright license
     public = models.BooleanField(_("public"), default=True)
     agents = models.ManyToManyField("Agent", through="Agency", verbose_name=_("agents"))
 

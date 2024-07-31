@@ -39,7 +39,7 @@ class ResourceAdmin(admin.ModelAdmin):
     list_display = ["title", "type", "public"]
     list_filter = ["public"]
     fieldsets = [
-        (None, {"fields": ["title", "public"]}),
+        (None, {"fields": ["title", "description", "public"]}),
         (
             "Media information",
             {"fields": ["type"]},
