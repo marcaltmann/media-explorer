@@ -26,6 +26,10 @@ class Transcript(models.Model):
         verbose_name = _("transcript")
         verbose_name_plural = _("transcripts")
 
+    def as_text(self):
+        result = [segment["text"] for segment in self.json]
+        return " ".join(result)
+
     def __str__(self):
         return f"{self.media_file} ({self.language})"
 

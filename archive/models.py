@@ -55,6 +55,11 @@ class Resource(models.Model):
     def get_absolute_url(self):
         return reverse("archive:resource_detail", args=[self.id])
 
+    def agg_transcript_texts(self):
+        media_files = self.media_files.all()
+        texts = [file.transcript_text() for file in media_files]
+        return " ".join(texts)
+
     def __str__(self):
         return self.title
 
@@ -99,6 +104,13 @@ class MediaFile(models.Model):
 
     def is_audio(self) -> bool:
         return self.media_type_first_part() == "audio"
+
+    def transcript_text(self):
+        transcript = self.transcript_set.first()
+        if transcript:
+            return transcript.as_text()
+        else:
+            return ""
 
     def __str__(self):
         return f"{self.resource}-{self.order}"
