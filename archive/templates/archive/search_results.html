@@ -30,13 +30,34 @@
     {% blocktranslate count counter=count %}{{ counter }} search result for <i>{{ q }}</i>{% plural %}{{ counter }} search results for <i>{{ q }}</i>{% endblocktranslate %}
   </p>
 
-  {% if resources %}
-    <div class="grid-wrapper u-mt">
-      <ul class="grid grid--resource">
-        {% for resource in resources %}
-          {% include "archive/resource_card_search.html" with resource=resource only %}
-        {% endfor %}
-      </ul>
+  <div class="grid grid--search-page u-mt">
+    <div>
+      {% if facets %}
+        <ul class="facets">
+          {% for facet, values in facets.items %}
+            <li class="facets__facet">
+              {{ facet }}
+              <ul class="facet-values">
+                {% for value, count in values.items %}
+                  <li class="facet-values__value">
+                    <a href="">{{ value }} ({{ count }})</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
     </div>
-  {% endif %}
+    <div class="grid-wrapper">
+      {% if resources %}
+        <ul class="grid grid--resource">
+          {% for resource in resources %}
+            {% include "archive/resource_card_search.html" with resource=resource only %}
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  </div>
+
 {% endblock %}

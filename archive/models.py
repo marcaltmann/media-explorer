@@ -44,7 +44,11 @@ class Resource(models.Model):
         return db_result["duration__sum"] or 0
 
     def media_type(self):
-        return self.media_files.first().media_type
+        types = set([file.type for file in self.media_files.all()])
+        if len(types) > 1:
+            return "multimedia"
+        else:
+            return types.pop()
 
     def production_date(self):
         return self.media_files.first().production_date
@@ -72,11 +76,17 @@ class MediaFile(models.Model):
         related_name="media_files",
     )
     order = models.PositiveSmallIntegerField(_("order"), default=0)
-    media_type = models.CharField(
+    type = models.CharField(
         _("media type"),
         max_length=100,
-        default="video/mp4",
-        help_text="Enter MIME type e.g. 'video/mp4'.",
+        default="video",
+        help_text="Enter first part of MIME type e.g. 'video'.",
+    )
+    subtype = models.CharField(
+        _("subtype"),
+        max_length=100,
+        default="mp4",
+        help_text="Enter second part of MIME type e.g. 'mp4'.",
     )
     media_url = models.URLField(_("media url"), max_length=300, default="")
     poster = models.ImageField(_("poster image"), default="", blank=True)
@@ -90,20 +100,6 @@ class MediaFile(models.Model):
         ]
         verbose_name = _("media file")
         verbose_name_plural = _("media files")
-
-    def media_type_first_part(self) -> str:
-        return self.media_type.split("/")[0]
-
-    @admin.display(
-        boolean=True,
-        ordering="media_type",
-        description="is video?",
-    )
-    def is_video(self) -> bool:
-        return self.media_type_first_part() == "video"
-
-    def is_audio(self) -> bool:
-        return self.media_type_first_part() == "audio"
 
     def transcript_text(self):
         transcript = self.transcript_set.first()

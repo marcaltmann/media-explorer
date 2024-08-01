@@ -1,0 +1,13 @@
+.facets {
+  font-size: var(--font-size-small);
+  margin-bottom: 0;
+  margin-top: 0;
+  padding-left: 0;
+}
+
+.facet-values {
+  font-size: var(--font-size-small);
+  margin-bottom: 0;
+  margin-top: 0;
+  padding-left: var(--base-unit);
+}

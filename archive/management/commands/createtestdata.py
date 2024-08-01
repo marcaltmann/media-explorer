@@ -101,14 +101,15 @@ def create_resources():
     kende_interview = Resource.objects.create(
         title="Michael Kende (Internet Society)",
         description="Michael Kende, chief economist for the Internet Society, previously "
-                    "with the US Federal Communications Commissions, discusses Internet "
-                    "evolution and shares thoughts on the status of the Internet and the "
-                    "challenges and opportunities that lie ahead.",
-        public=True
+        "with the US Federal Communications Commissions, discusses Internet "
+        "evolution and shares thoughts on the status of the Internet and the "
+        "challenges and opportunities that lie ahead.",
+        public=True,
     )
     kende_media_file = MediaFile.objects.create(
         resource=kende_interview,
-        media_type="video/webm",
+        type="video",
+        subtype="webm",
         media_url="https://upload.wikimedia.org/wikipedia/commons/transcoded/6/6d/Internet_Hall_of_Fame_2014_Michael_Kende_interview.webm/Internet_Hall_of_Fame_2014_Michael_Kende_interview.webm.720p.vp9.webm",
         poster="doggy.jpg",
         production_date=datetime.datetime(
@@ -124,7 +125,8 @@ def create_resources():
     )
     malkovich_media_file = MediaFile.objects.create(
         resource=malkovich_interview,
-        media_type="video/webm",
+        type="video",
+        subtype="webm",
         media_url="https://upload.wikimedia.org/wikipedia/commons/7/74/John_Malkovich_-_Les_Liaisons_dangereuses.webm",
         poster="doggy.jpg",
         production_date=datetime.datetime(
@@ -140,7 +142,8 @@ def create_resources():
     )
     arakawa_media_file = MediaFile.objects.create(
         resource=arakawa_interview,
-        media_type="audio/mp3",
+        type="audio",
+        subtype="mp3",
         media_url="https://upload.wikimedia.org/wikipedia/commons/5/5c/Minoru_Arakawa_%E2%80%93_Nintendo_%E2%80%93_Gameboy%2C_interviewed_by_Maximilian_Sch%C3%B6nherr_1990.mp3",
         poster="",
         production_date=datetime.datetime(
@@ -156,7 +159,8 @@ def create_resources():
     )
     chen_media_file = MediaFile.objects.create(
         resource=chen_interview,
-        media_type="audio/ogg",
+        type="audio",
+        subtype="ogg",
         media_url="https://upload.wikimedia.org/wikipedia/commons/2/2a/%E7%81%A3%E5%8D%80%E9%9D%92%E5%B9%B4%E8%AA%AA_%C2%B7_%E5%B0%8D%E8%A9%B1%E9%A6%99%E6%B8%AF_TVB_%E4%B8%BB%E6%8C%81%E4%BA%BA%E9%99%B3%E8%B2%9D%E5%85%92.ogg",
         poster="",
         production_date=datetime.datetime(
@@ -172,7 +176,8 @@ def create_resources():
     time_machine_media_file_01 = MediaFile.objects.create(
         resource=time_machine,
         order=0,
-        media_type="audio/mp3",
+        type="audio",
+        subtype="mp3",
         media_url="https://ia902804.us.archive.org/13/items/timemachine_sjm_librivox/timemachine_01_wells.mp3",
         poster="",
         production_date=datetime.datetime(
@@ -183,7 +188,8 @@ def create_resources():
     time_machine_media_file_02 = MediaFile.objects.create(
         resource=time_machine,
         order=1,
-        media_type="audio/mp3",
+        type="audio",
+        subtype="mp3",
         media_url="https://ia802804.us.archive.org/13/items/timemachine_sjm_librivox/timemachine_02_wells.mp3",
         poster="",
         production_date=datetime.datetime(
@@ -194,7 +200,8 @@ def create_resources():
     time_machine_media_file_03 = MediaFile.objects.create(
         resource=time_machine,
         order=2,
-        media_type="audio/mp3",
+        type="audio",
+        subtype="mp3",
         media_url="https://ia902804.us.archive.org/13/items/timemachine_sjm_librivox/timemachine_03_wells.mp3",
         poster="",
         production_date=datetime.datetime(
@@ -205,7 +212,8 @@ def create_resources():
     time_machine_media_file_04 = MediaFile.objects.create(
         resource=time_machine,
         order=3,
-        media_type="audio/mp3",
+        type="audio",
+        subtype="mp3",
         media_url="https://ia802804.us.archive.org/13/items/timemachine_sjm_librivox/timemachine_04_wells_64kb.mp3",
         poster="",
         production_date=datetime.datetime(
@@ -216,7 +224,8 @@ def create_resources():
     time_machine_media_file_05 = MediaFile.objects.create(
         resource=time_machine,
         order=4,
-        media_type="audio/mp3",
+        type="audio",
+        subtype="mp3",
         media_url="https://ia902804.us.archive.org/13/items/timemachine_sjm_librivox/timemachine_05_wells_64kb.mp3",
         poster="",
         production_date=datetime.datetime(
@@ -227,7 +236,8 @@ def create_resources():
     time_machine_media_file_06 = MediaFile.objects.create(
         resource=time_machine,
         order=5,
-        media_type="audio/mp3",
+        type="audio",
+        subtype="mp3",
         media_url="https://ia802804.us.archive.org/13/items/timemachine_sjm_librivox/timemachine_06_wells_64kb.mp3",
         poster="",
         production_date=datetime.datetime(
@@ -238,7 +248,8 @@ def create_resources():
     time_machine_media_file_07 = MediaFile.objects.create(
         resource=time_machine,
         order=6,
-        media_type="audio/mp3",
+        type="audio",
+        subtype="mp3",
         media_url="https://ia802804.us.archive.org/13/items/timemachine_sjm_librivox/timemachine_07_wells_64kb.mp3",
         poster="",
         production_date=datetime.datetime(
@@ -249,7 +260,8 @@ def create_resources():
     time_machine_media_file_08 = MediaFile.objects.create(
         resource=time_machine,
         order=7,
-        media_type="audio/mp3",
+        type="audio",
+        subtype="mp3",
         media_url="https://ia902804.us.archive.org/13/items/timemachine_sjm_librivox/timemachine_08_wells_64kb.mp3",
         poster="",
         production_date=datetime.datetime(
@@ -260,7 +272,8 @@ def create_resources():
     time_machine_media_file_09 = MediaFile.objects.create(
         resource=time_machine,
         order=8,
-        media_type="audio/mp3",
+        type="audio",
+        subtype="mp3",
         media_url="https://ia802804.us.archive.org/13/items/timemachine_sjm_librivox/timemachine_09_wells_64kb.mp3",
         poster="",
         production_date=datetime.datetime(
@@ -271,7 +284,8 @@ def create_resources():
     time_machine_media_file_10 = MediaFile.objects.create(
         resource=time_machine,
         order=9,
-        media_type="audio/mp3",
+        type="audio",
+        subtype="mp3",
         media_url="https://ia902804.us.archive.org/13/items/timemachine_sjm_librivox/timemachine_10_wells_64kb.mp3",
         poster="",
         production_date=datetime.datetime(
@@ -282,7 +296,8 @@ def create_resources():
     time_machine_media_file_11 = MediaFile.objects.create(
         resource=time_machine,
         order=10,
-        media_type="audio/mp3",
+        type="audio",
+        subtype="mp3",
         media_url="https://ia802804.us.archive.org/13/items/timemachine_sjm_librivox/timemachine_11_wells_64kb.mp3",
         poster="",
         production_date=datetime.datetime(
@@ -293,7 +308,8 @@ def create_resources():
     time_machine_media_file_12 = MediaFile.objects.create(
         resource=time_machine,
         order=11,
-        media_type="audio/mp3",
+        type="audio",
+        subtype="mp3",
         media_url="https://ia902804.us.archive.org/13/items/timemachine_sjm_librivox/timemachine_12_wells_64kb.mp3",
         poster="",
         production_date=datetime.datetime(
