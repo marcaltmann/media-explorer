@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load archive_extras %}
 <li class="card card--resource">
   <h3 class="card__title">
@@ -19,6 +20,9 @@
       <time datetime="{{ resource.production_date_dt }}">
         {{ resource.production_date_dt }}
       </time>
+    </li>
+    <li>
+      {% blocktranslate count counter=resource.media_files_count_i %}{{ counter }} media file{% plural %}{{ counter }} media files{% endblocktranslate %}
     </li>
     <li>
       {{ resource.score }}

@@ -64,6 +64,9 @@ class Resource(models.Model):
         texts = [file.transcript_text() for file in media_files]
         return " ".join(texts)
 
+    def media_files_count(self):
+        return self.media_files.count()
+
     def __str__(self):
         return self.title
 

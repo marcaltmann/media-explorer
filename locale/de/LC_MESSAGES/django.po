@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-31 21:20+0200\n"
+"POT-Creation-Date: 2024-08-01 22:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,17 +26,17 @@ msgstr "Konten"
 msgid "user"
 msgstr "Benutzer"
 
-#: accounts/models.py:15 archive/models.py:37 archive/models.py:64
-#: archive/models.py:199 archive/models.py:218 archive/models.py:253
-#: materials/models.py:35
+#: accounts/models.py:15 archive/models.py:39 archive/models.py:78
+#: archive/models.py:212 archive/models.py:231 archive/models.py:266
+#: materials/models.py:39
 msgid "resource"
 msgstr "Ressource"
 
-#: accounts/models.py:18 archive/models.py:221
+#: accounts/models.py:18 archive/models.py:234
 msgid "timecodes"
 msgstr "Zeitcodes"
 
-#: accounts/models.py:21 archive/models.py:224
+#: accounts/models.py:21 archive/models.py:237
 msgid ""
 "Enter timecodes in seconds as a comma separated list, e.g.: [124.3, 210.5]"
 msgstr ""
@@ -225,11 +225,11 @@ msgstr "Interview"
 msgid "Audiobook"
 msgstr "Hörbuch"
 
-#: archive/models.py:18 archive/models.py:194
+#: archive/models.py:18 archive/models.py:207
 msgid "Other"
 msgstr "Sonstiges"
 
-#: archive/models.py:21 archive/models.py:202 entities/models.py:18
+#: archive/models.py:21 archive/models.py:215 entities/models.py:18
 msgid "type"
 msgstr "Art"
 
@@ -241,105 +241,109 @@ msgstr "Titel"
 msgid "anonymized title"
 msgstr "anonymisierter Titel"
 
-#: archive/models.py:28 archive/models.py:111 archive/models.py:238
+#: archive/models.py:28 archive/models.py:124 archive/models.py:251
 #: entities/models.py:23
 msgid "description"
 msgstr "Beschreibung"
 
-#: archive/models.py:29
+#: archive/models.py:31
 msgid "public"
 msgstr "öffentlich"
 
-#: archive/models.py:30 archive/models.py:169
+#: archive/models.py:32 archive/models.py:182
 msgid "agents"
 msgstr "Mitwirkende"
 
-#: archive/models.py:38 archive/models.py:109
+#: archive/models.py:40 archive/models.py:122
 msgid "resources"
 msgstr "Ressourcen"
 
-#: archive/models.py:67
+#: archive/models.py:81
 msgid "order"
 msgstr "Ordnungszahl"
 
-#: archive/models.py:69
+#: archive/models.py:83
 msgid "media type"
 msgstr "Medientyp"
 
-#: archive/models.py:74
+#: archive/models.py:89
+msgid "subtype"
+msgstr "Subtyp"
+
+#: archive/models.py:94
 msgid "media url"
 msgstr "Medien-URL"
 
-#: archive/models.py:75
+#: archive/models.py:95
 msgid "poster image"
 msgstr "Plakatbild"
 
-#: archive/models.py:76
+#: archive/models.py:96
 msgid "duration"
 msgstr "Dauer"
 
-#: archive/models.py:77
+#: archive/models.py:97
 msgid "production date"
 msgstr "Produktionsdatum"
 
-#: archive/models.py:84 materials/models.py:11
+#: archive/models.py:104 materials/models.py:11
 msgid "media file"
 msgstr "Mediendatei"
 
-#: archive/models.py:85
+#: archive/models.py:105
 msgid "media files"
 msgstr "Mediendateien"
 
-#: archive/models.py:110 entities/models.py:22
+#: archive/models.py:123 entities/models.py:22
 msgid "name"
 msgstr "Name"
 
-#: archive/models.py:118
+#: archive/models.py:131
 msgid "collection"
 msgstr "Sammlung"
 
-#: archive/models.py:119
+#: archive/models.py:132
 msgid "collections"
 msgstr "Sammlungen"
 
-#: archive/models.py:137
+#: archive/models.py:150
 msgid "Male"
 msgstr "männlich"
 
-#: archive/models.py:138
+#: archive/models.py:151
 msgid "Female"
 msgstr "weiblich"
 
-#: archive/models.py:139
+#: archive/models.py:152
 msgid "Diverse"
 msgstr "divers"
 
-#: archive/models.py:140
+#: archive/models.py:153
 msgid "Not specified"
 msgstr "nicht angegeben"
 
-#: archive/models.py:143
+#: archive/models.py:156
 msgid "first name"
 msgstr "Vorname"
 
-#: archive/models.py:144
+#: archive/models.py:157
 msgid "last name"
 msgstr "Nachname"
 
-#: archive/models.py:146
+#: archive/models.py:159
 msgid "eastern name order"
 msgstr "östliche Namensreihenfolge"
 
-#: archive/models.py:148
+#: archive/models.py:161
 msgid "Select if the last name should appear first."
 msgstr "Wählen Sie dies falls der Nachnahme zuerst stehen soll."
 
-#: archive/models.py:151 archive/templates/archive/agent_detail.html:17
+#: archive/models.py:164 archive/templates/archive/agent_detail.html:17
 #: entities/models.py:25 entities/templates/entities/entity_detail.html:17
 msgid "GND id"
 msgstr "GND-ID"
 
-#: archive/models.py:155 entities/models.py:29
+#: archive/models.py:168 entities/models.py:29
 msgid ""
 "<a href='https://d-nb.info/standards/elementset/gnd'>GND</a> authority file "
 "identifier"
@@ -347,79 +351,79 @@ msgstr ""
 "ID der <a href='https://d-nb.info/standards/elementset/gnd'>Gemeinsamen "
 "Normdatei</a>"
 
-#: archive/models.py:159
+#: archive/models.py:172
 msgid "gender"
 msgstr "Gender"
 
-#: archive/models.py:164
+#: archive/models.py:177
 msgid "date of birth"
 msgstr "Geburtsdatum"
 
-#: archive/models.py:168 archive/models.py:197
+#: archive/models.py:181 archive/models.py:210
 msgid "agent"
 msgstr "Mitwirkender"
 
-#: archive/models.py:189
+#: archive/models.py:202
 msgid "Interviewee"
 msgstr "Befragter"
 
-#: archive/models.py:190
+#: archive/models.py:203
 msgid "Interviewer"
 msgstr "Befrager"
 
-#: archive/models.py:191
+#: archive/models.py:204
 msgid "Camera"
 msgstr "Kamera"
 
-#: archive/models.py:192
+#: archive/models.py:205
 msgid "Sound"
 msgstr "Ton"
 
-#: archive/models.py:193
+#: archive/models.py:206
 msgid "Editor"
 msgstr "Schnitt"
 
-#: archive/models.py:206
+#: archive/models.py:219
 msgid "agency"
 msgstr "Funktion"
 
-#: archive/models.py:207
+#: archive/models.py:220
 msgid "agencies"
 msgstr "Funktionen"
 
-#: archive/models.py:215 entities/models.py:42
+#: archive/models.py:228 entities/models.py:42
 msgid "entity"
 msgstr "Entität"
 
-#: archive/models.py:229
+#: archive/models.py:242
 msgid "entity reference"
 msgstr "Entitätsreferenz"
 
-#: archive/models.py:230
+#: archive/models.py:243
 msgid "entity references"
 msgstr "Entitätsreferenzen"
 
-#: archive/models.py:237
+#: archive/models.py:250
 msgid "label"
 msgstr "Bezeichner"
 
-#: archive/models.py:241
+#: archive/models.py:254
 msgid "metadata key"
 msgstr "Metadaten-Schlüssel"
 
-#: archive/models.py:242
+#: archive/models.py:255
 msgid "metadata keys"
 msgstr "Metadaten-Schlüssel"
 
-#: archive/models.py:256
+#: archive/models.py:269
 msgid "key"
 msgstr "Schlüssel"
 
-#: archive/models.py:258
+#: archive/models.py:271
 msgid "value"
 msgstr "Wert"
 
-#: archive/models.py:261 archive/models.py:262
+#: archive/models.py:274 archive/models.py:275
 msgid "char field metadata"
 msgstr "Zeichenketten-Metadaten"
 
@@ -495,6 +499,12 @@ msgstr "Lesezeichen entfernen"
 #: archive/templates/archive/resource_bookmark_button.html:8
 msgid "Add bookmark"
 msgstr "Lesezeichen hinzufügen"
+
+#: archive/templates/archive/resource_card_search.html:25
+msgid "%(counter)s media file"
+msgid_plural "%(counter)s media files"
+msgstr[0] "%(counter)s Mediendatei"
+msgstr[1] "%(counter)s Mediendateien"
 
 #: archive/templates/archive/resource_detail.html:16
 #: archive/templates/archive/resource_index.html:7
@@ -714,51 +724,51 @@ msgstr "Transkript"
 msgid "transcripts"
 msgstr "Transkripte"
 
-#: materials/models.py:37
+#: materials/models.py:41
 msgid "identifier"
 msgstr "Kennung"
 
-#: materials/models.py:38
+#: materials/models.py:42
 msgid "caption"
 msgstr "Bildunterschrift"
 
-#: materials/models.py:39
+#: materials/models.py:43
 msgid "date"
 msgstr "Datum"
 
-#: materials/models.py:40
+#: materials/models.py:44
 msgid "license"
 msgstr "Lizenz"
 
-#: materials/models.py:44
+#: materials/models.py:48
 msgid "material"
 msgstr "Material"
 
-#: materials/models.py:45
+#: materials/models.py:49
 msgid "materials"
 msgstr "Materialien"
 
-#: materials/models.py:52
+#: materials/models.py:56
 msgid "content"
 msgstr "Inhalt"
 
-#: materials/models.py:55
+#: materials/models.py:59
 msgid "text material"
 msgstr "Text-Material"
 
-#: materials/models.py:56
+#: materials/models.py:60
 msgid "text materials"
 msgstr "Text-Materialien"
 
-#: materials/models.py:60
+#: materials/models.py:64
 msgid "image"
 msgstr "Bild"
 
-#: materials/models.py:63
+#: materials/models.py:67
 msgid "image material"
 msgstr "Bild-Material"
 
-#: materials/models.py:64
+#: materials/models.py:68
 msgid "image materials"
 msgstr "Bild-Materialien"
 

@@ -1,0 +1,16 @@
+{% if facets %}
+  <ul class="facets">
+    {% for facet, values in facets.items %}
+      <li class="facets__facet">
+        {{ facet }}
+        <ul class="facet-values">
+          {% for value, count in values.items %}
+            <li class="facet-values__value">
+              <a href="">{{ value }}</a> ({{ count }})
+            </li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}

@@ -12,6 +12,7 @@ def index_resource(resource):
         "description_t": resource.description,
         "transcript_t": resource.agg_transcript_texts(),
         "media_type_s": resource.media_type(),
+        "media_files_count_i": resource.media_files_count(),
         "duration_i": resource.duration().seconds,
         "production_date_dt": str(resource.production_date()),
         "public_b": resource.public,
