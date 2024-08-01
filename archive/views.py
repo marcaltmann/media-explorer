@@ -35,12 +35,13 @@ def search(request):
     q = request.GET.get("q", "")
 
     try:
-        resources, count, facets = query_resource(q)  # These are Solr docs.
+        resources, count, facets, ranges = query_resource(q)  # These are Solr docs.
         context = {
             "q": q,
             "resources": resources,
             "count": count,
             "facets": facets,
+            "ranges": ranges,
         }
         return render(request, "archive/search_results.html", context)
     except ConnectionError as e:

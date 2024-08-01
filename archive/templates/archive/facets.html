@@ -12,5 +12,18 @@
         </ul>
       </li>
     {% endfor %}
+
+    {% for facet, values in ranges.items %}
+      <li class="facets__facet">
+        {{ facet }}
+        <ul class="facet-values">
+          {% for value, count in values.counts.items %}
+            <li class="facet-values__value">
+              <a href="">{{ value }}</a> ({{ count }})
+            </li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% endfor %}
   </ul>
 {% endif %}
