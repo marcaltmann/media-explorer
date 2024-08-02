@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-02 20:20+0200\n"
+"POT-Creation-Date: 2024-08-02 21:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -270,7 +270,7 @@ msgstr "Audio"
 msgid "order"
 msgstr "Ordnungszahl"
 
-#: archive/models.py:88
+#: archive/models.py:88 archive/templates/archive/facets.html:4
 msgid "media type"
 msgstr "Medientyp"
 
@@ -482,6 +482,10 @@ msgstr[1] "%(counter)s Ressourcen"
 #: archive/templates/archive/collection_index.html:29
 msgid "No collections are available."
 msgstr "Es sind keine Sammlungen vorhanden."
+
+#: archive/templates/archive/facets.html:15
+msgid "number of media files"
+msgstr "Anzahl von Mediendateien"
 
 #: archive/templates/archive/pagination.html:6
 msgctxt "pagination"

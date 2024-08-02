@@ -1,5 +1,5 @@
 black==24.8.0
-Django==5.1b1
+Django==5.1rc1
 django-debug-toolbar==4.4.6
 django-htmx==1.18.0
 django-json-widget==2.0.1

@@ -1,29 +1,47 @@
-{% if facets %}
-  <ul class="facets">
-    {% for facet, values in facets.items %}
-      <li class="facets__facet">
-        {{ facet }}
-        <ul class="facet-values">
-          {% for value, count in values.items %}
-            <li class="facet-values__value">
-              <a href="">{{ value }}</a> ({{ count }})
-            </li>
-          {% endfor %}
-        </ul>
-      </li>
-    {% endfor %}
-
-    {% for facet, values in ranges.items %}
-      <li class="facets__facet">
-        {{ facet }}
-        <ul class="facet-values">
-          {% for value, count in values.counts.items %}
-            <li class="facet-values__value">
-              <a href="">{{ value }}</a> ({{ count }})
-            </li>
-          {% endfor %}
-        </ul>
-      </li>
-    {% endfor %}
-  </ul>
-{% endif %}
+{% load i18n %}
+<ul class="facets">
+  <li class="facets__facet">
+    {% translate "media type" %}
+    <ul class="facet-values">
+      {% for value, count in facets.media_type_s.items %}
+        <li class="facet-values__value">
+          <a href="{% querystring media_type_s=value %}">{{ value }}</a>
+          ({{ count }})
+        </li>
+      {% endfor %}
+    </ul>
+  </li>
+  <li class="facets__facet">
+    {% translate "number of media files" %}
+    <ul class="facet-values">
+      {% for value, count in facets.media_files_count_i.items %}
+        <li class="facet-values__value">
+          <a href="{% querystring media_files_count_i=value %}">{{ value }}</a>
+          ({{ count }})
+        </li>
+      {% endfor %}
+    </ul>
+  </li>
+  <li class="facets__facet">
+    {% translate "duration" %}
+    <ul class="facet-values">
+      {% for value, count in ranges.duration_i.counts.items %}
+        <li class="facet-values__value">
+          <a href="{% querystring duration_i=value %}">{{ value }}</a>
+          ({{ count }})
+        </li>
+      {% endfor %}
+    </ul>
+  </li>
+  <li class="facets__facet">
+    {% translate "production date" %}
+    <ul class="facet-values">
+      {% for value, count in ranges.production_date_dt.counts.items %}
+        <li class="facet-values__value">
+          <a href="{% querystring production_date_dt=value %}">{{ value }}</a>
+          ({{ count }})
+        </li>
+      {% endfor %}
+    </ul>
+  </li>
+</ul>
