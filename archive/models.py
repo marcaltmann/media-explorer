@@ -1,5 +1,4 @@
 from datetime import timedelta
-from django.contrib import admin
 from django.db import models
 from django.db.models import Sum
 from django.urls import reverse
@@ -72,6 +71,12 @@ class Resource(models.Model):
 
 
 class MediaFile(models.Model):
+    TYPE_VIDEO = "video"
+    TYPE_AUDIO = "audio"
+    TYPE_CHOICES = (
+        (TYPE_VIDEO, _("Video")),
+        (TYPE_AUDIO, _("Audio")),
+    )
     resource = models.ForeignKey(
         Resource,
         on_delete=models.CASCADE,
@@ -81,15 +86,16 @@ class MediaFile(models.Model):
     order = models.PositiveSmallIntegerField(_("order"), default=0)
     type = models.CharField(
         _("media type"),
-        max_length=100,
-        default="video",
-        help_text="Enter first part of MIME type e.g. 'video'.",
+        max_length=20,
+        choices=TYPE_CHOICES,
+        default=TYPE_VIDEO,
+        help_text=_("Select the first part of the MIME type."),
     )
     subtype = models.CharField(
         _("subtype"),
         max_length=100,
         default="mp4",
-        help_text="Enter second part of MIME type e.g. 'mp4'.",
+        help_text=_("Enter the second part of the MIME type e.g. 'mp4'."),
     )
     media_url = models.URLField(_("media url"), max_length=300, default="")
     poster = models.ImageField(_("poster image"), default="", blank=True)
