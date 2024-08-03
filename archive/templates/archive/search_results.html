@@ -27,18 +27,18 @@
   </search>
 
   <p class="u-mt">
-    {% blocktranslate count counter=count %}{{ counter }} search result for <i>{{ q }}</i>{% plural %}{{ counter }} search results for <i>{{ q }}</i>{% endblocktranslate %}
+    {% blocktranslate count counter=results.num_found %}{{ counter }} search result for <i>{{ q }}</i>{% plural %}{{ counter }} search results for <i>{{ q }}</i>{% endblocktranslate %}
   </p>
 
   <div class="grid grid--search-page u-mt">
     <div>
-      {% include "archive/facets.html" with facets=facets ranges=ranges only %}
+      {% include "archive/facets.html" with facets=results.facets ranges=results.ranges only %}
     </div>
     <div class="grid-wrapper">
-      {% if resources %}
+      {% if results.docs %}
         <ul class="grid grid--resource">
-          {% for resource in resources %}
-            {% include "archive/resource_card_search.html" with resource=resource only %}
+          {% for document in results.docs %}
+            {% include "archive/resource_card_search.html" with document=document only %}
           {% endfor %}
         </ul>
       {% endif %}

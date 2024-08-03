@@ -3,29 +3,29 @@
 <li class="card card--resource">
   <h3 class="card__title">
     <a class="card__link"
-       href="{% url 'archive:resource_detail' resource.id %}">
-      {{ resource.title_t }}
+       href="{% url 'archive:resource_detail' document.id %}">
+      {{ document.title }}
     </a>
   </h3>
   <ul class="card__detail">
     <li>
-      <time datetime="{{ resource.duration_i|timecode:"iso8601" }}">
-        {{ resource.duration_i|timecode }}
+      <time datetime="{{ document.duration.seconds|timecode:"iso8601" }}">
+        {{ document.duration.seconds|timecode }}
       </time>
     </li>
     <li>
-      {{ resource.media_type_s }}
+      {{ document.media_type }}
     </li>
     <li>
-      <time datetime="{{ resource.production_date_dt }}">
-        {{ resource.production_date_dt }}
+      <time datetime="{{ document.production_date }}">
+        {{ document.production_date }}
       </time>
     </li>
     <li>
-      {% blocktranslate count counter=resource.media_files_count_i %}{{ counter }} media file{% plural %}{{ counter }} media files{% endblocktranslate %}
+      {% blocktranslate count counter=document.media_files_count %}{{ counter }} media file{% plural %}{{ counter }} media files{% endblocktranslate %}
     </li>
     <li>
-      {{ resource.score }}
+      {{ document.score }}
     </li>
   </ul>
 </li>

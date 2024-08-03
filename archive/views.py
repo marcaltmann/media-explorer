@@ -37,13 +37,10 @@ def search(request):
     facets_group = ResourceFacetGroup(request.GET)
 
     try:
-        resources, count, facets, ranges = query_resource(q, facets_group)
+        search_results = query_resource(q, facets_group)
         context = {
             "q": q,
-            "resources": resources,
-            "count": count,
-            "facets": facets,
-            "ranges": ranges,
+            "results": search_results,
         }
         return render(request, "archive/search_results.html", context)
     except ConnectionError as e:
