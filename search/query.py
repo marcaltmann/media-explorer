@@ -1,22 +1,20 @@
 import requests
 
+from search.facets import FacetGroup
 
 SOLR_URL = "http://localhost:8983/solr/media_explorer/"
 
 
-def query_resource(query):
+def query_resource(query: str, facet_group: FacetGroup):
     query = query or "*"
+    facets = facet_group.solr_query()
+
     url = SOLR_URL + (
         f"select?defType=edismax&q={query}"
         "&qf=title_t description_t transcript_t media_type_s"
-        "&fl=*,score&wt=json"
-        "&facet=true&facet.mincount=1"
-        "&facet.field=media_type_s"
-        "&facet.field=media_files_count_i"
-        "&facet.range=duration_i&f.duration_i.facet.range.start=0&f.duration_i.facet.range.end=36000&f.duration_i.facet.range.gap=3600"
-        "&facet.range=production_date_dt&f.production_date_dt.facet.range.start=1900-01-01T00:00:00Z/YEAR&f.production_date_dt.facet.range.end=NOW%2B1YEAR/YEAR&f.production_date_dt.facet.range.gap=%2B1YEAR"
-        "&debug=all"
+        "&fl=*,score&wt=json&debug=all&" + facets
     )
+
     response = requests.get(url)
     result = response.json()
 

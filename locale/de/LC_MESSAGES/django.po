@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-02 21:11+0200\n"
+"POT-Creation-Date: 2024-08-03 20:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -294,11 +294,11 @@ msgstr "Medien-URL"
 msgid "poster image"
 msgstr "Plakatbild"
 
-#: archive/models.py:102
+#: archive/models.py:102 archive/templates/archive/facets.html:26
 msgid "duration"
 msgstr "Dauer"
 
-#: archive/models.py:103
+#: archive/models.py:103 archive/templates/archive/facets.html:37
 msgid "production date"
 msgstr "Produktionsdatum"
 
@@ -552,7 +552,7 @@ msgstr "Metadaten"
 msgid "Default"
 msgstr "Standard"
 
-#: archive/templates/archive/resource_main.html:53
+#: archive/templates/archive/resource_main.html:53 search/facets.py:39
 msgid "Media type"
 msgstr "Medientyp"
 
@@ -560,7 +560,7 @@ msgstr "Medientyp"
 msgid "Produced"
 msgstr "Produziert"
 
-#: archive/templates/archive/resource_main.html:57
+#: archive/templates/archive/resource_main.html:57 search/facets.py:49
 msgid "Duration"
 msgstr "Dauer"
 
@@ -813,6 +813,14 @@ msgstr "Impressum"
 #: pages/templates/pages/welcome.html:6
 msgid "Research and presentation software for multimedia resources"
 msgstr "Forschungs- und Präsentationssoftware für Multimedia-Ressourcen"
+
+#: search/facets.py:44
+msgid "Media files count"
+msgstr "Anzahl Mediendateien"
+
+#: search/facets.py:57
+msgid "Production date"
+msgstr "Produktionsdatum"
 
 #: templates/admin/base_site.html:5
 msgid "Django site admin"

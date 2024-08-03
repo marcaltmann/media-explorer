@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 
 from archive.models import Resource, Collection, Agent, Agency, MediaFile
 from search.query import query_resource
+from search.facets import ResourceFacetGroup
 from accounts.models import Bookmark
 
 
@@ -33,9 +34,10 @@ def collection_detail(request, collection_id):
 @require_GET
 def search(request):
     q = request.GET.get("q", "")
+    facets_group = ResourceFacetGroup(request.GET)
 
     try:
-        resources, count, facets, ranges = query_resource(q)  # These are Solr docs.
+        resources, count, facets, ranges = query_resource(q, facets_group)
         context = {
             "q": q,
             "resources": resources,
