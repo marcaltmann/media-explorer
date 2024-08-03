@@ -14,16 +14,7 @@ class FacetGroup:
 
     def solr_query(self) -> str:
         result = "facet=true&facet.mincount=1"
-        for facet in self.facets:
-            if isinstance(facet, FieldFacet):
-                result += f"&facet.field={facet.solr_field}"
-            elif isinstance(facet, RangeFacet):
-                result += f"&facet.range={facet.solr_field}"
-                result += f"&f.{facet.solr_field}.facet.range.start={facet.start}"
-                result += f"&f.{facet.solr_field}.facet.range.end={facet.end}"
-                result += f"&f.{facet.solr_field}.facet.range.gap={facet.gap}"
-            else:
-                raise ValueError("Unexpected facet type")
+        result += "".join([facet.solr_query_part() for facet in self.facets])
         return result
 
 
@@ -33,10 +24,17 @@ class Facet:
         self.solr_field = solr_field
         self.verbose_name = verbose_name
 
+    def solr_query_part(self) -> str:
+        # Must be implemented by subclass.
+        pass
+
 
 class FieldFacet(Facet):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+
+    def solr_query_part(self) -> str:
+        return f"&facet.field={self.solr_field}"
 
 
 class RangeFacet(Facet):
@@ -45,6 +43,13 @@ class RangeFacet(Facet):
         self.end = end
         self.gap = gap
         super().__init__(**kwargs)
+
+    def solr_query_part(self) -> str:
+        result = f"&facet.range={self.solr_field}"
+        result += f"&f.{self.solr_field}.facet.range.start={self.start}"
+        result += f"&f.{self.solr_field}.facet.range.end={self.end}"
+        result += f"&f.{self.solr_field}.facet.range.gap={self.gap}"
+        return result
 
 
 class ResourceFacetGroup(FacetGroup):
