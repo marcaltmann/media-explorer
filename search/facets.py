@@ -72,6 +72,11 @@ class RangeFacet(Facet):
 class ResourceFacetGroup(FacetGroup):
     facets = [
         FieldFacet(
+            field="type",
+            solr_field="type_s",
+            verbose_name=(_("type")),
+        ),
+        FieldFacet(
             field="media_type",
             solr_field="media_type_s",
             verbose_name=(_("Media type")),

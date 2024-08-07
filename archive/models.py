@@ -8,9 +8,9 @@ from entities.models import Entity
 
 
 class Resource(models.Model):
-    TYPE_INTERVIEW = "INTERVIEW"
-    TYPE_AUDIOBOOK = "AUDIOBOOK"
-    TYPE_OTHER = "OTHER"
+    TYPE_INTERVIEW = "interview"
+    TYPE_AUDIOBOOK = "audiobook"
+    TYPE_OTHER = "other"
     TYPE_CHOICES = (
         (TYPE_INTERVIEW, _("Interview")),
         (TYPE_AUDIOBOOK, _("Audiobook")),

@@ -50,6 +50,8 @@
 {% if perms.archive.view_resource %}
   <h3>{% translate "Default" %}</h3>
   <dl>
+    <dt>{% translate "Type" %}</dt>
+    <dd>{{ resource.get_type_display }}</dd>
     <dt>{% translate "Media type" %}</dt>
     <dd>{{ resource.media_type }}</dd>
     <dt>{% translate "Produced" %}</dt>

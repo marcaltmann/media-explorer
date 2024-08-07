@@ -9,12 +9,15 @@
   </h3>
   <ul class="card__detail">
     <li>
-      <time datetime="{{ document.duration.seconds|timecode:"iso8601" }}">
-        {{ document.duration.seconds|timecode }}
-      </time>
+      {{ document.type }}
     </li>
     <li>
       {{ document.media_type }}
+    </li>
+    <li>
+      <time datetime="{{ document.duration.seconds|timecode:"iso8601" }}">
+        {{ document.duration.seconds|timecode }}
+      </time>
     </li>
     <li>
       <time datetime="{{ document.production_date }}">

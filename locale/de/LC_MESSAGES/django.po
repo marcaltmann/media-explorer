@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-03 20:21+0200\n"
+"POT-Creation-Date: 2024-08-07 20:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -229,7 +229,9 @@ msgstr "Hörbuch"
 msgid "Other"
 msgstr "Sonstiges"
 
-#: archive/models.py:20 archive/models.py:221 entities/models.py:18
+#: archive/models.py:20 archive/models.py:221
+#: archive/templates/archive/facets.html:4 entities/models.py:18
+#: search/facets.py:77
 msgid "type"
 msgstr "Art"
 
@@ -270,7 +272,7 @@ msgstr "Audio"
 msgid "order"
 msgstr "Ordnungszahl"
 
-#: archive/models.py:88 archive/templates/archive/facets.html:4
+#: archive/models.py:88 archive/templates/archive/facets.html:15
 msgid "media type"
 msgstr "Medientyp"
 
@@ -294,11 +296,11 @@ msgstr "Medien-URL"
 msgid "poster image"
 msgstr "Plakatbild"
 
-#: archive/models.py:102 archive/templates/archive/facets.html:26
+#: archive/models.py:102 archive/templates/archive/facets.html:37
 msgid "duration"
 msgstr "Dauer"
 
-#: archive/models.py:103 archive/templates/archive/facets.html:37
+#: archive/models.py:103 archive/templates/archive/facets.html:48
 msgid "production date"
 msgstr "Produktionsdatum"
 
@@ -447,7 +449,7 @@ msgstr "Zeichenketten-Metadaten"
 #: archive/templates/archive/agent_index.html:5
 #: archive/templates/archive/agent_index.html:10
 #: archive/templates/archive/agent_index.html:14
-#: archive/templates/archive/resource_main.html:77
+#: archive/templates/archive/resource_main.html:79
 msgid "Agents"
 msgstr "Mitwirkende"
 
@@ -458,7 +460,7 @@ msgstr "Mitwirkung in Ressourcen"
 #: archive/templates/archive/collection_detail.html:8
 #: archive/templates/archive/collection_index.html:7
 #: archive/templates/archive/collection_index.html:10
-#: archive/templates/archive/resource_main.html:69
+#: archive/templates/archive/resource_main.html:71
 #: archive/templates/header.html:20 pages/templates/pages/welcome.html:31
 msgid "Collections"
 msgstr "Sammlungen"
@@ -483,7 +485,7 @@ msgstr[1] "%(counter)s Ressourcen"
 msgid "No collections are available."
 msgstr "Es sind keine Sammlungen vorhanden."
 
-#: archive/templates/archive/facets.html:15
+#: archive/templates/archive/facets.html:26
 msgid "number of media files"
 msgstr "Anzahl von Mediendateien"
 
@@ -520,7 +522,7 @@ msgstr "Lesezeichen entfernen"
 msgid "Add bookmark"
 msgstr "Lesezeichen hinzufügen"
 
-#: archive/templates/archive/resource_card_search.html:25
+#: archive/templates/archive/resource_card_search.html:28
 #, python-format
 msgid "%(counter)s media file"
 msgid_plural "%(counter)s media files"
@@ -552,23 +554,27 @@ msgstr "Metadaten"
 msgid "Default"
 msgstr "Standard"
 
-#: archive/templates/archive/resource_main.html:53 search/facets.py:39
+#: archive/templates/archive/resource_main.html:53
+msgid "Type"
+msgstr "Art"
+
+#: archive/templates/archive/resource_main.html:55 search/facets.py:82
 msgid "Media type"
 msgstr "Medientyp"
 
-#: archive/templates/archive/resource_main.html:55
+#: archive/templates/archive/resource_main.html:57
 msgid "Produced"
 msgstr "Produziert"
 
-#: archive/templates/archive/resource_main.html:57 search/facets.py:49
+#: archive/templates/archive/resource_main.html:59 search/facets.py:92
 msgid "Duration"
 msgstr "Dauer"
 
-#: archive/templates/archive/resource_main.html:60
+#: archive/templates/archive/resource_main.html:62
 msgid "Custom"
 msgstr "Individuell"
 
-#: archive/templates/archive/resource_main.html:86
+#: archive/templates/archive/resource_main.html:88
 #: archive/templates/header.html:26 entities/apps.py:8
 #: entities/templates/entities/entity_detail.html:10
 #: entities/templates/entities/entity_index.html:5
@@ -579,11 +585,11 @@ msgstr "Individuell"
 msgid "Entities"
 msgstr "Entitäten"
 
-#: archive/templates/archive/resource_main.html:101
+#: archive/templates/archive/resource_main.html:103
 msgid "You do not have the permissions to view metadata."
 msgstr "Sie haben nicht das Recht, die Metadaten zu sehen."
 
-#: archive/templates/archive/resource_main.html:107
+#: archive/templates/archive/resource_main.html:109
 msgid "Image Materials"
 msgstr "Bild-Materialien"
 
@@ -814,11 +820,11 @@ msgstr "Impressum"
 msgid "Research and presentation software for multimedia resources"
 msgstr "Forschungs- und Präsentationssoftware für Multimedia-Ressourcen"
 
-#: search/facets.py:44
+#: search/facets.py:87
 msgid "Media files count"
 msgstr "Anzahl Mediendateien"
 
-#: search/facets.py:57
+#: search/facets.py:100
 msgid "Production date"
 msgstr "Produktionsdatum"
 

@@ -7,9 +7,9 @@
   {% endif %}
   {% for choice in type_choices %}
     {% if choice.0 == type_filter %}
-      <a href="{% query_string type=choice.0 %}" class="u-font-italic">{{ choice.1 }}</a>
+      <a href="{% querystring type=choice.0 %}" class="u-font-italic">{{ choice.1 }}</a>
     {% else %}
-      <a href="{% query_string type=choice.0 %}">{{ choice.1 }}</a>
+      <a href="{% querystring type=choice.0 %}">{{ choice.1 }}</a>
     {% endif %}
   {% endfor %}
 </nav>

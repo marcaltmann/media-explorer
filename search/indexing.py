@@ -8,6 +8,7 @@ def index_resource(resource):
 
     doc = {
         "id": str(resource.id),
+        "type_s": resource.type,
         "title_t": resource.title,
         "description_t": resource.description,
         "transcript_t": resource.agg_transcript_texts(),

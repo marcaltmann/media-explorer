@@ -1,6 +1,17 @@
 {% load i18n %}
 <ul class="facets">
   <li class="facets__facet">
+    {% translate "type" %}
+    <ul class="facet-values">
+      {% for value, count in facets.type_s.items %}
+        <li class="facet-values__value">
+          <a href="{% querystring type=value %}">{{ value }}</a>
+          ({{ count }})
+        </li>
+      {% endfor %}
+    </ul>
+  </li>
+  <li class="facets__facet">
     {% translate "media type" %}
     <ul class="facet-values">
       {% for value, count in facets.media_type_s.items %}

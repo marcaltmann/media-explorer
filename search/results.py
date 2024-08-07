@@ -15,6 +15,7 @@ class ResourceDocument(Document):
 
     def __init__(self, doc: dict) -> None:
         self.id = int(doc["id"])
+        self.type = doc["type_s"]
         self.title = doc["title_t"]
         self.description = doc.get("description_t", "")
         self.media_type = doc["media_type_s"]
