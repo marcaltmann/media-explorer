@@ -13,9 +13,15 @@ class FacetGroup:
         self.params = params or QueryDict()
 
     def solr_query(self) -> str:
-        result = "facet=true&facet.mincount=1"
-        result += "".join([facet.solr_query_part() for facet in self.facets])
-        return result
+        q = QueryDict(mutable=True)
+        q.setdefault("facet", "true")
+        q.setdefault("facet.mincount", 1)
+        for facet in self.facets:
+            facet.solr_query_part(q)
+            facet.solr_filter_part(q, self.params)
+
+        print(q.urlencode())
+        return q.urlencode()
 
 
 class Facet:
@@ -24,7 +30,11 @@ class Facet:
         self.solr_field = solr_field
         self.verbose_name = verbose_name
 
-    def solr_query_part(self) -> str:
+    def solr_query_part(self, query: QueryDict) -> None:
+        # Must be implemented by subclass.
+        pass
+
+    def solr_filter_part(self, query: QueryDict, params: QueryDict) -> None:
         # Must be implemented by subclass.
         pass
 
@@ -33,8 +43,13 @@ class FieldFacet(Facet):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def solr_query_part(self) -> str:
-        return f"&facet.field={self.solr_field}"
+    def solr_query_part(self, query: QueryDict) -> None:
+        query.appendlist("facet.field", self.solr_field)
+
+    def solr_filter_part(self, query: QueryDict, params: QueryDict) -> None:
+        values = params.getlist(self.field)
+        for value in values:
+            query.appendlist("fq", f"{self.solr_field}:{value}")
 
 
 class RangeFacet(Facet):
@@ -44,12 +59,14 @@ class RangeFacet(Facet):
         self.gap = gap
         super().__init__(**kwargs)
 
-    def solr_query_part(self) -> str:
-        result = f"&facet.range={self.solr_field}"
-        result += f"&f.{self.solr_field}.facet.range.start={self.start}"
-        result += f"&f.{self.solr_field}.facet.range.end={self.end}"
-        result += f"&f.{self.solr_field}.facet.range.gap={self.gap}"
-        return result
+    def solr_query_part(self, query: QueryDict) -> None:
+        query.appendlist("facet.range", self.solr_field)
+        query.setdefault(f"f.{self.solr_field}.facet.range.start", self.start)
+        query.setdefault(f"f.{self.solr_field}.facet.range.end", self.end)
+        query.setdefault(f"f.{self.solr_field}.facet.range.gap", self.gap)
+
+    def solr_filter_part(self, query: QueryDict, params: QueryDict) -> None:
+        pass
 
 
 class ResourceFacetGroup(FacetGroup):
@@ -60,7 +77,7 @@ class ResourceFacetGroup(FacetGroup):
             verbose_name=(_("Media type")),
         ),
         FieldFacet(
-            field="media_files_count_i",
+            field="media_files_count",
             solr_field="media_files_count_i",
             verbose_name=_("Media files count"),
         ),
@@ -77,7 +94,7 @@ class ResourceFacetGroup(FacetGroup):
             solr_field="production_date_dt",
             verbose_name=_("Production date"),
             start="1900-01-01T00:00:00Z/YEAR",
-            end="NOW%2B1YEAR/YEAR",
-            gap="%2B1YEAR",
+            end="NOW+1YEAR/YEAR",
+            gap="+1YEAR",
         ),
     ]

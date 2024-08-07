@@ -5,7 +5,7 @@
     <ul class="facet-values">
       {% for value, count in facets.media_type_s.items %}
         <li class="facet-values__value">
-          <a href="{% querystring media_type_s=value %}">{{ value }}</a>
+          <a href="{% querystring media_type=value %}">{{ value }}</a>
           ({{ count }})
         </li>
       {% endfor %}
@@ -16,7 +16,7 @@
     <ul class="facet-values">
       {% for value, count in facets.media_files_count_i.items %}
         <li class="facet-values__value">
-          <a href="{% querystring media_files_count_i=value %}">{{ value }}</a>
+          <a href="{% querystring media_files_count=value %}">{{ value }}</a>
           ({{ count }})
         </li>
       {% endfor %}
@@ -27,7 +27,7 @@
     <ul class="facet-values">
       {% for value, count in ranges.duration_i.counts.items %}
         <li class="facet-values__value">
-          <a href="{% querystring duration_i=value %}">{{ value }}</a>
+          <a href="{% querystring duration=value %}">{{ value }}</a>
           ({{ count }})
         </li>
       {% endfor %}
@@ -38,7 +38,7 @@
     <ul class="facet-values">
       {% for value, count in ranges.production_date_dt.counts.items %}
         <li class="facet-values__value">
-          <a href="{% querystring production_date_dt=value %}">{{ value }}</a>
+          <a href="{% querystring production_date=value %}">{{ value }}</a>
           ({{ count }})
         </li>
       {% endfor %}
