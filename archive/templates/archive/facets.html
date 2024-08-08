@@ -1,11 +1,12 @@
 {% load i18n %}
+{% load search_extras %}
 <ul class="facets">
   <li class="facets__facet">
     {% translate "type" %}
     <ul class="facet-values">
       {% for value, count in facets.type_s.items %}
         <li class="facet-values__value">
-          <a href="{% querystring type=value %}">{{ value }}</a>
+          <a href="{% dynamic_qs 'type' value %}">{{ value }}</a>
           ({{ count }})
         </li>
       {% endfor %}
