@@ -17,6 +17,6 @@ def query_resource(query: str, facet_group: FacetGroup):
     )
 
     response = requests.get(url)
-    results = SearchResults(response.json())
+    results = SearchResults(response.json(), facet_group)
 
     return results

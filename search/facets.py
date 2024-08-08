@@ -25,10 +25,13 @@ class FacetGroup:
 
 
 class Facet:
-    def __init__(self, field: str, solr_field: str, verbose_name: str):
+    def __init__(
+        self, field: str, solr_field: str, verbose_name: str, values: dict = None
+    ) -> None:
         self.field = field
         self.solr_field = solr_field
         self.verbose_name = verbose_name
+        self.values = values
 
     def solr_query_part(self, query: QueryDict) -> None:
         # Must be implemented by subclass.

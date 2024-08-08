@@ -32,7 +32,7 @@
 
   <div class="grid grid--search-page u-mt">
     <div>
-      {% include "archive/facets.html" with facets=results.facets ranges=results.ranges only %}
+      {% include "archive/facets.html" with facets=results.facets ranges=results.ranges new_facets=results.new_facets %}
     </div>
     <div class="grid-wrapper">
       {% if results.docs %}

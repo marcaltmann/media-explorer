@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 
 from django.http import QueryDict
 from django.utils.translation import gettext_lazy as _
+from .facets import FacetGroup, FieldFacet
 
 
 class Document:
@@ -33,7 +34,8 @@ class SearchResults:
     Initialized with the Solr search results.
     """
 
-    def __init__(self, results: dict) -> None:
+    def __init__(self, results: dict, facet_group: FacetGroup) -> None:
+        self.facet_group = facet_group
         self.header = results["responseHeader"]
         self.debug = results.get("debug")
         response = results["response"]
@@ -42,11 +44,16 @@ class SearchResults:
         self.max_score = response["maxScore"]
         self.docs = [ResourceDocument(doc) for doc in response["docs"]]
         self.page_len = len(self.docs)
-
         self.original_facets = results["facet_counts"]["facet_fields"]
         self.original_ranges = results["facet_counts"]["facet_ranges"]
         self.facets = transform_facets(self.original_facets)
         self.ranges = transform_ranges(self.original_ranges)
+
+        self.new_facets = []
+        for facet in self.facet_group.facets:
+            if isinstance(facet, FieldFacet):
+                facet.values = self.facets[facet.solr_field]
+                self.new_facets.append(facet)
 
 
 def transform_facets(facets):

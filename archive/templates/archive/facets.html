@@ -1,39 +1,20 @@
 {% load i18n %}
 {% load search_extras %}
 <ul class="facets">
-  <li class="facets__facet">
-    {% translate "type" %}
-    <ul class="facet-values">
-      {% for value, count in facets.type_s.items %}
-        <li class="facet-values__value">
-          <a href="{% dynamic_qs 'type' value %}">{{ value }}</a>
-          ({{ count }})
-        </li>
-      {% endfor %}
-    </ul>
-  </li>
-  <li class="facets__facet">
-    {% translate "media type" %}
-    <ul class="facet-values">
-      {% for value, count in facets.media_type_s.items %}
-        <li class="facet-values__value">
-          <a href="{% querystring media_type=value %}">{{ value }}</a>
-          ({{ count }})
-        </li>
-      {% endfor %}
-    </ul>
-  </li>
-  <li class="facets__facet">
-    {% translate "number of media files" %}
-    <ul class="facet-values">
-      {% for value, count in facets.media_files_count_i.items %}
-        <li class="facet-values__value">
-          <a href="{% querystring media_files_count=value %}">{{ value }}</a>
-          ({{ count }})
-        </li>
-      {% endfor %}
-    </ul>
-  </li>
+  {% for facet in new_facets %}
+    <li class="facets__facet">
+      {% translate facet.field %}
+      <ul class="facet-values">
+        {% for value, count in facet.values.items %}
+          <li class="facet-values__value">
+            <a href="{% dynamic_qs facet.field value %}">{{ value }}</a>
+            ({{ count }})
+          </li>
+        {% endfor %}
+      </ul>
+    </li>
+  {% endfor %}
+
   <li class="facets__facet">
     {% translate "duration" %}
     <ul class="facet-values">
