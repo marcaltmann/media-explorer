@@ -1,0 +1,33 @@
+.media {
+  align-items: flex-start;
+  display: flex;
+  gap: 0.5rlh;
+}
+
+.media--gap-large {
+  gap: 1rlh;
+}
+
+.media--gap-huge {
+  gap: 2rlh;
+}
+
+.media__img {
+  max-width: 4rlh;
+}
+
+.media--small .media__img {
+  max-width: 2rlh;
+}
+
+.media--large .media__img {
+  max-width: 8rlh;
+}
+
+.media img {
+  max-width: 100%;
+}
+
+.media__body {
+
+}

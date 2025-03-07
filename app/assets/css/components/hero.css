@@ -1,0 +1,25 @@
+.hero {
+  margin-bottom: 2rlh;
+  margin-top: 4rlh;
+  text-align: center;
+}
+
+.hero__title {
+  font-size: 4rem;
+  font-weight: bold;
+  letter-spacing: -0.05rem;
+  line-height: 3rlh;
+  margin-top: 0;
+  margin-bottom: 0;
+  max-width: initial;
+  text-transform: uppercase;
+
+}
+
+.hero__subtitle {
+  color: var(--ui-color);
+  font-size: 2rem;
+  letter-spacing: -0.025rem;
+  line-height: 2rlh;
+  text-transform: uppercase;
+}

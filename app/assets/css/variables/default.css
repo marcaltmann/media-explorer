@@ -1,0 +1,39 @@
+:root {
+  --base-unit: 1.875rem;
+  --line-height: var(--base-unit);
+  /* Colors */
+  --primary-color: #0d021e;
+  --secondary-color: #F1005D;
+  /*#--primary-color: #2e4161;*/
+  --color-scheme-1: #6080b3;
+  --color-scheme-2: #d4dbe7; /* #c8d4e7; */
+  --color-scheme-3: #050609;
+  --color-scheme-4: #1c2533;
+  --color-scheme-5: #32435e;
+  --color-scheme-6: #496288;
+  --text-color:     #333;
+  --text-color-bright: #fff;
+  --subdued-text-color: #555;
+  --heading-color:  #000;
+  --ui-color:      #555;
+  --ui-color-bright: #999;
+  --ui-mid-neutral-color: #888;
+  --active-color: darkgreen;
+  --header-color: var(--primary-color);
+  --footer-color: var(--color-scheme-2);
+  /* Spacing */
+  --page-width: 40rlh;
+  --page-width-wide: 60rlh;
+  /* Typography */
+  --line-length: 25rlh;
+  --font-stack: system-ui, sans-serif;
+  --font-stack-serif: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
+  --font-size-normal: 1.125rem;
+  --font-size-small: 1rem;
+  --font-size-large: 1.25rem;
+  --font-size-huge: 1.5rem;
+  --icon-size: 0.5rlh;
+  /* Other */
+  --border-radius: 3px;
+  --transition-duration: 125ms;
+}

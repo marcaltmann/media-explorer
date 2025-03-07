@@ -1,0 +1,37 @@
+:root {
+  line-height: var(--line-height);
+}
+
+body {
+  color: var(--text-color);
+  font-family: var(--font-stack);
+  font-size: var(--font-size-normal);
+}
+
+p {
+  margin-bottom: 0;
+  margin-top: 0;
+  /* max-width: var(--line-length); */
+}
+
+.paragraph {
+  max-width: var(--line-length);
+}
+
+a:link,
+a:visited {
+  color: var(--primary-color);
+}
+
+/*
+* Maybe move to other place later:
+*/
+
+a.active {
+  font-style: italic;
+}
+
+:lang(ar),
+:lang(he) {
+  direction: rtl;
+}

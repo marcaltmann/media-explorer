@@ -1,0 +1,8 @@
+.footer {
+  background-color: var(--footer-color);
+  color: var(--text-color);
+}
+
+.footer__inner {
+  padding-block: 2rlh;
+}
