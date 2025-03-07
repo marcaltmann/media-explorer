@@ -1,0 +1,25 @@
+{% load i18n %}
+<footer class="footer site__footer">
+    <div class="footer__inner container container--wide">
+        <p class="u-align-center">{% translate "Elefant Explorer" %} v0.1</p>
+        <nav class="secondary-nav u-mt">
+            <ul class="secondary-nav__list">
+                <li class="secondary-nav__item">
+                    <a href="{% url 'core:terms' %}" class="secondary-nav__link">{% translate "Terms of use" %}</a>
+                </li>
+                <li class="secondary-nav__item">
+                    <a href="{% url 'core:legal_notice' %}" class="secondary-nav__link">{% translate "Legal notice" %}</a>
+                </li>
+                <li class="secondary-nav__item">
+                    <a href="{% url 'core:privacy' %}" class="secondary-nav__link">{% translate "Privacy" %}</a>
+                </li>
+                <li class="secondary-nav__item">
+                    <a href="{% url 'core:accessibility' %}" class="secondary-nav__link">{% translate "Accessibility" %}</a>
+                </li>
+                <li class="secondary-nav__item">
+                    <a href="{% url 'core:contact' %}" class="secondary-nav__link">{% translate "Contact" %}</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</footer>
