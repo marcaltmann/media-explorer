@@ -1,5 +1,5 @@
 /* Variables */
-@import url("variables/main.css");
+@import url("variables/default.css");
 
 /* Base */
 @import url("base/normalize.css");

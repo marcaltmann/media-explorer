@@ -12,3 +12,4 @@ wheels/
 # Django
 db.sqlite3
 node_modules
+vite_assets_dist

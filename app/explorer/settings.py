@@ -121,6 +121,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "static"
+STATICFILES_DIRS = [BASE_DIR / "vite_assets_dist"]
 DJANGO_VITE = {"default": {"dev_mode": True}}
 
 # Default primary key field type

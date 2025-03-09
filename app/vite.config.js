@@ -17,7 +17,7 @@ export default defineConfig({
     outDir: resolve(OUTPUT_DIR),
     rollupOptions: {
       input: {
-        main: join(INPUT_DIR, '/js/main.js'),
+        main: join(INPUT_DIR, 'js', 'main.js'),
       },
     },
   },
