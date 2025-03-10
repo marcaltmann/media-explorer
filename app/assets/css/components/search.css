@@ -1,0 +1,19 @@
+.search {
+
+}
+
+.search--wide {
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.search__form {
+  display: flex;
+}
+
+.search__input {
+  border-radius: 1rlh;
+  flex-grow: 1;
+  padding: 0.5rlh 1rlh;
+}
