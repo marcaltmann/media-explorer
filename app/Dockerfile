@@ -1,78 +1,113 @@
-###########
-# BUILDER #
-###########
+# syntax=docker/dockerfile:1.9
+FROM ubuntu:noble AS build
 
-# pull official base image
-FROM python:3.13-slim-bookworm AS builder
+# The following does not work in Podman unless you build in Docker
+# compatibility mode: <https://github.com/containers/podman/issues/8477>
+# You can manually prepend every RUN script with `set -ex` too.
+SHELL ["sh", "-exc"]
 
-# set work directory
-WORKDIR /usr/src/app
+# Ensure apt-get doesn't open a menu on you.
+ENV DEBIAN_FRONTEND=noninteractive
 
-# set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
+### Start build prep.
+### This should be a separate build container for better reuse.
 
-# install system dependencies
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends gcc curl
+RUN <<EOT
+apt-get update -qy
+apt-get install -qyy \
+    -o APT::Install-Recommends=false \
+    -o APT::Install-Suggests=false \
+    build-essential \
+    ca-certificates \
+    python3-setuptools \
+    python3.12-dev
+EOT
 
-# lint
-# RUN pip install --upgrade pip
-# RUN pip install flake8==7.1.1
-# COPY . /usr/src/app/
-# RUN flake8 --ignore=E501,F401 .
+# Security-conscious organizations should package/review uv themselves.
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
-# install python dependencies
-COPY ./requirements.prod.txt .
-RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r requirements.prod.txt
+# - Silence uv complaining about not being able to use hard links,
+# - tell uv to byte-compile packages for faster application startups,
+# - prevent uv from accidentally downloading isolated Python builds,
+# - pick a Python (use `/usr/bin/python3.12` on uv 0.5.0 and later),
+# - and finally declare `/app` as the target for `uv sync`.
+ENV UV_LINK_MODE=copy \
+    UV_COMPILE_BYTECODE=1 \
+    UV_PYTHON_DOWNLOADS=never \
+    UV_PYTHON=python3.12 \
+    UV_PROJECT_ENVIRONMENT=/app
+
+### End build prep -- this is where your app Dockerfile should start.
+
+# Synchronize DEPENDENCIES without the application itself.
+# This layer is cached until uv.lock or pyproject.toml change, which are
+# only temporarily mounted into the build container since we don't need
+# them in the production one.
+# You can create `/app` using `uv venv` in a separate `RUN`
+# step to have it cached, but with uv it's so fast, it's not worth
+# it, so we let `uv sync` create it for us automagically.
+RUN --mount=type=cache,target=/root/.cache \
+    --mount=type=bind,source=uv.lock,target=uv.lock \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    uv sync \
+        --locked \
+        --no-dev \
+        --group prod \
+        --no-install-project
 
 
-#########
-# FINAL #
-#########
+##########################################################################
 
-# pull official base image
-FROM python:3.13-slim-bookworm
+FROM ubuntu:noble
+SHELL ["sh", "-exc"]
 
-# create directory for the app user
-RUN mkdir -p /home/app
+# Optional: add the application virtualenv to search path.
+ENV PATH=/app/bin:$PATH
 
-# create the app user
-RUN addgroup --system app && adduser --system --group app
+# Don't run your app as root.
+RUN <<EOT
+groupadd -r app
+useradd -r -d /app -g app -N app
+EOT
 
-# create the appropriate directories
-ENV HOME=/home/app
-ENV APP_HOME=/home/app/web
-RUN mkdir $APP_HOME
-WORKDIR $APP_HOME
+ENTRYPOINT ["/entrypoint.sh"]
+# See <https://hynek.me/articles/docker-signals/>.
+STOPSIGNAL SIGINT
 
-# install dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends curl ffmpeg libpq-dev netcat-traditional gettext gettext-base
-COPY --from=builder /usr/src/app/wheels /wheels
-COPY --from=builder /usr/src/app/requirements.prod.txt .
-# COPY --from=builder /usr/src/app/staticfiles .
-RUN pip install --upgrade pip
-RUN pip install --no-cache /wheels/*
+# Note how the runtime dependencies differ from build-time ones.
+# Notably, there is no uv either!
+RUN <<EOT
+apt-get update -qy
+apt-get install -qyy \
+    -o APT::Install-Recommends=false \
+    -o APT::Install-Suggests=false \
+    python3.12 \
+    libpython3.12 \
+    libpcre3 \
+    libxml2
 
-# copy entrypoint.sh
-COPY ./entrypoint.sh .
-RUN sed -i 's/\r$//g'  $APP_HOME/entrypoint.sh
-RUN chmod +x  $APP_HOME/entrypoint.sh
+apt-get clean
+rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+EOT
 
-# copy project
-COPY . $APP_HOME
+COPY entrypoint.sh /
 
-# Install Node.js
-RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
-    && apt-get install -y nodejs
+# Copy the pre-built `/app` directory to the runtime container
+# and change the ownership to user app and group app in one step.
+COPY --from=build --chown=app:app /app /app
 
-RUN npm install
+# If your application is NOT a proper Python package that got
+# pip-installed above, you need to copy your application into
+# the container HERE:
+COPY . /app/whereever-your-entrypoint-finds-it
 
-# chown all the files to the app user
-RUN chown -R app:app $APP_HOME
-
-# change to the app user
 USER app
+WORKDIR /app
 
-# run entrypoint.prod.sh
-ENTRYPOINT ["/home/app/web/entrypoint.sh"]
+# Strictly optional, but I like it for introspection of what I've built
+# and run a smoke test that the application can, in fact, be imported.
+RUN <<EOT
+python -V
+python -Im site
+# python -Ic 'import the_app' # -> manage.py check
+EOT
