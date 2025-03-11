@@ -1,0 +1,31 @@
+---
+- name: Deploy
+  hosts: server
+  remote_user: deploy
+  tasks:
+    - name: Check out Github repo
+      git:
+        repo: 'https://github.com/marcaltmann/explorer.git'
+        dest: /home/deploy/explorer
+        single_branch: yes
+        version: master
+        update: yes
+
+    - name: Touch configuration file
+      ansible.builtin.file:
+        path: /home/deploy/explorer/.env.prod
+        state: touch
+
+    - name: Tear down existing services
+      become: true
+      community.docker.docker_compose_v2:
+        files: [docker-compose.prod.yml]
+        project_src: /home/deploy/explorer
+        state: absent
+
+    - name: Create and start services
+      become: true
+      community.docker.docker_compose_v2:
+        files: [docker-compose.prod.yml]
+        project_src: /home/deploy/explorer
+        build: always
