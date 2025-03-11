@@ -69,11 +69,17 @@ if not database_path.exists():
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
+        "NAME": "explorer",
         "OPTIONS": {
             "read_default_file": str(database_path),
             "isolation_level": "read committed",
         },
-    }
+    },
+    "test": {
+        "OPTIONS": {
+            "read_default_file": str("my.cnf.test"),
+        },
+    },
 }
 
 AUTHENTICATION_BACKENDS = [

@@ -1,0 +1,5 @@
+[client]
+database = explorer_test
+user = root
+password = password
+default-character-set = utf8
