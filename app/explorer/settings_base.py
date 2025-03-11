@@ -58,13 +58,17 @@ TEMPLATES = [
 WSGI_APPLICATION = "explorer.wsgi.application"
 
 
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+database_path = BASE_DIR / "my.cnf"
+if not database_path.exists():
+    raise FileNotFoundError("MySQL configuration file my.cnf not found")
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.mysql",
+        "OPTIONS": {
+            "read_default_file": str(database_path),
+            "isolation_level": "read committed",
+        },
     }
 }
 

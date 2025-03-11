@@ -10,6 +10,6 @@ wheels/
 .venv
 
 # Django
-db.sqlite3
+my.cnf
 node_modules
 vite_assets_dist
