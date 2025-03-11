@@ -13,3 +13,5 @@ INSTALLED_APPS += [
 MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
 
 DJANGO_VITE = {"default": {"dev_mode": True}}
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
