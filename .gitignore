@@ -13,3 +13,6 @@ wheels/
 my.cnf
 node_modules
 vite_assets_dist
+
+# Ansible
+inventory.yml
