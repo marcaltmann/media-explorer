@@ -1,0 +1,19 @@
+---
+- name: Provision server
+  hosts: server
+  remote_user: root
+  tasks:
+    - name: Generate deploy key for explorer repo
+      user:
+        name: deploy
+        generate_ssh_key: yes
+        ssh_key_bits: 2048
+        ssh_key_file: .ssh/explorer_deploy_key
+
+    - name: Add special ssh host for explorer
+      community.general.ssh_config:
+        user: deploy
+        host: github.com-explorer
+        hostname: github.com
+        identity_file: /home/deploy/.ssh/explorer_deploy_key
+        state: present
