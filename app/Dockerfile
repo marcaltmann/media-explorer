@@ -19,9 +19,18 @@ apt-get install -qyy \
     -o APT::Install-Suggests=false \
     build-essential \
     ca-certificates \
+    pkg-config \
+    libmariadb-dev \
     python3-setuptools \
     python3.12-dev
 EOT
+
+#-
+#- mariadb-server
+#-
+#    default-libmysqlclient-dev \
+
+
 
 # Security-conscious organizations should package/review uv themselves.
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
@@ -70,7 +79,6 @@ groupadd -r app
 useradd -r -d /app -g app -N app
 EOT
 
-ENTRYPOINT ["/entrypoint.sh"]
 # See <https://hynek.me/articles/docker-signals/>.
 STOPSIGNAL SIGINT
 
@@ -84,13 +92,16 @@ apt-get install -qyy \
     python3.12 \
     libpython3.12 \
     libpcre3 \
-    libxml2
+    libxml2 \
+    libmariadb3 \
+    nodejs \
+    npm
 
 apt-get clean
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 EOT
 
-COPY entrypoint.sh /
+# COPY entrypoint.sh /
 
 # Copy the pre-built `/app` directory to the runtime container
 # and change the ownership to user app and group app in one step.
@@ -99,7 +110,11 @@ COPY --from=build --chown=app:app /app /app
 # If your application is NOT a proper Python package that got
 # pip-installed above, you need to copy your application into
 # the container HERE:
-COPY . /app/whereever-your-entrypoint-finds-it
+COPY --chown=app:app . /app/django-app
+
+COPY entrypoint.sh /
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
 
 USER app
 WORKDIR /app
