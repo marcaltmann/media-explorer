@@ -31,6 +31,8 @@ if django_env == "production":
 
 # Start with settings
 
+DEBUG = env("DEBUG")
+SECRET_KEY = env("SECRET_KEY")
 ALLOWED_HOSTS = env.parse_value(env("ALLOWED_HOSTS"), list)
 
 

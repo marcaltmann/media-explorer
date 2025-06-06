@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      DATABASE_URL: postgres://elefant:password@postgres/explorer
+      DATABASE_URL: postgres://elefant:password@localhost/explorer
       DJANGO_ENV: test
       SECRET_KEY: test-secret-key
       EMAIL_URL: dummymail://
