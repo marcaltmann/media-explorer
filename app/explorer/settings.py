@@ -11,9 +11,9 @@ from django.utils.translation import gettext_lazy as _
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env(
-    ALLOWED_HOSTS=(str, "")
+    ALLOWED_HOSTS=(str, ""),
     DEBUG=(bool, False),
-    SENTRY_URL=(str, None),
+    SENTRY_DSN=(str, None),
 )
 
 environ.Env.read_env(BASE_DIR / ".env")
@@ -23,6 +23,10 @@ if django_env not in ["development", "production", "test"]:
     raise ImproperlyConfigured(
         "DJANGO_ENV must be one of development, production or test"
     )
+
+if django_env == "production":
+    import sentry_sdk
+
 
 
 # Start with settings
@@ -132,7 +136,7 @@ LANGUAGES = [
     ("de", _("German")),
     ("en", _("English")),
 ]
-LANGUAGE_CODE = "en"
+LANGUAGE_CODE = "de"
 TIME_ZONE = "UTC"
 LOCALE_PATHS = (BASE_DIR / "locale",)
 USE_I18N = True
@@ -160,6 +164,22 @@ EMAIL_HOST_PASSWORD = email_url["EMAIL_HOST_PASSWORD"]
 
 if django_env == "development":
     DJANGO_VITE = {"default": {"dev_mode": True}}
+
+
+# Sentry error tracking
+
+sentry_dsn = env("SENTRY_DSN")
+if django_env == "production" and sentry_dsn:
+    sentry_sdk.init(
+        dsn=sentry_dsn,
+        # Set traces_sample_rate to 1.0 to capture 100%
+        # of transactions for tracing.
+        traces_sample_rate=1.0,
+        # Set profiles_sample_rate to 1.0 to profile 100%
+        # of sampled transactions.
+        # We recommend adjusting this value in production.
+        profiles_sample_rate=1.0,
+    )
 
 
 # Explorer-specific settings

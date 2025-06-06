@@ -7,7 +7,7 @@ urlpatterns = (
     i18n_patterns(
         path("admin/", admin.site.urls),
         path("accounts/", include("allauth.urls")),
-        path("", include("core.urls")),
+        path("", include("explorer.core.urls")),
     )
     + debug_toolbar_urls()
 )
