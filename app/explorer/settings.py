@@ -1,23 +1,38 @@
+import environ
 from pathlib import Path
+import sys
 
+from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import gettext_lazy as _
 
 
+# Prepare environment
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env(
+    ALLOWED_HOSTS=(str, "")
+    DEBUG=(bool, False),
+    SENTRY_URL=(str, None),
+)
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
+environ.Env.read_env(BASE_DIR / ".env")
+
+django_env = env("DJANGO_ENV")
+if django_env not in ["development", "production", "test"]:
+    raise ImproperlyConfigured(
+        "DJANGO_ENV must be one of development, production or test"
+    )
 
 
-ALLOWED_HOSTS = []
+# Start with settings
 
-# Application definition
+ALLOWED_HOSTS = env.parse_value(env("ALLOWED_HOSTS"), list)
+
 
 INSTALLED_APPS = [
     "allauth.account",
     "allauth",
-    "core.apps.CoreConfig",
     "django_vite",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -26,8 +41,14 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.sessions",
     "django.contrib.staticfiles",
-    "my_account.apps.MyAccountConfig",
+    "explorer.core",
+    "explorer.my_account",
 ]
+if django_env == "development":
+    INSTALLED_APPS += [
+        "debug_toolbar",
+        "django_extensions"
+    ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -40,13 +61,16 @@ MIDDLEWARE = [
     "allauth.account.middleware.AccountMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+if django_env == "development":
+    MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
+
 
 ROOT_URLCONF = "explorer.urls"
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [BASE_DIR / "explorer" / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -62,25 +86,12 @@ TEMPLATES = [
 WSGI_APPLICATION = "explorer.wsgi.application"
 
 
-database_path = BASE_DIR / "my.cnf"
-if not database_path.exists():
-    raise FileNotFoundError("MySQL configuration file my.cnf not found")
-
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "explorer",
-        "OPTIONS": {
-            "read_default_file": str(database_path),
-            "isolation_level": "read committed",
-        },
-    },
-    "test": {
-        "OPTIONS": {
-            "read_default_file": str("my.cnf.test"),
-        },
-    },
+    "default": env.db(),
 }
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
 
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -135,7 +146,24 @@ STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "static"
 STATICFILES_DIRS = [BASE_DIR / "vite_assets_dist"]
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+email_url = env.email_url()
+EMAIL_BACKEND = email_url["EMAIL_BACKEND"]
+EMAIL_FILE_PATH = email_url["EMAIL_FILE_PATH"]
+EMAIL_HOST = email_url["EMAIL_HOST"]
+EMAIL_PORT = email_url["EMAIL_PORT"]
+EMAIL_HOST_USER = email_url["EMAIL_HOST_USER"]
+EMAIL_HOST_PASSWORD = email_url["EMAIL_HOST_PASSWORD"]
+
+
+# Django Vite asset management
+
+if django_env == "development":
+    DJANGO_VITE = {"default": {"dev_mode": True}}
+
+
+# Explorer-specific settings
+# not used yet
+
+EXPLORER_SINGLE_ARCHIVE_MODE = False
+EXPLORER_SEARCH_ENGINE = "solr"
