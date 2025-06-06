@@ -12,6 +12,7 @@ jobs:
     env:
       DATABASE_URL: postgres://elefant:password@localhost/explorer
       DJANGO_ENV: test
+      DEBUG: on
       SECRET_KEY: test-secret-key
       EMAIL_URL: dummymail://
 
