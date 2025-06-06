@@ -48,4 +48,5 @@ jobs:
       - name: Run Tests
         working-directory: ./app
         run: |
+          uv run manage.py collectstatic
           uv run manage.py test
