@@ -134,7 +134,7 @@ LANGUAGES = [
     ("de", _("German")),
     ("en", _("English")),
 ]
-LANGUAGE_CODE = "de"
+LANGUAGE_CODE = "en"
 TIME_ZONE = "UTC"
 LOCALE_PATHS = (BASE_DIR / "locale",)
 USE_I18N = True
