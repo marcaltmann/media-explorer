@@ -15,6 +15,7 @@ node_modules
 vite_assets_dist
 static
 .env
+*.mo
 
 # Ansible
 inventory.yml

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-09 14:44+0000\n"
+"POT-Creation-Date: 2025-06-07 14:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,43 +17,155 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-#: core/templates/base.html:14 core/templates/footer.html:4
-#: core/templates/header.html:5
+
+#: explorer/core/templates/base.html:14 explorer/core/templates/footer.html:4
+#: explorer/core/templates/header.html:5
 msgid "Elefant Explorer"
-msgstr ""
+msgstr "Elefant Explorer"
 
-#: core/templates/core/welcome.html:7
-msgid "Elefant.Media"
-msgstr ""
-
-#: core/templates/core/welcome.html:16 core/templates/core/welcome.html:17
-msgid "Search"
-msgstr ""
-
-#: core/templates/footer.html:8
-msgid "Terms of use"
-msgstr ""
-
-#: core/templates/footer.html:11
-msgid "Legal notice"
-msgstr ""
-
-#: core/templates/footer.html:14
-msgid "Privacy"
-msgstr ""
-
-#: core/templates/footer.html:17
+#: explorer/core/templates/core/accessibility.html:4
+#: explorer/core/templates/core/accessibility.html:7
+#: explorer/core/templates/footer.html:17
 msgid "Accessibility"
-msgstr ""
+msgstr "Barrierefreiheit"
 
-#: core/templates/footer.html:20
+#: explorer/core/templates/core/contact.html:4
+#: explorer/core/templates/core/contact.html:7
+#: explorer/core/templates/footer.html:20
 msgid "Contact"
-msgstr ""
+msgstr "Kontakt"
 
-#: explorer/settings.py:104
+#: explorer/core/templates/core/legal_notice.html:4
+#: explorer/core/templates/core/legal_notice.html:7
+msgid "Legal Notice"
+msgstr "Impressum"
+
+#: explorer/core/templates/core/privacy.html:4
+#: explorer/core/templates/core/privacy.html:7
+#: explorer/core/templates/footer.html:14
+msgid "Privacy"
+msgstr "Datenschutz"
+
+#: explorer/core/templates/core/terms.html:4
+#: explorer/core/templates/core/terms.html:7
+msgid "Terms of Use"
+msgstr "Nutzungsbedingungen"
+
+#: explorer/core/templates/core/welcome.html:7
+msgid "Elefant.Media"
+msgstr "Elefant.Media"
+
+#: explorer/core/templates/core/welcome.html:14
+#: explorer/core/templates/core/welcome.html:15
+msgid "Search"
+msgstr "Suche"
+
+#: explorer/core/templates/footer.html:8
+msgid "Terms of use"
+msgstr "Nutzungsbedingungen"
+
+#: explorer/core/templates/footer.html:11
+msgid "Legal notice"
+msgstr "Impressum"
+
+#: explorer/core/templates/header.html:12
+msgid "Notebook"
+msgstr "Notizbuch"
+
+#: explorer/core/templates/header.html:17
+msgid "Log out"
+msgstr "Abmelden"
+
+#: explorer/core/templates/header.html:23
+msgid "Log in"
+msgstr "Anmelden"
+
+#: explorer/core/templates/header.html:27
+msgid "Register"
+msgstr "Registrieren"
+
+#: explorer/settings.py:134
 msgid "German"
+msgstr "Deutsch"
+
+#: explorer/settings.py:135
+msgid "English"
+msgstr "Englisch"
+
+#: explorer/templates/account/login.html:5
+#: explorer/templates/account/login.html:9
+#: explorer/templates/account/login.html:31
+#: explorer/templates/allauth/layouts/base.html:68
+msgid "Sign In"
+msgstr "Anmelden"
+
+#: explorer/templates/account/login.html:19
+#, python-format
+msgid ""
+"If you have not created an account yet, then please %(link)ssign "
+"up%(end_link)s first."
 msgstr ""
 
-#: explorer/settings.py:105
-msgid "English"
+#: explorer/templates/account/login.html:42
+msgid "Sign in with a passkey"
 msgstr ""
+
+#: explorer/templates/account/login.html:47
+msgid "Mail me a sign-in code"
+msgstr ""
+
+#: explorer/templates/account/signup.html:4
+msgid "Signup"
+msgstr ""
+
+#: explorer/templates/account/signup.html:8
+#: explorer/templates/account/signup.html:30
+#: explorer/templates/allauth/layouts/base.html:74
+msgid "Sign Up"
+msgstr ""
+
+#: explorer/templates/account/signup.html:17
+#, python-format
+msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
+msgstr ""
+
+#: explorer/templates/account/signup.html:39
+msgid "Sign up using a passkey"
+msgstr ""
+
+#: explorer/templates/admin/base_site.html:5
+#: explorer/templates/admin/base_site.html:9
+msgid "Elefant Explorer Admin"
+msgstr ""
+
+#: explorer/templates/allauth/layouts/base.html:18
+msgid "Messages:"
+msgstr ""
+
+#: explorer/templates/allauth/layouts/base.html:25
+msgid "Menu:"
+msgstr ""
+
+#: explorer/templates/allauth/layouts/base.html:31
+msgid "Change Email"
+msgstr ""
+
+#: explorer/templates/allauth/layouts/base.html:37
+msgid "Change Password"
+msgstr ""
+
+#: explorer/templates/allauth/layouts/base.html:43
+msgid "Account Connections"
+msgstr ""
+
+#: explorer/templates/allauth/layouts/base.html:49
+msgid "Two-Factor Authentication"
+msgstr ""
+
+#: explorer/templates/allauth/layouts/base.html:55
+msgid "Sessions"
+msgstr ""
+
+#: explorer/templates/allauth/layouts/base.html:61
+msgid "Sign Out"
+msgstr "Abmelden"
