@@ -21,17 +21,23 @@ RUN npm run build
 # Runtime container
 FROM python:${PYTHON_VERSION}-slim AS runtime
 
-ENV UV_LINK_MODE=copy \
+ENV DJANGO_SETTINGS_MODULE=explorer.settings \
+    DJANGO_ENV=production \
+    DEBUG=off \
+    PATH="/venv/bin:$PATH" \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    UV_CACHE_DIR=/app/.cache/uv \
     UV_COMPILE_BYTECODE=1 \
+    UV_FROZEN=1 \
+    UV_LINK_MODE=copy \
     UV_NO_MANAGED_PYTHON=1 \
+    UV_PROJECT_ENVIRONMENT=/venv \
     UV_PYTHON_DOWNLOADS=never \
     UV_PYTHON=python3.13 \
-    UV_PROJECT_ENVIRONMENT=/venv \
-    UV_CACHE_DIR=/app/.cache/uv \
-    UV_FROZEN=1 \
     UV_REQUIRE_HASHES=1 \
-    UV_VERIFY_HASHED=1
-
+    UV_VERIFY_HASHED=1 \
+    VIRTUAL_ENV=/venv
 
 WORKDIR /app
 

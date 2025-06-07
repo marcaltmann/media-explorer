@@ -12,7 +12,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env(
     ALLOWED_HOSTS=(str, ""),
+    DATABASE_URL=(str, "postgres://"),
     DEBUG=(bool, False),
+    EMAIL_URL=(str, "consolemail://"),
+    SECRET_KEY=(str, "dummy-secret-key-set-later"),
     SENTRY_DSN=(str, None),
 )
 
