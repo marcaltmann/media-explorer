@@ -7,14 +7,13 @@ wheels/
 *.egg-info
 
 # Virtual environments
-.venv
+/.venv
 
 # Django
-my.cnf
-node_modules
-vite_assets_dist
-static
-.env
+/.env
+/node_modules
+/static
+/vite_assets_dist
 *.mo
 
 # Ansible
