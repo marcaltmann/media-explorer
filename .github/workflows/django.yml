@@ -41,12 +41,10 @@ jobs:
         run: |
           curl -LsSf https://astral.sh/uv/install.sh | sh
       - name: Build assets with Node.js
-        working-directory: ./app
         run: |
           npm install
           npm run build
       - name: Run Tests
-        working-directory: ./app
         run: |
           uv run manage.py collectstatic
           uv run manage.py test
