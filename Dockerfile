@@ -2,6 +2,7 @@
 
 ARG NODE_VERSION=18
 ARG PYTHON_VERSION=3.13
+ARG BUILD_GROUPS=""
 
 # Build container
 FROM node:${NODE_VERSION} AS build
@@ -60,7 +61,8 @@ RUN uv venv ${VIRTUAL_ENV}
 RUN --mount=type=cache,target=/app/.cache/uv \
     --mount=type=bind,source=uv.lock,target=uv.lock \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    uv sync --no-dev --group prod --no-install-project --no-editable
+    # TODO: Fix the build groups section.
+    uv sync --no-dev --no-install-project --no-editable ${BUILD_GROUPS}
 
 # Copy application code (see .dockerignore for excluded files)
 COPY . .
