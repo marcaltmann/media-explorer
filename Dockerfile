@@ -46,7 +46,7 @@ apt-get update --quiet --assume-yes
 apt-get install --quiet --assume-yes \
     --option APT::Install-Recommends=false \
     --option APT::Install-Suggests=false \
-    curl \
+    gettext \
     postgresql-client
 apt-get clean
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -69,9 +69,10 @@ RUN --mount=type=cache,target=/app/.cache/uv \
 COPY . .
 COPY --from=build-vite /app/static/assets/ ./static/assets/
 
-RUN python manage.py collectstatic --clear --noinput
-
-
+RUN <<EOT
+python manage.py collectstatic --clear --noinput
+python manage.py compilemessages
+EOT
 
 
 ### FINAL IMAGE ###
@@ -116,6 +117,7 @@ EOT
 COPY --link --from=build-uv /venv /venv
 COPY --link --from=build-uv /app/explorer /app/explorer
 COPY --link --from=build-uv /app/static /app/static
+COPY --link --from=build-uv /app/locale /app/locale
 COPY --link --from=build-uv /app/manage.py /app/manage.py
 
 RUN chown -R app:app /app/
