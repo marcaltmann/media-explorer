@@ -28,7 +28,6 @@ if django_env == "production":
     import sentry_sdk
 
 
-
 # Start with settings
 
 DEBUG = env("DEBUG")
@@ -51,10 +50,7 @@ INSTALLED_APPS = [
     "explorer.my_account",
 ]
 if django_env == "development":
-    INSTALLED_APPS += [
-        "debug_toolbar",
-        "django_extensions"
-    ]
+    INSTALLED_APPS += ["debug_toolbar", "django_extensions"]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
