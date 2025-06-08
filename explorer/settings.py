@@ -1,6 +1,6 @@
 import environ
 from pathlib import Path
-import sys
+import re
 
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import gettext_lazy as _
@@ -68,6 +68,9 @@ MIDDLEWARE = [
 ]
 if django_env == "development":
     MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
+
+if django_env == "production":
+    MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
 
 
 ROOT_URLCONF = "explorer.urls"
@@ -144,13 +147,7 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
-STATIC_URL = "static/"
-STATIC_ROOT = BASE_DIR / "static"
-STATICFILES_DIRS = [BASE_DIR / "vite_assets_dist"]
-
+# Email
 
 email_url = env.email_url()
 EMAIL_BACKEND = email_url["EMAIL_BACKEND"]
@@ -161,10 +158,27 @@ EMAIL_HOST_USER = email_url["EMAIL_HOST_USER"]
 EMAIL_HOST_PASSWORD = email_url["EMAIL_HOST_PASSWORD"]
 
 
-# Django Vite asset management
+# Static files (CSS, JavaScript, Images)
+
+STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "static"
+STATICFILES_DIRS = [BASE_DIR / "vite_assets_dist"]
+
+if django_env == "production":
+    STORAGES = {
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        },
+    }
 
 if django_env == "development":
     DJANGO_VITE = {"default": {"dev_mode": True}}
+
+def immutable_file_test(path, url):
+    # Match vite (rollup)-generated hashes, à la, `some_file-CSliV9zW.js`
+    return re.match(r"^.+[.-][0-9a-zA-Z_-]{8,12}\..+$", url)
+
+WHITENOISE_IMMUTABLE_FILE_TEST = immutable_file_test
 
 
 # Sentry error tracking

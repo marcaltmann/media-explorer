@@ -12,6 +12,7 @@ dependencies = [
     "psycopg~=3.2",
     "gunicorn~=23.0",
     "sentry-sdk[django]~=2.29",
+    "whitenoise>=6.9.0",
 ]
 
 [dependency-groups]
