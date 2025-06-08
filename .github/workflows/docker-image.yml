@@ -2,6 +2,7 @@ name: Docker Image CI for GHCR
 
 on:
   push:
+    branches: ["master"]
     tags:
       - 0.**
       - 1.**
