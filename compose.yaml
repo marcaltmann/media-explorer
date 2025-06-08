@@ -1,9 +1,14 @@
+name: explorer
+
 services:
   web:
     image: ghcr.io/marcaltmann/explorer
     command: gunicorn explorer.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - static_volume:/home/app/web/static
+    configs:
+      - source: app_config
+        target: /app/my_config
     ports:
       - 8000:8000
     env_file:
@@ -33,5 +38,17 @@ services:
 
 volumes:
   certs:
+    labels:
+      net.media-explorer.description: "Do we need a volume for this?"
   db_data:
+    labels:
+      net.media-explorer.description: "Database volume"
   static_volume:
+    labels:
+      net.media-explorer.description: "Static files to be served by proxy"
+
+configs:
+  app_config:
+    content: |
+      debug=${DEBUG}
+      spring.application.admin_enabled=${DEBUG}
