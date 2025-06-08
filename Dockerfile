@@ -61,7 +61,7 @@ RUN --mount=type=cache,target=/app/.cache/uv \
 
 # Copy application code (see .dockerignore for excluded files)
 COPY . .
-COPY --from=build-vite /app/static/assets/ ./static/assets/
+COPY --from=build-vite /app/vite_assets_dist/ ./vite_assets_dist
 
 RUN python manage.py collectstatic --clear --noinput && python manage.py compilemessages
 
