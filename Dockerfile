@@ -3,6 +3,7 @@
 ARG NODE_VERSION=18
 ARG PYTHON_VERSION=3.13
 ARG BUILD_GROUPS=""
+ARG DJANGO_ENV=production
 
 # Vite assets build container
 FROM node:${NODE_VERSION} AS build-vite
@@ -21,8 +22,10 @@ RUN npm run build
 # uv build container
 FROM python:${PYTHON_VERSION}-slim AS build-uv
 
+ARG DJANGO_ENV
+
 ENV DJANGO_SETTINGS_MODULE=explorer.settings \
-    DJANGO_ENV=production \
+    DJANGO_ENV=${DJANGO_ENV} \
     DEBUG=off \
     PATH="/venv/bin:$PATH" \
     PYTHONDONTWRITEBYTECODE=1 \
@@ -80,8 +83,10 @@ EOT
 FROM python:${PYTHON_VERSION}-slim AS runtime
 
 ARG PORT=8000
+ARG DJANGO_ENV
+
 ENV DEBUG=off \
-    DJANGO_ENV=production \
+    DJANGO_ENV=${DJANGO_ENV} \
     DJANGO_SETTINGS_MODULE=explorer.settings \
     PATH="/venv/bin:$PATH" \
     PORT=${PORT} \
