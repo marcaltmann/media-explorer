@@ -1,26 +1,27 @@
 services:
   web:
-    build: ./app
+    image: ghcr.io/marcaltmann/explorer
     command: gunicorn explorer.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - static_volume:/home/app/web/static
-    expose:
-      - 8000
+    ports:
+      - 8000:8000
     env_file:
       - ./.env.prod
     depends_on:
       - db
   db:
-    image: mariadb
+    image: postgres:15
     restart: always
+    shm_size: 128mb
     env_file:
       - ./.env.prod
     volumes:
-      - mariadb_data:/var/lib/mysql
+      - db_data:/var/lib/postgresql/data/
     ports:
-      - 127.0.0.1:3306:3306
+      - 127.0.0.1:5432:5432
   nginx:
-    build: ./nginx
+    image: ghcr.io/marcaltmann/nginx
     volumes:
       - static_volume:/home/app/web/static
       - certs:/etc/letsencrypt
@@ -32,5 +33,5 @@ services:
 
 volumes:
   certs:
-  mariadb_data:
+  db_data:
   static_volume:

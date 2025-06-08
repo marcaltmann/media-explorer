@@ -1,4 +1,4 @@
-name: Docker Image CI for GHCR
+name: Build Docker image
 
 on:
   push:
@@ -24,10 +24,16 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       -
-        name: Build and push the image
+        name: Build and push the application image
         working-directory: .
-        run : |
+        run: |
           docker build --tag ghcr.io/marcaltmann/explorer .
           docker tag ghcr.io/marcaltmann/explorer ghcr.io/marcaltmann/explorer:${{github.ref_name}}
           docker push ghcr.io/marcaltmann/explorer
           docker push ghcr.io/marcaltmann/explorer:${{github.ref_name}}
+      -
+        name: Build and push the customized nginx image
+        working-directory: ./nginx
+        run: |
+          docker build --tag ghcr.io/marcaltmann/nginx .
+          docker push ghcr.io/marcaltmann/nginx
