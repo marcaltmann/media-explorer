@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-ARG NODE_VERSION=18
+ARG NODE_VERSION=22
 ARG PYTHON_VERSION=3.13
 ARG BUILD_GROUPS=""
 ARG DJANGO_ENV=production
@@ -44,16 +44,7 @@ ENV DJANGO_SETTINGS_MODULE=explorer.settings \
 
 WORKDIR /app
 
-RUN <<EOT
-apt-get update --quiet --assume-yes
-apt-get install --quiet --assume-yes \
-    --option APT::Install-Recommends=false \
-    --option APT::Install-Suggests=false \
-    gettext \
-    postgresql-client
-apt-get clean
-rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-EOT
+RUN apt-get update -y && apt-get install -y gettext postgresql-client
 
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
@@ -72,10 +63,7 @@ RUN --mount=type=cache,target=/app/.cache/uv \
 COPY . .
 COPY --from=build-vite /app/static/assets/ ./static/assets/
 
-RUN <<EOT
-python manage.py collectstatic --clear --noinput
-python manage.py compilemessages
-EOT
+RUN python manage.py collectstatic --clear --noinput && python manage.py compilemessages
 
 
 ### FINAL IMAGE ###
@@ -94,28 +82,12 @@ ENV DEBUG=off \
     PYTHONUNBUFFERED=1 \
     VIRTUAL_ENV=/venv
 
-EXPOSE ${PORT}
-# ENTRYPOINT ["/bin/bash", "/app/bin/run"]
-# CMD ["prod"]
+RUN apt-get update && apt-get install -y curl postgresql-client
 
 WORKDIR /app
 
-RUN <<EOT
-groupadd --system app
-useradd --system --home-dir /app --gid app --no-user-group app
-EOT
+RUN groupadd --system app && useradd --system --home-dir /app --gid app --no-user-group app
 
-RUN <<EOT
-apt-get clean --assume-yes
-apt-get update --assume-yes
-apt-get install --assume-yes --no-install-recommends \
-    bash \
-	curl \
-    postgresql-client \
-apt-get autoremove --assume-yes
-apt-get clean --assume-yes
-rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-EOT
 
 # Copy selectively from builder to optimize final image.
 # --link enables better layer caching when base image changes
@@ -124,6 +96,11 @@ COPY --link --from=build-uv /app/explorer /app/explorer
 COPY --link --from=build-uv /app/static /app/static
 COPY --link --from=build-uv /app/locale /app/locale
 COPY --link --from=build-uv /app/manage.py /app/manage.py
+COPY --link --from=build-uv /app/bin /app/bin
+COPY --link --from=build-uv /app/config /app/config
 
 RUN chown -R app:app /app/
 USER app
+
+EXPOSE ${PORT}
+CMD ["bin/app", "web"]
