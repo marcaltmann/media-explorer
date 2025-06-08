@@ -18,3 +18,10 @@ wheels/
 
 # Ansible
 inventory.yml
+
+# Docker env files
+# Ignore all .env files
+*.env
+
+# But DO NOT ignore example env templates
+!*.example.env
