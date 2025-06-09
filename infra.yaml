@@ -1,0 +1,29 @@
+services:
+  db:
+    image: postgres:15
+    restart: always
+    shm_size: 128mb
+    env_file:
+      - ./envs/db.env
+    volumes:
+      - db_data:/var/lib/postgresql/data/
+    ports:
+      - 127.0.0.1:5432:5432
+  proxy:
+    image: nginx:1.27
+    volumes:
+      - ./proxy/nginx-staging.conf:/etc/nginx/nginx.conf:ro
+      - certs:/etc/letsencrypt
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - web
+
+volumes:
+  certs:
+    labels:
+      net.media-explorer.description: "Do we need a volume for this?"
+  db_data:
+    labels:
+      net.media-explorer.description: "Database volume"

@@ -1,11 +1,12 @@
 name: explorer
 
+include:
+  - infra.yaml
+
 services:
   web:
     image: ghcr.io/marcaltmann/explorer
     command: gunicorn explorer.wsgi:application --bind 0.0.0.0:8000
-    volumes:
-      - static_volume:/home/app/web/static
     configs:
       - source: app_config
         target: /app/my_config
@@ -15,38 +16,6 @@ services:
       - ./envs/web.env
     depends_on:
       - db
-  db:
-    image: postgres:15
-    restart: always
-    shm_size: 128mb
-    env_file:
-      - ./envs/postgres.env
-    volumes:
-      - db_data:/var/lib/postgresql/data/
-    ports:
-      - 127.0.0.1:5432:5432
-  nginx:
-    image: nginx:1.27
-    volumes:
-      - ./nginx/nginx-staging.conf:/etc/nginx/nginx.conf:ro
-      - static_volume:/home/app/web/static
-      - certs:/etc/letsencrypt
-    ports:
-      - 80:80
-      - 443:443
-    depends_on:
-      - web
-
-volumes:
-  certs:
-    labels:
-      net.media-explorer.description: "Do we need a volume for this?"
-  db_data:
-    labels:
-      net.media-explorer.description: "Database volume"
-  static_volume:
-    labels:
-      net.media-explorer.description: "Static files to be served by proxy"
 
 configs:
   app_config:
