@@ -22,8 +22,8 @@ services:
 configs:
   app_config:
     content: |
-      debug=${DEBUG}
-      spring.application.admin_enabled=${DEBUG}
+      debug=true
+      spring.application.admin_enabled=true
 
 networks:
   front-tier: {}
