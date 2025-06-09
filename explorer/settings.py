@@ -37,6 +37,9 @@ DEBUG = env("DEBUG")
 SECRET_KEY = env("SECRET_KEY")
 ALLOWED_HOSTS = env.parse_value(env("ALLOWED_HOSTS"), list)
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://www.media-explorer.net",
+]
 
 INSTALLED_APPS = [
     "allauth.account",
