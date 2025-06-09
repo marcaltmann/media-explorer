@@ -26,8 +26,9 @@ services:
     ports:
       - 127.0.0.1:5432:5432
   nginx:
-    image: ghcr.io/marcaltmann/nginx
+    image: nginx:1.27
     volumes:
+      - ./nginx/nginx-staging.conf:/etc/nginx/nginx.conf:ro
       - static_volume:/home/app/web/static
       - certs:/etc/letsencrypt
     ports:
