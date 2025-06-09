@@ -21,13 +21,13 @@ env = environ.Env(
 
 environ.Env.read_env(BASE_DIR / ".env")
 
-django_env = env("DJANGO_ENV")
-if django_env not in ["development", "production", "test"]:
+DJANGO_ENV = env("DJANGO_ENV")
+if DJANGO_ENV not in ["development", "production", "test"]:
     raise ImproperlyConfigured(
         "DJANGO_ENV must be one of development, production or test"
     )
 
-if django_env == "production":
+if DJANGO_ENV == "production":
     import sentry_sdk
 
 
@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     "explorer.core",
     "explorer.my_account",
 ]
-if django_env == "development":
+if DJANGO_ENV == "development":
     INSTALLED_APPS += ["debug_toolbar", "django_extensions"]
 
 MIDDLEWARE = [
@@ -66,10 +66,10 @@ MIDDLEWARE = [
     "allauth.account.middleware.AccountMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-if django_env == "development":
+if DJANGO_ENV == "development":
     MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
 
-if django_env == "production":
+if DJANGO_ENV == "production":
     MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
 
 
@@ -129,7 +129,7 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTH_USER_MODEL = "my_account.User"
 ACCOUNT_SIGNUP_FIELDS = ["email*", "username*", "password1*", "password2*"]
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-LOGIN_REDIRECT_URL = "my_account:profile"
+LOGIN_REDIRECT_URL = "explorer.my_account:profile"
 LOGOUT_REDIRECT_URL = "core:welcome"
 
 
@@ -164,19 +164,21 @@ STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "static"
 STATICFILES_DIRS = [BASE_DIR / "vite_assets_dist"]
 
-if django_env == "production":
+if DJANGO_ENV == "production":
     STORAGES = {
         "staticfiles": {
             "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
         },
     }
 
-if django_env == "development":
+if DJANGO_ENV == "development":
     DJANGO_VITE = {"default": {"dev_mode": True}}
+
 
 def immutable_file_test(path, url):
     # Match vite (rollup)-generated hashes, à la, `some_file-CSliV9zW.js`
     return re.match(r"^.+[.-][0-9a-zA-Z_-]{8,12}\..+$", url)
+
 
 WHITENOISE_IMMUTABLE_FILE_TEST = immutable_file_test
 
@@ -184,7 +186,7 @@ WHITENOISE_IMMUTABLE_FILE_TEST = immutable_file_test
 # Sentry error tracking
 
 sentry_dsn = env("SENTRY_DSN")
-if django_env == "production" and sentry_dsn:
+if DJANGO_ENV == "production" and sentry_dsn:
     sentry_sdk.init(
         dsn=sentry_dsn,
         # Set traces_sample_rate to 1.0 to capture 100%

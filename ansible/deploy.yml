@@ -22,3 +22,12 @@
       community.docker.docker_compose_v2:
         project_src: /home/deploy/explorer
         build: always
+
+    - name: Prune everything to prevent disk overflow
+      become: true
+      community.docker.docker_prune:
+        containers: true
+        images: true
+        networks: true
+        volumes: true
+        builder_cache: true
