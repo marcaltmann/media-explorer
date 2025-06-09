@@ -25,3 +25,5 @@ inventory.yml
 
 # But DO NOT ignore example env templates
 !*.example.env
+
+/certs
