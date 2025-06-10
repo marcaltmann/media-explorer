@@ -14,7 +14,6 @@ env = environ.Env(
     ALLOWED_HOSTS=(str, ""),
     DATABASE_URL=(str, "postgres://"),
     DEBUG=(bool, False),
-    EMAIL_URL=(str, "consolemail://"),
     SECRET_KEY=(str, "dummy-secret-key-set-later"),
     SENTRY_DSN=(str, None),
 )
@@ -57,6 +56,8 @@ INSTALLED_APPS = [
 ]
 if DJANGO_ENV == "development":
     INSTALLED_APPS += ["debug_toolbar", "django_extensions"]
+elif DJANGO_ENV == "production":
+    INSTALLED_APPS += ["anymail"]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -71,8 +72,7 @@ MIDDLEWARE = [
 ]
 if DJANGO_ENV == "development":
     MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
-
-if DJANGO_ENV == "production":
+elif DJANGO_ENV == "production":
     MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
 
 
@@ -151,14 +151,18 @@ USE_TZ = True
 
 
 # Email
+DEFAULT_FROM_EMAIL = "no-reply@media-explorer.net"
+SERVER_EMAIL = "admin@media-explorer.net"
 
-email_url = env.email_url()
-EMAIL_BACKEND = email_url["EMAIL_BACKEND"]
-EMAIL_FILE_PATH = email_url["EMAIL_FILE_PATH"]
-EMAIL_HOST = email_url["EMAIL_HOST"]
-EMAIL_PORT = email_url["EMAIL_PORT"]
-EMAIL_HOST_USER = email_url["EMAIL_HOST_USER"]
-EMAIL_HOST_PASSWORD = email_url["EMAIL_HOST_PASSWORD"]
+if DJANGO_ENV == "development":
+    EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+    EMAIL_FILE_PATH = "/tmp/explorer-app-messages"
+elif DJANGO_ENV == "production":
+    EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
+    ANYMAIL = {
+        "MAILGUN_API_KEY": env("MAILGUN_API_KEY"),
+        "MAILGUN_SENDER_DOMAIN": 'mg.media-explorer.net',
+    }
 
 
 # Static files (CSS, JavaScript, Images)

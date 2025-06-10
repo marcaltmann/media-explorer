@@ -15,6 +15,7 @@ wheels/
 /static
 /vite_assets_dist
 *.mo
+/tmp/emails
 
 # Ansible
 inventory.yml
