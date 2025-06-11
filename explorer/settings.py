@@ -10,12 +10,17 @@ from django.utils.translation import gettext_lazy as _
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Some environment variables need to be set to dummy values
+# or made optional so that the Docker image can be built.
+# TODO: Check for presence of env variables at runtime through
+# the Docker entrypoint script.
 env = environ.Env(
     ALLOWED_HOSTS=(str, ""),
     DATABASE_URL=(str, "postgres://"),
     DEBUG=(bool, False),
     SECRET_KEY=(str, "dummy-secret-key-set-later"),
     SENTRY_DSN=(str, None),
+    MAILGUN_API_KEY=(str, None),
 )
 
 environ.Env.read_env(BASE_DIR / ".env")
@@ -154,13 +159,16 @@ USE_TZ = True
 DEFAULT_FROM_EMAIL = "no-reply@media-explorer.net"
 SERVER_EMAIL = "admin@media-explorer.net"
 
+# TODO: Should not be bound to a specific provider. Use SMTP.
+mailgun_api_key = env("MAILGUN_API_KEY")
+
 if DJANGO_ENV == "development":
     EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
     EMAIL_FILE_PATH = "/tmp/explorer-app-messages"
-elif DJANGO_ENV == "production":
+elif DJANGO_ENV == "production" and mailgun_api_key:
     EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
     ANYMAIL = {
-        "MAILGUN_API_KEY": env("MAILGUN_API_KEY"),
+        "MAILGUN_API_KEY": mailgun_api_key,
         "MAILGUN_SENDER_DOMAIN": 'mg.media-explorer.net',
     }
 
