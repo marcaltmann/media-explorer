@@ -21,6 +21,8 @@ env = environ.Env(
     SECRET_KEY=(str, "dummy-secret-key-set-later"),
     SENTRY_DSN=(str, None),
     MAILGUN_API_KEY=(str, None),
+    EXPLORER_SITE_NAME=(str, "Elefant Explorer"),
+    EXPLORER_SINGLE_ARCHIVE_MODE=(bool, False),
 )
 
 environ.Env.read_env(BASE_DIR / ".env")
@@ -56,6 +58,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.sessions",
     "django.contrib.staticfiles",
+    "explorer.archive",
     "explorer.core",
     "explorer.my_account",
 ]
@@ -94,6 +97,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "explorer.core.context_processors.site",
             ],
         },
     },
@@ -169,7 +173,7 @@ elif DJANGO_ENV == "production" and mailgun_api_key:
     EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
     ANYMAIL = {
         "MAILGUN_API_KEY": mailgun_api_key,
-        "MAILGUN_SENDER_DOMAIN": 'mg.media-explorer.net',
+        "MAILGUN_SENDER_DOMAIN": "mg.media-explorer.net",
     }
 
 
@@ -217,5 +221,6 @@ if DJANGO_ENV == "production" and sentry_dsn:
 # Explorer-specific settings
 # not used yet
 
-EXPLORER_SINGLE_ARCHIVE_MODE = False
+EXPLORER_SITE_NAME = env("EXPLORER_SITE_NAME")
+EXPLORER_SINGLE_ARCHIVE_MODE = env("EXPLORER_SINGLE_ARCHIVE_MODE")
 EXPLORER_SEARCH_ENGINE = "solr"

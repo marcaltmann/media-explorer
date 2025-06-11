@@ -10,9 +10,7 @@
         <meta name="description"
               content="Research and presentation software for multimedia resources" />
         <title>
-            {% block title %}
-                {% translate "Elefant Explorer" %}
-            {% endblock %}
+            {% block title %}{{ site_name }}{% endblock %}
         </title>
         {% vite_hmr_client %}
         {% vite_asset 'assets/js/main.js' %}
