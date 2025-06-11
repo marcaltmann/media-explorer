@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-07 14:45+0000\n"
+"POT-Creation-Date: 2025-06-11 23:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,20 +18,35 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: explorer/core/templates/base.html:14 explorer/core/templates/footer.html:4
-#: explorer/core/templates/header.html:5
-msgid "Elefant Explorer"
-msgstr "Elefant Explorer"
+#: explorer/archive/models.py:10
+msgid "name"
+msgstr "Name"
+
+#: explorer/archive/models.py:11
+msgid "description"
+msgstr "Beschreibung"
+
+#: explorer/archive/models.py:13
+msgid "preview image"
+msgstr "Vorschaubild"
+
+#: explorer/archive/models.py:18
+msgid "archive"
+msgstr "Archiv"
+
+#: explorer/archive/models.py:19
+msgid "archives"
+msgstr "Archive"
 
 #: explorer/core/templates/core/accessibility.html:4
 #: explorer/core/templates/core/accessibility.html:7
-#: explorer/core/templates/footer.html:17
+#: explorer/core/templates/footer.html:27
 msgid "Accessibility"
 msgstr "Barrierefreiheit"
 
 #: explorer/core/templates/core/contact.html:4
 #: explorer/core/templates/core/contact.html:7
-#: explorer/core/templates/footer.html:20
+#: explorer/core/templates/footer.html:30
 msgid "Contact"
 msgstr "Kontakt"
 
@@ -42,7 +57,7 @@ msgstr "Impressum"
 
 #: explorer/core/templates/core/privacy.html:4
 #: explorer/core/templates/core/privacy.html:7
-#: explorer/core/templates/footer.html:14
+#: explorer/core/templates/footer.html:24
 msgid "Privacy"
 msgstr "Datenschutz"
 
@@ -60,11 +75,23 @@ msgstr "Elefant.Media"
 msgid "Search"
 msgstr "Suche"
 
+#: explorer/core/templates/footer.html:6
+msgid "Elefant Explorer"
+msgstr "Elefant Explorer"
+
 #: explorer/core/templates/footer.html:8
+msgid "GitHub Repository"
+msgstr "GitHub-Repository"
+
+#: explorer/core/templates/footer.html:10
+msgid "GitHub Logo"
+msgstr "GitHub-Logo"
+
+#: explorer/core/templates/footer.html:18
 msgid "Terms of use"
 msgstr "Nutzungsbedingungen"
 
-#: explorer/core/templates/footer.html:11
+#: explorer/core/templates/footer.html:21
 msgid "Legal notice"
 msgstr "Impressum"
 
@@ -84,11 +111,11 @@ msgstr "Anmelden"
 msgid "Register"
 msgstr "Registrieren"
 
-#: explorer/settings.py:134
+#: explorer/settings.py:152
 msgid "German"
 msgstr "Deutsch"
 
-#: explorer/settings.py:135
+#: explorer/settings.py:153
 msgid "English"
 msgstr "Englisch"
 
@@ -136,7 +163,7 @@ msgstr ""
 #: explorer/templates/admin/base_site.html:5
 #: explorer/templates/admin/base_site.html:9
 msgid "Elefant Explorer Admin"
-msgstr ""
+msgstr "Elefant Explorer Admin-Bereich"
 
 #: explorer/templates/allauth/layouts/base.html:18
 msgid "Messages:"

@@ -6,3 +6,11 @@
 .footer__inner {
   padding-block: 2rlh;
 }
+
+.footer__title {
+  display: flex;
+  gap: 0.5rlh;
+  justify-content: center;
+
+  & a { display: flex; }
+}
