@@ -5,14 +5,8 @@
 
 .header__inner {
   align-items: center;
-  flex-direction: column;
   display: flex;
-}
-
-@media (--medium-viewport) {
-  .header__inner {
-    flex-direction: row;
-  };
+  flex-direction: column;
 }
 
 .header__title {
@@ -31,4 +25,10 @@
 .header__title-img {
   display: block;
   width: 4rem;
+}
+
+@media (--medium-viewport) {
+  .header__inner {
+    flex-direction: row;
+  };
 }

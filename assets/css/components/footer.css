@@ -4,7 +4,8 @@
 }
 
 .footer__inner {
-  padding-block: 2rlh;
+  padding-bottom: 1.5rlh;
+  padding-top: 1rlh;
 }
 
 .footer__title {
@@ -18,4 +19,11 @@
 .footer__icon {
   height: 1rlh;
   width: auto;
+}
+
+@media (--wide-viewport) {
+  .footer__inner {
+    padding-bottom: 2rlh;
+    padding-top: 1.5rlh;
+  }
 }
