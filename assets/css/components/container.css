@@ -1,9 +1,15 @@
 .container {
   margin-inline: auto;
   max-width: var(--page-width);
-  padding-inline: 1rlh;
+  padding-inline: 0.5rlh;
 }
 
 .container--wide {
   max-width: var(--page-width-wide);
+}
+
+@media (--medium-viewport) {
+  .container {
+    padding-inline: 1rlh;
+  }
 }

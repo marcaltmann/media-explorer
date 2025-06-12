@@ -1,6 +1,4 @@
 :root {
-  --base-unit: 1.875rem;
-  --line-height: var(--base-unit);
   /* Colors */
   --primary-color: #0d021e;
   --secondary-color: #F1005D;
@@ -28,8 +26,8 @@
   --line-length: 25rlh;
   --font-stack: system-ui, sans-serif;
   --font-stack-serif: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
-  --font-size-normal: 1.125rem;
-  --font-size-small: 1rem;
+  --font-size-normal: 1rem;
+  --font-size-small: 0.875rem;
   --font-size-large: 1.25rem;
   --font-size-huge: 1.5rem;
   --icon-size: 0.5rlh;

@@ -14,3 +14,8 @@
 
   & a { display: flex; }
 }
+
+.footer__icon {
+  height: 1rlh;
+  width: auto;
+}

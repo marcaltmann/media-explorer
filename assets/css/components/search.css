@@ -2,18 +2,21 @@
 
 }
 
-.search--wide {
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-}
-
 .search__form {
   display: flex;
+  justify-content: center;
 }
 
 .search__input {
   border-radius: 1rlh;
-  flex-grow: 1;
-  padding: 0.5rlh 1rlh;
+  font-size: 1rem;
+  max-width: 20rlh;
+  padding: 0 0.5rlh;
+  width: 75vw;
+}
+
+@media (--medium-viewport) {
+  .search__input {
+    padding: 0.5rlh 1rlh;
+  }
 }

@@ -5,8 +5,8 @@
 }
 
 .form__input {
-  line-height: var(--line-height);
-  padding: calc(var(--base-unit) / 4) calc(var(--base-unit) / 2);
+  line-height: 1rlh;
+  padding: 0.25rlh 0.5rlh;
   border: 1px solid var(--ui-mid-neutral-color);
   border-radius: var(--border-radius);
 }
@@ -16,8 +16,8 @@
   border: none;
   border-radius: var(--border-radius);
   color: white;
-  line-height: var(--line-height);
-  padding: calc(var(--base-unit) / 4) calc(var(--base-unit) / 2);
+  line-height: 1rlh;
+  padding: 0.25rlh 0.5rlh;
   transition: filter var(--transition-duration);
 }
 

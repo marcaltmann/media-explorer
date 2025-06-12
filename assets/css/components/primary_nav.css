@@ -1,16 +1,13 @@
 .primary-nav {
-    margin-left: auto;
 }
 
 .primary-nav__list {
+    column-gap: 0.25rlh;
     display: flex;
+    flex-wrap: wrap;
     list-style-type: none;
     margin: 0;
-    padding: 0.5rlh 0;
-}
-
-.primary-nav__item {
-    margin-left: 0.5rlh;
+    padding-left: 0;
 }
 
 .primary-nav__item--active {
@@ -30,10 +27,19 @@
 
 .primary-nav__button {
     background: none;
-    border: 0.05rlh solid currentColor;
-    border-radius: 5px;
-    box-sizing: border-box;
+    border: none;
     color: white;
-    height: 1rlh;
-    padding: 0 0.25rlh;
+    font-size: 1rem;
+    line-height: 1rlh;
+    padding: 0;
+}
+
+@media (--medium-viewport) {
+  .primary-nav {
+    margin-left: auto;
+  };
+
+  .primary-nav__list {
+    column-gap: 0.5rlh;
+  }
 }
