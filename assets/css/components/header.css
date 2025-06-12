@@ -1,6 +1,7 @@
 .header {
   background-color: var(--header-color);
   color: #fff;
+  padding-block: 0.25rlh;
 }
 
 .header__inner {
@@ -27,7 +28,11 @@
   width: 4rem;
 }
 
-@media (--medium-viewport) {
+@media (--wide-viewport) {
+  .header {
+    padding-block: 0.5rlh;
+  }
+
   .header__inner {
     flex-direction: row;
   };
