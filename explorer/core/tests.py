@@ -1,5 +1,3 @@
-from http import HTTPStatus
-
 from django.test import TestCase
 from django.urls import reverse
 
@@ -41,6 +39,6 @@ class CorePagesTests(TestCase):
         self.assertContains(response, "<h1>Terms of Use</h1>", html=True)
 
     def test_legal_notice_page(self):
-        response = self.client.get(reverse("core:legal_notice"))
+        response = self.client.get(reverse("core:legal-notice"))
 
         self.assertContains(response, "<h1>Legal Notice</h1>", html=True)
