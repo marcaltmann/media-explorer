@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-11 23:40+0000\n"
+"POT-Creation-Date: 2025-06-12 22:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,35 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: explorer/archive/models.py:10
-msgid "name"
-msgstr "Name"
-
-#: explorer/archive/models.py:11
-msgid "description"
-msgstr "Beschreibung"
-
-#: explorer/archive/models.py:13
-msgid "preview image"
-msgstr "Vorschaubild"
-
-#: explorer/archive/models.py:18
-msgid "archive"
-msgstr "Archiv"
-
-#: explorer/archive/models.py:19
-msgid "archives"
-msgstr "Archive"
-
 #: explorer/core/templates/core/accessibility.html:4
 #: explorer/core/templates/core/accessibility.html:7
-#: explorer/core/templates/footer.html:27
+#: explorer/core/templates/footer.html:31
 msgid "Accessibility"
 msgstr "Barrierefreiheit"
 
 #: explorer/core/templates/core/contact.html:4
 #: explorer/core/templates/core/contact.html:7
-#: explorer/core/templates/footer.html:30
+#: explorer/core/templates/footer.html:19
 msgid "Contact"
 msgstr "Kontakt"
 
@@ -57,7 +37,7 @@ msgstr "Impressum"
 
 #: explorer/core/templates/core/privacy.html:4
 #: explorer/core/templates/core/privacy.html:7
-#: explorer/core/templates/footer.html:24
+#: explorer/core/templates/footer.html:28
 msgid "Privacy"
 msgstr "Datenschutz"
 
@@ -87,13 +67,13 @@ msgstr "GitHub-Repository"
 msgid "GitHub Logo"
 msgstr "GitHub-Logo"
 
-#: explorer/core/templates/footer.html:18
-msgid "Terms of use"
-msgstr "Nutzungsbedingungen"
-
-#: explorer/core/templates/footer.html:21
+#: explorer/core/templates/footer.html:22
 msgid "Legal notice"
 msgstr "Impressum"
+
+#: explorer/core/templates/footer.html:25
+msgid "Terms of use"
+msgstr "Nutzungsbedingungen"
 
 #: explorer/core/templates/header.html:12
 msgid "Notebook"
@@ -110,6 +90,26 @@ msgstr "Anmelden"
 #: explorer/core/templates/header.html:27
 msgid "Register"
 msgstr "Registrieren"
+
+#: explorer/media_collections/models.py:10
+msgid "name"
+msgstr "Name"
+
+#: explorer/media_collections/models.py:11
+msgid "description"
+msgstr "Beschreibung"
+
+#: explorer/media_collections/models.py:13
+msgid "preview image"
+msgstr "Vorschaubild"
+
+#: explorer/media_collections/models.py:18
+msgid "collection"
+msgstr "Sammlung"
+
+#: explorer/media_collections/models.py:19
+msgid "collections"
+msgstr "Sammlungen"
 
 #: explorer/settings.py:152
 msgid "German"

@@ -22,7 +22,7 @@ env = environ.Env(
     SENTRY_DSN=(str, None),
     MAILGUN_API_KEY=(str, None),
     EXPLORER_SITE_NAME=(str, "Elefant Explorer"),
-    EXPLORER_SINGLE_ARCHIVE_MODE=(bool, False),
+    EXPLORER_SINGLE_COLLECTION_MODE=(bool, False),
 )
 
 environ.Env.read_env(BASE_DIR / ".env")
@@ -58,8 +58,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.sessions",
     "django.contrib.staticfiles",
-    "explorer.archive",
     "explorer.core",
+    "explorer.media_collections",
     "explorer.my_account",
 ]
 if DJANGO_ENV == "development":
@@ -223,5 +223,5 @@ if DJANGO_ENV == "production" and sentry_dsn:
 
 EXPLORER_SITE_NAME = env("EXPLORER_SITE_NAME")
 EXPLORER_SITE_VERSION = 'v0.2'
-EXPLORER_SINGLE_ARCHIVE_MODE = env("EXPLORER_SINGLE_ARCHIVE_MODE")
+EXPLORER_SINGLE_COLLECTION_MODE = env("EXPLORER_SINGLE_COLLECTION_MODE")
 EXPLORER_SEARCH_ENGINE = "solr"

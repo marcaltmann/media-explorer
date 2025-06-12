@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class ArchiveConfig(AppConfig):
+class MediaCollectionsConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "explorer.archive"
+    name = "explorer.media_collections"
