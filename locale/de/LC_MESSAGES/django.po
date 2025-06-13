@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-13 13:53+0000\n"
+"POT-Creation-Date: 2025-06-13 17:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -99,7 +99,8 @@ msgstr "Registrieren"
 msgid "Media collections"
 msgstr "Medienkollektionen"
 
-#: explorer/media_collections/models.py:10 explorer/resources/models.py:8
+#: explorer/media_collections/models.py:10 explorer/resources/models.py:13
+#: explorer/resources/models.py:42
 msgid "name"
 msgstr "Name"
 
@@ -111,7 +112,7 @@ msgstr "Beschreibung"
 msgid "preview image"
 msgstr "Vorschaubild"
 
-#: explorer/media_collections/models.py:18
+#: explorer/media_collections/models.py:18 explorer/resources/models.py:19
 msgid "collection"
 msgstr "Sammlung"
 
@@ -127,13 +128,25 @@ msgstr "Mein Account"
 msgid "Resources"
 msgstr "Ressourcen"
 
-#: explorer/resources/models.py:12
+#: explorer/resources/models.py:24 explorer/resources/models.py:49
 msgid "resource"
 msgstr "Ressource"
 
-#: explorer/resources/models.py:13
+#: explorer/resources/models.py:25
 msgid "resources"
 msgstr "Ressourcen"
+
+#: explorer/resources/models.py:43
+msgid "order"
+msgstr "Reihenfolge"
+
+#: explorer/resources/models.py:54
+msgid "media file"
+msgstr "Mediendatei"
+
+#: explorer/resources/models.py:55
+msgid "media files"
+msgstr "Mediendateien"
 
 #: explorer/settings.py:153
 msgid "German"
@@ -156,6 +169,8 @@ msgid ""
 "If you have not created an account yet, then please %(link)ssign "
 "up%(end_link)s first."
 msgstr ""
+"Falls Sie noch kein Konto erstellt haben, %(link)sregistrieren%(end_link)s "
+"Sie sich bitte erst."
 
 #: explorer/templates/account/login.html:42
 msgid "Sign in with a passkey"
@@ -178,7 +193,7 @@ msgstr "Registrieren"
 #: explorer/templates/account/signup.html:17
 #, python-format
 msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
-msgstr ""
+msgstr "Haben Sie schon ein Konto? %(link)sMelden Sie sich bitte an%(end_link)s."
 
 #: explorer/templates/account/signup.html:39
 msgid "Sign up using a passkey"
@@ -207,7 +222,7 @@ msgstr "Passwort ändern"
 
 #: explorer/templates/allauth/layouts/base.html:43
 msgid "Account Connections"
-msgstr ""
+msgstr "Konto-Verbindungen"
 
 #: explorer/templates/allauth/layouts/base.html:49
 msgid "Two-Factor Authentication"

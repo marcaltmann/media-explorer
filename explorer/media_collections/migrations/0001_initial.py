@@ -4,25 +4,48 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Collection',
+            name="Collection",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(db_index=True, max_length=200, verbose_name='name')),
-                ('description', models.TextField(blank=True, verbose_name='description')),
-                ('preview_image', models.ImageField(blank=True, default=None, null=True, upload_to='', verbose_name='preview image')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        db_index=True, max_length=200, verbose_name="name"
+                    ),
+                ),
+                (
+                    "description",
+                    models.TextField(blank=True, verbose_name="description"),
+                ),
+                (
+                    "preview_image",
+                    models.ImageField(
+                        blank=True,
+                        default=None,
+                        null=True,
+                        upload_to="",
+                        verbose_name="preview image",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'collection',
-                'verbose_name_plural': 'collections',
-                'ordering': ['name'],
+                "verbose_name": "collection",
+                "verbose_name_plural": "collections",
+                "ordering": ["name"],
             },
         ),
     ]

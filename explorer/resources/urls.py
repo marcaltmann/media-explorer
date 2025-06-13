@@ -4,6 +4,4 @@ from . import views
 
 app_name = "resources"
 
-urlpatterns = [
-    path("<int:pk>", views.resource_detail, name="resource-detail")
-]
+urlpatterns = [path("<int:pk>", views.resource_detail, name="resource-detail")]

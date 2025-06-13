@@ -13,6 +13,7 @@ wheels/
 /.env
 /node_modules
 /static
+/media
 /vite_assets_dist
 *.mo
 /tmp/emails

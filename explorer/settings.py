@@ -95,6 +95,7 @@ TEMPLATES = [
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
+                "django.template.context_processors.media",
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
@@ -178,6 +179,14 @@ elif DJANGO_ENV == "production" and mailgun_api_key:
     }
 
 
+# Media files
+# TODO: Should not be saved in the filesystem.
+
+MEDIA_ROOT = BASE_DIR / "media"
+
+
+
+
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = "static/"
@@ -223,6 +232,6 @@ if DJANGO_ENV == "production" and sentry_dsn:
 # not used yet
 
 EXPLORER_SITE_NAME = env("EXPLORER_SITE_NAME")
-EXPLORER_SITE_VERSION = 'v0.2'
+EXPLORER_SITE_VERSION = "v0.2"
 EXPLORER_SINGLE_COLLECTION_MODE = env("EXPLORER_SINGLE_COLLECTION_MODE")
 EXPLORER_SEARCH_ENGINE = "solr"
