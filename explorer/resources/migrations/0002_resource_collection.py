@@ -5,17 +5,23 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('media_collections', '0001_initial'),
-        ('resources', '0001_initial'),
+        ("media_collections", "0001_initial"),
+        ("resources", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='resource',
-            name='collection',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='resources', related_query_name='resource', to='media_collections.collection', verbose_name='collection'),
+            model_name="resource",
+            name="collection",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="resources",
+                related_query_name="resource",
+                to="media_collections.collection",
+                verbose_name="collection",
+            ),
             preserve_default=False,
         ),
     ]

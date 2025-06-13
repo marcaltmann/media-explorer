@@ -10,6 +10,7 @@ class Resource(models.Model):
     Represents a media resource, e.g. video, audio or photo.
     Rather abstract, independent of real files.
     """
+
     name = models.CharField(_("name"), max_length=255)
     collection = models.ForeignKey(
         Collection,
@@ -39,6 +40,7 @@ class MediaFile(models.Model):
     or represent different versions of them (e.g. a photo with and without
     edits).
     """
+
     name = models.CharField(_("name"), max_length=255, blank=True, default="")
     order = models.IntegerField(_("order"))
     resource = models.ForeignKey(

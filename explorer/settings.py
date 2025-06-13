@@ -185,8 +185,6 @@ elif DJANGO_ENV == "production" and mailgun_api_key:
 MEDIA_ROOT = BASE_DIR / "media"
 
 
-
-
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = "static/"
