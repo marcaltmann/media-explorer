@@ -68,8 +68,6 @@ INSTALLED_APPS = [
 ]
 if DJANGO_ENV == "development":
     INSTALLED_APPS += ["debug_toolbar", "django_extensions"]
-elif DJANGO_ENV == "production":
-    INSTALLED_APPS += ["anymail"]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
