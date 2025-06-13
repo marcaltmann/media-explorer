@@ -13,7 +13,6 @@ dependencies = [
     "gunicorn~=23.0",
     "sentry-sdk[django]~=2.30",
     "whitenoise>=6.9.0",
-    "django-anymail[mailgun]>=13.0",
     "pillow~=11.2",
 ]
 

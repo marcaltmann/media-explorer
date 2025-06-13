@@ -20,7 +20,6 @@ env = environ.Env(
     DEBUG=(bool, False),
     SECRET_KEY=(str, "dummy-secret-key-set-later"),
     SENTRY_DSN=(str, None),
-    MAILGUN_API_KEY=(str, None),
     EXPLORER_SITE_NAME=(str, "Elefant Explorer"),
     EXPLORER_SINGLE_COLLECTION_MODE=(bool, False),
 )
@@ -165,18 +164,15 @@ USE_TZ = True
 DEFAULT_FROM_EMAIL = "no-reply@media-explorer.net"
 SERVER_EMAIL = "admin@media-explorer.net"
 
-# TODO: Should not be bound to a specific provider. Use SMTP.
-mailgun_api_key = env("MAILGUN_API_KEY")
-
 if DJANGO_ENV == "development":
     EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
     EMAIL_FILE_PATH = "tmp/emails"
-elif DJANGO_ENV == "production" and mailgun_api_key:
-    EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
-    ANYMAIL = {
-        "MAILGUN_API_KEY": mailgun_api_key,
-        "MAILGUN_SENDER_DOMAIN": "mg.media-explorer.net",
-    }
+elif DJANGO_ENV == "production":
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    EMAIL_HOST = env("EMAIL_HOST")
+    EMAIL_PORT = env("EMAIL_PORT")
+    EMAIL_HOST_USER = env["EMAIL_HOST_USER"]
+    EMAIL_HOST_PASSWORD = env["EMAIL_HOST_PASSWORD"]
 
 
 # Media files
