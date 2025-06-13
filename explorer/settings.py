@@ -168,7 +168,7 @@ mailgun_api_key = env("MAILGUN_API_KEY")
 
 if DJANGO_ENV == "development":
     EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-    EMAIL_FILE_PATH = "/tmp/explorer-app-messages"
+    EMAIL_FILE_PATH = "tmp/emails"
 elif DJANGO_ENV == "production" and mailgun_api_key:
     EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
     ANYMAIL = {
