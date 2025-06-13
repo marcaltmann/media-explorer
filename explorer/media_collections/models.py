@@ -23,4 +23,4 @@ class Collection(models.Model):
 
     def get_absolute_url(self):
         """This does not make sense in single collection mode."""
-        return reverse("media_collections:collection_detail", kwargs={"pk": self.pk})
+        return reverse("media-collections:collection-detail", kwargs={"pk": self.pk})

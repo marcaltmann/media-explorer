@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}
+    {{ resource.name }} | {{ block.super }}
+{% endblock title %}
+{% block content %}
+    <h1>{{ resource.name }}</h1>
+
+    <ul class="u-mt">
+    {% for media_file in media_file_list %}
+        <li>
+            {{ media_file.name }}<br />
+            <img src="{{ MEDIA_URL }}{{ media_file.file }}" alt="{{ media_file.name }}" width="320" />
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock content %}

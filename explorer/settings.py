@@ -183,6 +183,7 @@ elif DJANGO_ENV == "production" and mailgun_api_key:
 # TODO: Should not be saved in the filesystem.
 
 MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = "media/"
 
 
 # Static files (CSS, JavaScript, Images)

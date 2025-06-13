@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}
+    {% translate "Collections" %} | {{ block.super }}
+{% endblock title %}
+{% block content %}
+    <h1>{% translate "Collections" %}</h1>
+    <ul class="u-mt">
+    {% for collection in collection_list %}
+        <li>
+            <a href="{% url 'media-collections:collection-detail' collection.pk %}">{{ collection.name }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock content %}
