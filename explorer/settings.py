@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     "explorer.core",
     "explorer.media_collections",
     "explorer.my_account",
+    "explorer.resources",
 ]
 if DJANGO_ENV == "development":
     INSTALLED_APPS += ["debug_toolbar", "django_extensions"]

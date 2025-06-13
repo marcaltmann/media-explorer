@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-12 22:24+0000\n"
+"POT-Creation-Date: 2025-06-13 13:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: explorer/core/apps.py:8
+msgid "Core"
+msgstr "Kern-App"
 
 #: explorer/core/templates/core/accessibility.html:4
 #: explorer/core/templates/core/accessibility.html:7
@@ -91,7 +95,11 @@ msgstr "Anmelden"
 msgid "Register"
 msgstr "Registrieren"
 
-#: explorer/media_collections/models.py:10
+#: explorer/media_collections/apps.py:8
+msgid "Media collections"
+msgstr "Medienkollektionen"
+
+#: explorer/media_collections/models.py:10 explorer/resources/models.py:8
 msgid "name"
 msgstr "Name"
 
@@ -111,11 +119,27 @@ msgstr "Sammlung"
 msgid "collections"
 msgstr "Sammlungen"
 
-#: explorer/settings.py:152
+#: explorer/my_account/apps.py:8
+msgid "My account"
+msgstr "Mein Account"
+
+#: explorer/resources/apps.py:8
+msgid "Resources"
+msgstr "Ressourcen"
+
+#: explorer/resources/models.py:12
+msgid "resource"
+msgstr "Ressource"
+
+#: explorer/resources/models.py:13
+msgid "resources"
+msgstr "Ressourcen"
+
+#: explorer/settings.py:153
 msgid "German"
 msgstr "Deutsch"
 
-#: explorer/settings.py:153
+#: explorer/settings.py:154
 msgid "English"
 msgstr "Englisch"
 
@@ -135,21 +159,21 @@ msgstr ""
 
 #: explorer/templates/account/login.html:42
 msgid "Sign in with a passkey"
-msgstr ""
+msgstr "Mit einem Passkey anmelden"
 
 #: explorer/templates/account/login.html:47
 msgid "Mail me a sign-in code"
-msgstr ""
+msgstr "Anmelde-Code per E-Mail senden"
 
 #: explorer/templates/account/signup.html:4
 msgid "Signup"
-msgstr ""
+msgstr "Registrierung"
 
 #: explorer/templates/account/signup.html:8
 #: explorer/templates/account/signup.html:30
 #: explorer/templates/allauth/layouts/base.html:74
 msgid "Sign Up"
-msgstr ""
+msgstr "Registrieren"
 
 #: explorer/templates/account/signup.html:17
 #, python-format
@@ -158,7 +182,7 @@ msgstr ""
 
 #: explorer/templates/account/signup.html:39
 msgid "Sign up using a passkey"
-msgstr ""
+msgstr "Mit einem Passkey registrieren"
 
 #: explorer/templates/admin/base_site.html:5
 #: explorer/templates/admin/base_site.html:9
@@ -167,19 +191,19 @@ msgstr "Elefant Explorer Admin-Bereich"
 
 #: explorer/templates/allauth/layouts/base.html:18
 msgid "Messages:"
-msgstr ""
+msgstr "Nachrichten:"
 
 #: explorer/templates/allauth/layouts/base.html:25
 msgid "Menu:"
-msgstr ""
+msgstr "Menü:"
 
 #: explorer/templates/allauth/layouts/base.html:31
 msgid "Change Email"
-msgstr ""
+msgstr "E-Mail ändern"
 
 #: explorer/templates/allauth/layouts/base.html:37
 msgid "Change Password"
-msgstr ""
+msgstr "Passwort ändern"
 
 #: explorer/templates/allauth/layouts/base.html:43
 msgid "Account Connections"
@@ -187,11 +211,11 @@ msgstr ""
 
 #: explorer/templates/allauth/layouts/base.html:49
 msgid "Two-Factor Authentication"
-msgstr ""
+msgstr "2-Faktor-Authentisierung"
 
 #: explorer/templates/allauth/layouts/base.html:55
 msgid "Sessions"
-msgstr ""
+msgstr "Sessions"
 
 #: explorer/templates/allauth/layouts/base.html:61
 msgid "Sign Out"
