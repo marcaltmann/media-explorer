@@ -20,10 +20,10 @@ env = environ.Env(
     DEBUG=(bool, False),
     SECRET_KEY=(str, "dummy-secret-key-set-later"),
     SENTRY_DSN=(str, None),
-    EMAIL_HOST=(str, "localhost")
-    EMAIL_PORT=(str, 25)
-    EMAIL_HOST_USER=(str, None)
-    EMAIL_HOST_PASSWORD=(str, None)
+    EMAIL_HOST=(str, "localhost"),
+    EMAIL_PORT=(str, 25),
+    EMAIL_HOST_USER=(str, None),
+    EMAIL_HOST_PASSWORD=(str, None),
     EXPLORER_SITE_NAME=(str, "Elefant Explorer"),
     EXPLORER_SINGLE_COLLECTION_MODE=(bool, False),
 )
