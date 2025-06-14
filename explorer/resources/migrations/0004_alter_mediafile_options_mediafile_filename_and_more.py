@@ -4,31 +4,40 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('resources', '0003_mediafile'),
+        ("resources", "0003_mediafile"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='mediafile',
-            options={'ordering': ['order', 'name'], 'verbose_name': 'media file', 'verbose_name_plural': 'media files'},
+            name="mediafile",
+            options={
+                "ordering": ["order", "name"],
+                "verbose_name": "media file",
+                "verbose_name_plural": "media files",
+            },
         ),
         migrations.AddField(
-            model_name='mediafile',
-            name='filename',
-            field=models.CharField(default='dummy', max_length=255, verbose_name='filename'),
+            model_name="mediafile",
+            name="filename",
+            field=models.CharField(
+                default="dummy", max_length=255, verbose_name="filename"
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='mediafile',
-            name='size',
-            field=models.IntegerField(default=0, verbose_name='size'),
+            model_name="mediafile",
+            name="size",
+            field=models.IntegerField(default=0, verbose_name="size"),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='mediafile',
-            name='order',
-            field=models.IntegerField(default=0, help_text='The position of the media file relative to other media files within the same resource.', verbose_name='order'),
+            model_name="mediafile",
+            name="order",
+            field=models.IntegerField(
+                default=0,
+                help_text="The position of the media file relative to other media files within the same resource.",
+                verbose_name="order",
+            ),
         ),
     ]
