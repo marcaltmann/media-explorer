@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-13 17:03+0000\n"
+"POT-Creation-Date: 2025-06-14 14:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -79,19 +79,25 @@ msgstr "Impressum"
 msgid "Terms of use"
 msgstr "Nutzungsbedingungen"
 
-#: explorer/core/templates/header.html:12
+#: explorer/core/templates/header.html:11
+#: explorer/media_collections/templates/media_collections/collection_index.html:4
+#: explorer/media_collections/templates/media_collections/collection_index.html:7
+msgid "Collections"
+msgstr "Sammlungen"
+
+#: explorer/core/templates/header.html:16
 msgid "Notebook"
 msgstr "Notizbuch"
 
-#: explorer/core/templates/header.html:17
+#: explorer/core/templates/header.html:21
 msgid "Log out"
 msgstr "Abmelden"
 
-#: explorer/core/templates/header.html:23
+#: explorer/core/templates/header.html:27
 msgid "Log in"
 msgstr "Anmelden"
 
-#: explorer/core/templates/header.html:27
+#: explorer/core/templates/header.html:31
 msgid "Register"
 msgstr "Registrieren"
 
@@ -99,8 +105,8 @@ msgstr "Registrieren"
 msgid "Media collections"
 msgstr "Medienkollektionen"
 
-#: explorer/media_collections/models.py:10 explorer/resources/models.py:13
-#: explorer/resources/models.py:42
+#: explorer/media_collections/models.py:10 explorer/resources/models.py:14
+#: explorer/resources/models.py:44
 msgid "name"
 msgstr "Name"
 
@@ -112,7 +118,7 @@ msgstr "Beschreibung"
 msgid "preview image"
 msgstr "Vorschaubild"
 
-#: explorer/media_collections/models.py:18 explorer/resources/models.py:19
+#: explorer/media_collections/models.py:18 explorer/resources/models.py:20
 msgid "collection"
 msgstr "Sammlung"
 
@@ -128,31 +134,35 @@ msgstr "Mein Account"
 msgid "Resources"
 msgstr "Ressourcen"
 
-#: explorer/resources/models.py:24 explorer/resources/models.py:49
+#: explorer/resources/models.py:25 explorer/resources/models.py:51
 msgid "resource"
 msgstr "Ressource"
 
-#: explorer/resources/models.py:25
+#: explorer/resources/models.py:26
 msgid "resources"
 msgstr "Ressourcen"
 
-#: explorer/resources/models.py:43
+#: explorer/resources/models.py:45
 msgid "order"
 msgstr "Reihenfolge"
 
-#: explorer/resources/models.py:54
+#: explorer/resources/models.py:53
+msgid "file"
+msgstr ""
+
+#: explorer/resources/models.py:57
 msgid "media file"
 msgstr "Mediendatei"
 
-#: explorer/resources/models.py:55
+#: explorer/resources/models.py:58
 msgid "media files"
 msgstr "Mediendateien"
 
-#: explorer/settings.py:153
+#: explorer/settings.py:160
 msgid "German"
 msgstr "Deutsch"
 
-#: explorer/settings.py:154
+#: explorer/settings.py:161
 msgid "English"
 msgstr "Englisch"
 
@@ -193,7 +203,8 @@ msgstr "Registrieren"
 #: explorer/templates/account/signup.html:17
 #, python-format
 msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
-msgstr "Haben Sie schon ein Konto? %(link)sMelden Sie sich bitte an%(end_link)s."
+msgstr ""
+"Haben Sie schon ein Konto? %(link)sMelden Sie sich bitte an%(end_link)s."
 
 #: explorer/templates/account/signup.html:39
 msgid "Sign up using a passkey"
