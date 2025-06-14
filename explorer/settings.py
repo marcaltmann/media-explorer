@@ -194,7 +194,14 @@ STATICFILES_DIRS = [BASE_DIR / "vite_assets_dist"]
 if DJANGO_ENV == "production":
     STORAGES = {
         "default": {
-            "BACKEND": "django.core.files.storage.FileSystemStorage",
+            "BACKEND": "storages.backends.s3.S3Storage",
+            "OPTIONS": {
+                "region_name": env("S3_REGION_NAME"),
+                "endpoint_url": env("S3_ENDPOINT_URL"),
+                "access_key": env("S3_ACCESS_KEY"),
+                "secret_key": env("S3_SECRET_KEY"),
+                "bucket_name": env("S3_BUCKET_NAME"),
+            },
         },
         "staticfiles": {
             "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",

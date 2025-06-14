@@ -11,7 +11,9 @@ urlpatterns = i18n_patterns(
     path("collections/", include("explorer.media_collections.urls")),
     path("resources/", include("explorer.resources.urls")),
     path("", include("explorer.core.urls")),
-) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+)
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DJANGO_ENV == "development":
     urlpatterns.append(path("__debug__/", include("debug_toolbar.urls")))
