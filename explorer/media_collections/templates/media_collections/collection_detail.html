@@ -11,7 +11,7 @@
     <ul class="u-mt">
     {% for resource in resource_list %}
         <li>
-            <a href="{% url 'resources:resource-detail' resource.pk %}">{{ resource.name }}</a>
+            <a href="{% url 'resources:resource-detail' collection.pk resource.pk %}">{{ resource.name }}</a>
         </li>
     {% endfor %}
     </ul>
