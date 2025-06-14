@@ -5,11 +5,17 @@
 {% endblock title %}
 {% block content %}
     <h1>{% translate "Collections" %}</h1>
-    <ul class="u-mt">
-    {% for collection in collection_list %}
-        <li>
-            <a href="{% url 'media-collections:collection-detail' collection.pk %}">{{ collection.name }}</a>
-        </li>
-    {% endfor %}
-    </ul>
+    {% if collection_list %}
+        <ul class="u-mt">
+        {% for collection in collection_list %}
+            <li>
+                <a href="{% url 'media-collections:collection-detail' collection.pk %}">{{ collection.name }}</a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p class="u-mt">
+            {% translate "There are no collections yet." %}
+        </p>
+    {% endif %}
 {% endblock content %}

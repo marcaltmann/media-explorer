@@ -1,6 +1,10 @@
 Elefant Explorer
 ================
 
+Research and presentation software for media resources
+------------------------------------------------------
+
+
 
 Docker for development/staging environment
 ------------------------------------------
