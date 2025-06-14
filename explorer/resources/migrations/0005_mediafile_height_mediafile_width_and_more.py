@@ -4,27 +4,31 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('resources', '0004_alter_mediafile_options_mediafile_filename_and_more'),
+        ("resources", "0004_alter_mediafile_options_mediafile_filename_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='mediafile',
-            name='height',
-            field=models.IntegerField(default=0, verbose_name='height'),
+            model_name="mediafile",
+            name="height",
+            field=models.IntegerField(default=0, verbose_name="height"),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='mediafile',
-            name='width',
-            field=models.IntegerField(default=0, verbose_name='width'),
+            model_name="mediafile",
+            name="width",
+            field=models.IntegerField(default=0, verbose_name="width"),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='mediafile',
-            name='file',
-            field=models.ImageField(height_field='height', upload_to='', verbose_name='file', width_field='width'),
+            model_name="mediafile",
+            name="file",
+            field=models.ImageField(
+                height_field="height",
+                upload_to="",
+                verbose_name="file",
+                width_field="width",
+            ),
         ),
     ]
