@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-14 18:28+0000\n"
+"POT-Creation-Date: 2025-06-14 22:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -126,6 +126,10 @@ msgstr "Sammlung"
 msgid "collections"
 msgstr "Sammlungen"
 
+#: explorer/media_collections/templates/media_collections/collection_index.html:18
+msgid "There are no collections yet."
+msgstr "Es gibt noch keine Sammlungen."
+
 #: explorer/my_account/apps.py:8
 msgid "My account"
 msgstr "Mein Account"
@@ -151,26 +155,34 @@ msgid ""
 "The position of the media file relative to other media files within the same "
 "resource."
 msgstr ""
-"Die Position der Mediendatei im Verhältnis zu anderen Mediendateien innerhalb "
-"derselben Ressource."
+"Die Position der Mediendatei im Verhältnis zu anderen Mediendateien "
+"innerhalb derselben Ressource."
 
 #: explorer/resources/models.py:59
 msgid "file"
 msgstr "Datei"
 
 #: explorer/resources/models.py:60
+msgid "width"
+msgstr "Breite"
+
+#: explorer/resources/models.py:61
+msgid "height"
+msgstr "Höhe"
+
+#: explorer/resources/models.py:62
 msgid "filename"
 msgstr "Dateiname"
 
-#: explorer/resources/models.py:61
+#: explorer/resources/models.py:63
 msgid "size"
 msgstr "Größe"
 
-#: explorer/resources/models.py:65
+#: explorer/resources/models.py:67
 msgid "media file"
 msgstr "Mediendatei"
 
-#: explorer/resources/models.py:66
+#: explorer/resources/models.py:68
 msgid "media files"
 msgstr "Mediendateien"
 

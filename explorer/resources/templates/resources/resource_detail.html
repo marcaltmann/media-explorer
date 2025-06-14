@@ -9,7 +9,8 @@
     <ul class="u-mt">
     {% for media_file in media_file_list %}
         <li>
-            {{ media_file.name }}<br />
+            {{ media_file.name }}<br>
+            {{ media_file.width }} x {{ media_file.height }}<br>
             <img src="{{ media_file.file.url }}" alt="{{ media_file.name }}" width="320" />
         </li>
     {% endfor %}

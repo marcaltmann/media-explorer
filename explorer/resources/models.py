@@ -56,7 +56,9 @@ class MediaFile(models.Model):
         related_query_name="media_file",
         verbose_name=_("resource"),
     )
-    file = models.FileField(_("file"))
+    file = models.ImageField(_("file"), width_field="width", height_field="height")
+    width = models.IntegerField(_("width"))
+    height = models.IntegerField(_("height"))
     filename = models.CharField(_("filename"), max_length=255)
     size = models.IntegerField(_("size"))
 
