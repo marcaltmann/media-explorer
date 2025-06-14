@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-14 14:49+0000\n"
+"POT-Creation-Date: 2025-06-14 18:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -134,7 +134,7 @@ msgstr "Mein Account"
 msgid "Resources"
 msgstr "Ressourcen"
 
-#: explorer/resources/models.py:25 explorer/resources/models.py:51
+#: explorer/resources/models.py:25 explorer/resources/models.py:57
 msgid "resource"
 msgstr "Ressource"
 
@@ -142,19 +142,35 @@ msgstr "Ressource"
 msgid "resources"
 msgstr "Ressourcen"
 
-#: explorer/resources/models.py:45
+#: explorer/resources/models.py:46
 msgid "order"
 msgstr "Reihenfolge"
 
-#: explorer/resources/models.py:53
-msgid "file"
+#: explorer/resources/models.py:49
+msgid ""
+"The position of the media file relative to other media files within the same "
+"resource."
 msgstr ""
+"Die Position der Mediendatei im Verhältnis zu anderen Mediendateien innerhalb "
+"derselben Ressource."
 
-#: explorer/resources/models.py:57
+#: explorer/resources/models.py:59
+msgid "file"
+msgstr "Datei"
+
+#: explorer/resources/models.py:60
+msgid "filename"
+msgstr "Dateiname"
+
+#: explorer/resources/models.py:61
+msgid "size"
+msgstr "Größe"
+
+#: explorer/resources/models.py:65
 msgid "media file"
 msgstr "Mediendatei"
 
-#: explorer/resources/models.py:58
+#: explorer/resources/models.py:66
 msgid "media files"
 msgstr "Mediendateien"
 

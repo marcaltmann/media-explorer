@@ -42,7 +42,13 @@ class MediaFile(models.Model):
     """
 
     name = models.CharField(_("name"), max_length=255, blank=True, default="")
-    order = models.IntegerField(_("order"))
+    order = models.IntegerField(
+        _("order"),
+        default=0,
+        help_text=_(
+            "The position of the media file relative to other media files within the same resource."
+        ),
+    )
     resource = models.ForeignKey(
         Resource,
         on_delete=models.CASCADE,
@@ -51,9 +57,11 @@ class MediaFile(models.Model):
         verbose_name=_("resource"),
     )
     file = models.FileField(_("file"))
+    filename = models.CharField(_("filename"), max_length=255)
+    size = models.IntegerField(_("size"))
 
     class Meta:
-        ordering = ["order"]
+        ordering = ["order", "name"]
         verbose_name = _("media file")
         verbose_name_plural = _("media files")
 
