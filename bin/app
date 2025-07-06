@@ -11,7 +11,7 @@ if [ "$1" == "web" ]; then
   python manage.py migrate
 
   echo "Running production server"
-  exec gunicorn -c config/gunicorn.py $@
+  exec gunicorn -c config/gunicorn.py explorer.wsgi:application
 elif [ "$1" == "scheduler" ]; then
   shift
   exec celery -A app beat -l info $@
