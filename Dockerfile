@@ -102,5 +102,5 @@ COPY --link --from=build-uv /app/config /app/config
 RUN chown -R app:app /app/
 USER app
 
-EXPOSE ${PORT}
+# EXPOSE ${PORT}
 CMD ["bin/app", "web"]
