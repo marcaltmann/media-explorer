@@ -1,20 +1,6 @@
 :root {
-  font-size: 1rem;
-  line-height: 1.5rem
-}
-
-@media (--medium-viewport) {
-  :root {
-    font-size: 1.125rem;
-    line-height: calc(5rem / 3);
-  }
-}
-
-@media (--wide-viewport) {
-  :root {
-    font-size: 1.25rem;
-    line-height: 1.6rem;
-  }
+  font-size: clamp(0.875rem, 0.5vw + 0.8rem, 1.125rem);  /* Min: 14px, Max: 18px */
+  line-height: clamp(1.3rem, 0.4vw + 1.3rem, 1.7rem);  /* Min: 20.8px, Max: 27.2px*/
 }
 
 body {
