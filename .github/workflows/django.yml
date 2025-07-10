@@ -38,6 +38,8 @@ jobs:
         uses: astral-sh/setup-uv@v6
         with:
           version: "0.7.20"
+      - name: Install Python dependencies
+        run: uv sync
       - name: Build assets with Node.js
         run: |
           npm install
