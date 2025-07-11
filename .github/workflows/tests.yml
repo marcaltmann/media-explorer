@@ -47,5 +47,4 @@ jobs:
       - name: Run Tests
         run: |
           uv run manage.py collectstatic
-          uv run manage.py test
           uv run pytest
