@@ -23,7 +23,7 @@
   --page-width: 40rlh;
   --page-width-wide: 60rlh;
   /* Typography */
-  --line-length: 25rlh;
+  --line-length: 60ch;
   --font-stack: system-ui, sans-serif;
   --font-stack-serif: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
   --font-size-normal: 1rem;

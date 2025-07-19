@@ -7,4 +7,7 @@
 
 .u-font-large { font-size: var(--font-size-large) !important; }
 
-.u-ll { max-width: var(--line-length) !important; }
+.u-ll {
+  width: clamp(min(93.75vw, 50ch), 70vw, 75ch);
+  /*max-width: var(--line-length) !important;*/
+}
