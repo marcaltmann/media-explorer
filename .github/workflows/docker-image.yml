@@ -2,14 +2,14 @@ name: Docker image
 
 on:
   push:
-    tags:
-      - 0.**
-      - 1.**
+    branches: ["master"]
 
-permissions: write-all
+permissions:
+  contents: read
+  packages: write
 
 jobs:
-  build_web_image:
+  build:
     runs-on: ubuntu-latest
     steps:
       -
@@ -23,10 +23,23 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       -
+        name: Extract version from pyproject.toml
+        id: get_version
+        working-directory: .
+        run: |
+          VERSION=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml','rb'))['project']['version'])")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT      
+      -
         name: Build and push the application image
         working-directory: .
         run: |
-          docker build --tag ghcr.io/marcaltmann/media-explorer .
-          docker tag ghcr.io/marcaltmann/media-explorer ghcr.io/marcaltmann/media-explorer:${{github.ref_name}}
-          docker push ghcr.io/marcaltmann/media-explorer
-          docker push ghcr.io/marcaltmann/media-explorer:${{github.ref_name}}
+          VERSION="${{ steps.get_version.outputs.version }}"
+          echo "Building image for version $VERSION"
+
+          docker buildx build \
+            --build-arg VERSION="$VERSION" \
+            --tag "ghcr.io/marcaltmann/media-explorer:latest" \
+            --tag "ghcr.io/marcaltmann/media-explorer:$VERSION" \
+            .
+          docker push ghcr.io/marcaltmann/media-explorer:latest
+          docker push ghcr.io/marcaltmann/media-explorer:$VERSION
