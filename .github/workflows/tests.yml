@@ -1,4 +1,4 @@
-name: Test Django application
+name: Tests
 
 on:
   push:
@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      DATABASE_URL: postgres://elefant:password@localhost/explorer
+      DATABASE_URL: postgres://explorer:password@localhost/explorer
       DJANGO_ENV: test
       DEBUG: on
       SECRET_KEY: test-secret-key
@@ -20,7 +20,7 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_USER: elefant
+          POSTGRES_USER: explorer
           POSTGRES_DB: explorer
           POSTGRES_PASSWORD: password
         options: >-

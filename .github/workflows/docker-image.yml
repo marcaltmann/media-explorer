@@ -1,4 +1,4 @@
-name: Build Docker image
+name: Docker image
 
 on:
   push:
@@ -26,7 +26,7 @@ jobs:
         name: Build and push the application image
         working-directory: .
         run: |
-          docker build --tag ghcr.io/marcaltmann/explorer .
-          docker tag ghcr.io/marcaltmann/explorer ghcr.io/marcaltmann/explorer:${{github.ref_name}}
-          docker push ghcr.io/marcaltmann/explorer
-          docker push ghcr.io/marcaltmann/explorer:${{github.ref_name}}
+          docker build --tag ghcr.io/marcaltmann/media-explorer .
+          docker tag ghcr.io/marcaltmann/media-explorer ghcr.io/marcaltmann/media-explorer:${{github.ref_name}}
+          docker push ghcr.io/marcaltmann/media-explorer
+          docker push ghcr.io/marcaltmann/media-explorer:${{github.ref_name}}
