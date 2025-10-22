@@ -1,9 +1,9 @@
 import environ
 from pathlib import Path
 import re
-
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import gettext_lazy as _
+from explorer.utils import get_project_version
 
 
 # Prepare environment
@@ -242,9 +242,8 @@ if DJANGO_ENV == "production" and sentry_dsn:
 
 
 # Explorer-specific settings
-# not used yet
 
+EXPLORER_SITE_VERSION = get_project_version(BASE_DIR)
 EXPLORER_SITE_NAME = env("EXPLORER_SITE_NAME")
-EXPLORER_SITE_VERSION = "v0.2"
 EXPLORER_SINGLE_COLLECTION_MODE = env("EXPLORER_SINGLE_COLLECTION_MODE")
 EXPLORER_SEARCH_ENGINE = "solr"
