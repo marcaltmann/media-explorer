@@ -42,4 +42,4 @@ def test_terms(rf):
 def test_footer(rf):
     request = rf.get("/")
     response = welcome(request)
-    assertContains(response, "https://github.com/marcaltmann/explorer")
+    assertContains(response, "https://github.com/marcaltmann/media-explorer")
