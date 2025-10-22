@@ -2,11 +2,11 @@
 {% load i18n %}
 {% block title %}
     {% if subtitle %}{{ subtitle }} |{% endif %}
-    {{ title }} | {{ site_title|default:_("Elefant Explorer Admin") }}
+    {{ title }} | {{ site_title|default:_("Media Explorer Admin") }}
 {% endblock %}
 {% block branding %}
     <div id="site-name">
-        <a href="{% url 'admin:index' %}">{{ _("Elefant Explorer Admin") }}</a>
+        <a href="{% url 'admin:index' %}">{{ _("Media Explorer Admin") }}</a>
     </div>
     {% if user.is_anonymous %}
         {% include "admin/color_theme_toggle.html" %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-14 22:30+0000\n"
+"POT-Creation-Date: 2025-10-22 17:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,8 +51,8 @@ msgid "Terms of Use"
 msgstr "Nutzungsbedingungen"
 
 #: explorer/core/templates/core/welcome.html:7
-msgid "Elefant.Media"
-msgstr "Elefant.Media"
+msgid "Research and presentation software"
+msgstr "Forschungs- und Präsentationssoftware"
 
 #: explorer/core/templates/core/welcome.html:14
 #: explorer/core/templates/core/welcome.html:15
@@ -60,8 +60,8 @@ msgid "Search"
 msgstr "Suche"
 
 #: explorer/core/templates/footer.html:6
-msgid "Elefant Explorer"
-msgstr "Elefant Explorer"
+msgid "Media Explorer"
+msgstr "Media Explorer"
 
 #: explorer/core/templates/footer.html:8
 msgid "GitHub Repository"
@@ -240,8 +240,8 @@ msgstr "Mit einem Passkey registrieren"
 
 #: explorer/templates/admin/base_site.html:5
 #: explorer/templates/admin/base_site.html:9
-msgid "Elefant Explorer Admin"
-msgstr "Elefant Explorer Admin-Bereich"
+msgid "Media Explorer Admin"
+msgstr "Media Explorer Admin-Bereich"
 
 #: explorer/templates/allauth/layouts/base.html:18
 msgid "Messages:"

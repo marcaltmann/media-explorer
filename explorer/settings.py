@@ -29,7 +29,7 @@ env = environ.Env(
     S3_ACCESS_KEY=(str, None),
     S3_SECRET_KEY=(str, None),
     S3_BUCKET_NAME=(str, None),
-    EXPLORER_SITE_NAME=(str, "Elefant Explorer"),
+    EXPLORER_SITE_NAME=(str, "Media Explorer"),
     EXPLORER_SINGLE_COLLECTION_MODE=(bool, False),
 )
 

@@ -1,4 +1,4 @@
-Elefant Explorer
+Media Explorer
 ================
 
 Research and presentation software for media resources
