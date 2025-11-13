@@ -24,6 +24,15 @@ async def index() -> Template:
 async def contact() -> Template:
     return Template(template_name="contact.html.jinja2")
 
+@get("/privacy", name="privacy")
+async def privacy() -> Template:
+    return Template(template_name="privacy.html.jinja2")
+
+@get("/accessibility", name="accessibility")
+async def accessibility() -> Template:
+    return Template(template_name="accessibility.html.jinja2")
+
+
 
 @get("/books/{book_id:int}")
 async def get_book(book_id: int) -> dict[str, int]:
@@ -34,6 +43,8 @@ app = Litestar(
     route_handlers=[
         index,
         contact,
+        privacy,
+        accessibility,
         get_book,
         create_static_files_router(path="/static", directories=["assets"]),
     ],

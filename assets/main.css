@@ -1,12 +1,14 @@
 @import url("/static/utilities.css");
 
 :root {
+  --accent-color: #ff8686;
   --background-color: #222;
   --header-width: 55rlh;
   --line-length: 30rlh;
   --page-width: 40rlh;
   --text-color: #eee;
 
+  font-size: 1.0625rem;
   line-height: 1.5rem;
 }
 
@@ -27,8 +29,8 @@ body {
 }
 
 h1 {
-  font-size: 2rem;
-  line-height: 2rlh;
+  font-size: 1.647rem;
+  line-height: 1.5rlh;
   margin-block: 0;
 }
 
@@ -60,8 +62,13 @@ p {
 }
 
 .header__home:any-link {
-  color: var(--text-color);
+  color: var(--accent-color);
   text-decoration: none;
+}
+
+.header__accent {
+  fill: var(--accent-color);
+  stroke: var(--accent-color);
 }
 
 .header__menu {
