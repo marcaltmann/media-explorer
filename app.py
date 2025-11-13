@@ -14,7 +14,7 @@ def on_startup():
     ASSETS_DIR.mkdir(exist_ok=True)
 
 
-@get("/")
+@get("/", name="welcome", cache=120)
 async def index() -> Template:
     title = "Media Explorer"
     return Template(template_name="welcome.html.jinja2", context={"title": title})

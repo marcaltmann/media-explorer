@@ -9,22 +9,23 @@
   {% endblock %}
 </head>
 
-<body>
-  <header>
-    {% block header %}
-    Header
-    {% endblock %}
+<body class="site">
+  <header class="header">
+    <div class="header__inner">
+      <a href="{{url_for('welcome') }}" class="header__home"><img src="/static/favicon.png" alt="" width="32" height="32" />Media Explorer</a>
+      <span class="header__menu">Menu</span>
+    </div>
   </header>
 
-  <main class="container">
+  <main class="site__content">
     {% block content %}
     {% endblock %}
   </main>
 
-  <footer>
-    {% block footer %}
-    &copy; Copyright 2025 by Marc Altmann.
-    {% endblock %}
+  <footer class="footer">
+    <div class="footer__inner">
+      &copy; Copyright 2025 by Marc Altmann.
+    </div>
   </footer>
 </body>
 
