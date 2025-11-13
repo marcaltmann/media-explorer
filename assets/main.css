@@ -1,0 +1,32 @@
+:root {
+  --page-width: 40rlh;
+  --line-length: 30rlh;
+
+  line-height: 1.5rem;
+}
+
+.container {
+  margin-inline: auto;
+  max-width: var(--page-width);
+  padding-inline: 1rlh;
+}
+
+body {
+  margin: 0;
+}
+
+h1 {
+  font-size: 2rem;
+  line-height: 2rlh;
+  margin-block: 0;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1rlh;
+  margin-block: 0;
+}
+
+.u-ll {
+  max-width: var(--line-length);
+}

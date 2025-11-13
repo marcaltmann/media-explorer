@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  {% block head %}
+  <title>{% block title %}{% endblock %} – Media Explorer</title>
+  <link rel="stylesheet" href="/static/main.css" />
+  <link rel="icon" href="/static/favicon.png">
+  {% endblock %}
+</head>
+
+<body>
+  <header>
+    {% block header %}
+    Header
+    {% endblock %}
+  </header>
+
+  <main class="container">
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <footer>
+    {% block footer %}
+    &copy; Copyright 2025 by Marc Altmann.
+    {% endblock %}
+  </footer>
+</body>
+
+</html>
