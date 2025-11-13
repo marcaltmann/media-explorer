@@ -1,9 +1,11 @@
 @import url("/static/utilities.css");
 
 :root {
+  --background-color: #222;
   --header-width: 55rlh;
   --line-length: 30rlh;
   --page-width: 40rlh;
+  --text-color: #fff;
 
   line-height: 1.5rem;
 }
@@ -11,11 +13,17 @@
 .container {
   margin-inline: auto;
   max-width: var(--page-width);
-  padding-inline: 0.5rlh;
+  padding-inline: 1rlh;
 }
 
 body {
   margin: 0;
+  color: var(--text-color);
+  background-color: var(--background-color);
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+             "Noto Sans", "Liberation Sans", Arial, sans-serif;
+
 }
 
 h1 {
@@ -31,9 +39,9 @@ p {
 }
 
 .header {
-  border-bottom: 2px solid black;
+  border-bottom: 1px solid #555;
   box-sizing: border-box;
-  height: 2rlh;
+  height: 2.5rlh;
 }
 
 .header__inner {
@@ -42,7 +50,7 @@ p {
   height: 100%;
   margin-inline: auto;
   max-width: var(--header-width);
-  padding-inline: 0.5rlh;
+  padding-inline: 1rlh;
 }
 
 .header__home {
@@ -52,7 +60,7 @@ p {
 }
 
 .header__home:any-link {
-  color: black;
+  color: var(--text-color);
   text-decoration: none;
 }
 
@@ -60,14 +68,23 @@ p {
   margin-left: auto;
 }
 
+main {
+  background-color: #111;
+}
+
 .footer {
+  border-top: 1px solid #555;
 }
 
 .footer__inner {
   margin-inline: auto;
   max-width: var(--header-width);
   padding-block: 1rlh;
-  padding-inline: 0.5rlh;
+  padding-inline: 1rlh;
+}
+
+.footer__link {
+  color: var(--text-color);
 }
 
 .site {

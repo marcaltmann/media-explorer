@@ -14,10 +14,15 @@ def on_startup():
     ASSETS_DIR.mkdir(exist_ok=True)
 
 
-@get("/", name="welcome", cache=120)
+@get("/", name="welcome")
 async def index() -> Template:
     title = "Media Explorer"
     return Template(template_name="welcome.html.jinja2", context={"title": title})
+
+
+@get("/contact", name="contact")
+async def contact() -> Template:
+    return Template(template_name="contact.html.jinja2")
 
 
 @get("/books/{book_id:int}")
@@ -28,6 +33,7 @@ async def get_book(book_id: int) -> dict[str, int]:
 app = Litestar(
     route_handlers=[
         index,
+        contact,
         get_book,
         create_static_files_router(path="/static", directories=["assets"]),
     ],

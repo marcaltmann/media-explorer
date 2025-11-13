@@ -5,3 +5,15 @@
 .u-mt {
   margin-top: 1rlh;
 }
+
+.u-mt-small {
+  margin-top: 0.5rlh;
+}
+
+.u-mt-tiny {
+  margin-top: 0.25rlh;
+}
+
+.u-align-center {
+  text-align: center;
+}
