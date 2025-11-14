@@ -8,7 +8,7 @@
         <source src="{{resource.url}}" type="{{resource.media_type}}" />
     </video>
     <ul>
-        <li>Duration: {{resource.duration}}s</li>
+        <li>Duration: {{resource.duration|duration_format}}</li>
         <li>Created on: {{resource.created_at.strftime('%Y-%m-%d')}}</li>
         <li>Updated on: {{resource.updated_at.strftime('%Y-%m-%d')}}</li>
     </ul>

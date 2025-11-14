@@ -11,7 +11,7 @@
       <div class="media__body">
         <p>
           <a href="{{url_for('resource-detail', resource_id=resource.id)}}">{{resource.name}}</a><br>
-          {{resource.duration}}s
+          {{resource.duration|duration_format}}
         </p>
       </div>
     </li>

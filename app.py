@@ -1,6 +1,7 @@
 from datetime import date
 from pathlib import Path
 
+from jinja2 import Environment, PackageLoader, select_autoescape
 from litestar import Litestar, get
 from litestar.connection import Request
 from litestar.contrib.jinja import JinjaTemplateEngine
@@ -19,9 +20,6 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 
 from controllers.page_controller import PageController
-
-
-ASSETS_DIR = Path("assets")
 
 
 # The SQLAlchemy base includes a declarative model for you to use in your models.
@@ -115,6 +113,18 @@ async def admin() -> Template:
     return Template(template_name="admin.html.jinja")
 
 
+def duration_format(value: float) -> str:
+    hours = int(value // 3600)
+    minutes = int((value % 3600) // 60)
+    secs = int(value % 60)
+    return f"{hours}h{minutes}m{secs}s"
+
+env = Environment(
+    loader=PackageLoader("app"),
+    autoescape=select_autoescape()
+)
+env.filters["duration_format"] = duration_format
+
 app = Litestar(
     route_handlers=[
         welcome,
@@ -129,7 +139,7 @@ app = Litestar(
     ],
     template_config=TemplateConfig(
         directory=Path("templates"),
-        engine=JinjaTemplateEngine,
+        engine=JinjaTemplateEngine.from_environment(env),
     ),
     on_startup=[on_startup],
     plugins=[SQLAlchemyPlugin(config=sqlalchemy_config)],
