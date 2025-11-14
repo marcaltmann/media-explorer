@@ -1,12 +1,18 @@
-from dataclasses import dataclass
+from datetime import date
+from uuid import UUID
 from pathlib import Path
 
 from litestar import Litestar, get
 from litestar.connection import Request
 from litestar.contrib.jinja import JinjaTemplateEngine
+from litestar.plugins.sqlalchemy import AsyncSessionConfig, SQLAlchemyAsyncConfig, SQLAlchemyPlugin, base
 from litestar.response import Template
 from litestar.static_files import create_static_files_router
 from litestar.template.config import TemplateConfig
+from sqlalchemy import ForeignKey, func, select
+from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
 
 from controllers.page_controller import PageController
 
@@ -14,14 +20,27 @@ from controllers.page_controller import PageController
 ASSETS_DIR = Path("assets")
 
 
-@dataclass
-class Resource:
-    id: int
-    name: str
+# The SQLAlchemy base includes a declarative model for you to use in your models.
+# The `UUIDBase` class includes a `UUID` based primary key (`id`)
+class Resource(base.UUIDAuditBase):
+    __tablename__ = "resource"
+    name: Mapped[str]
 
+session_config = AsyncSessionConfig(expire_on_commit=False)
+sqlalchemy_config = SQLAlchemyAsyncConfig(
+    connection_string="sqlite+aiosqlite:///test.sqlite", session_config=session_config, create_all=True
+)  # Create 'async_session' dependency.
 
-def on_startup():
-    ASSETS_DIR.mkdir(exist_ok=True)
+async def on_startup(app: Litestar) -> None:
+    """Adds some dummy data if no data is present."""
+    async with sqlalchemy_config.get_session() as session:
+        statement = select(func.count()).select_from(Resource)
+        count = await session.execute(statement)
+        if not count.scalar():
+            session.add(Resource(name="Stephen King"))
+            session.add(Resource(name="Tony Blair"))
+            await session.commit()
+
 
 
 @get("/", name="welcome")
@@ -34,20 +53,13 @@ async def collections() -> Template:
     return Template(template_name="collections.html.jinja")
 
 @get("/resources", name="resources")
-async def resources() -> Template:
-    resources = [
-        Resource(id=1, name="Interview Phil Collins"),
-        Resource(id=2, name="Interview David Bowie"),
-    ]
+async def resources(db_session: AsyncSession, db_engine: AsyncEngine) -> Template:
+    resources = list(await db_session.scalars(select(Resource)))
     return Template(template_name="resources.html.jinja", context={"resources": resources})
 
-@get("/resources/{resource_id:int}", name="resource-detail")
-async def resource_detail(resource_id: int) -> Template:
-    resources = {
-        1: Resource(id=1, name="Interview Phil Collins"),
-        2: Resource(id=2, name="Interview David Bowie"),
-    }
-    resource = resources[resource_id]
+@get("/resources/{resource_id:uuid}", name="resource-detail")
+async def resource_detail(db_session: AsyncSession, resource_id: UUID) -> Template:
+    resource = await db_session.get(Resource, resource_id)
     return Template(template_name="resource_detail.html.jinja", context={"resource": resource})
 
 @get("/books/{book_id:int}")
@@ -70,4 +82,6 @@ app = Litestar(
         engine=JinjaTemplateEngine,
     ),
     on_startup=[on_startup],
+    plugins=[SQLAlchemyPlugin(config=sqlalchemy_config)],
+    debug=True,
 )

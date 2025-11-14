@@ -3,7 +3,11 @@
 
 {% block content%}
 <div class="container">
-  <h1 class="u-mt">{{resource.name}}</h1>
-  <p>Coming soon: Resource details</p>
+    <h1 class="u-mt">{{resource.name}}</h1>
+    <ul>
+        <li>Id: {{resource.id}}</li>
+        <li>Created on: {{resource.created_at}}</li>
+        <li>Updated on: {{resource.updated_at}}</li>
+    </ul>
 </div>
 {% endblock %}
