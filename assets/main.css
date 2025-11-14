@@ -1,7 +1,7 @@
 @import url("/static/utilities.css");
 
 :root {
-  --accent-color: #ff8686;
+  --accent-color: #6ff0d8;
   --background-color: #222;
   --header-width: 55rlh;
   --line-length: 30rlh;
@@ -64,6 +64,7 @@ a:any-link {
 
 .header__home:any-link {
   color: var(--accent-color);
+  font-weight: bold;
   text-decoration: none;
 }
 
@@ -93,6 +94,7 @@ a:any-link {
 
 .header__link--active:any-link {
   color: var(--accent-color);
+  font-weight: bold;
 }
 
 main {
