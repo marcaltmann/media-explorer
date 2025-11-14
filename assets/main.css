@@ -135,3 +135,29 @@ main {
 .site__content {
   flex-grow: 1;
 }
+
+.media {
+  align-items: flex-start;
+  display: flex;
+  gap: 0.5rlh;
+}
+
+.media__image {
+
+}
+
+.media__body {
+
+}
+
+.base-list {
+  list-style-type: none;
+  margin-block: 0;
+  padding-left: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rlh;
+}

@@ -4,9 +4,17 @@
 {% block content%}
 <div class="container">
   <h1 class="u-mt">Resources</h1>
-  <ul>
+  <ul class="base-list grid u-mt">
     {% for resource in resources %}
-    <li><a href="{{url_for('resource-detail', resource_id=resource.id)}}">{{resource.id}}: {{resource.name}}</a></li>
+    <li class="media">
+      <img class="media__image" src="{{resource.poster_url}}" alt="" width="240" />
+      <div class="media__body">
+        <p>
+          <a href="{{url_for('resource-detail', resource_id=resource.id)}}">{{resource.name}}</a><br>
+          {{resource.duration}}s
+        </p>
+      </div>
+    </li>
     {% endfor %}
   </ul>
 </div>

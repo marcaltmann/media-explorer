@@ -1,19 +1,19 @@
 .u-ll {
-  max-width: var(--line-length);
+  max-width: var(--line-length) !important;
 }
 
 .u-mt {
-  margin-top: 1rlh;
+  margin-top: 1rlh !important;
 }
 
 .u-mt-small {
-  margin-top: 0.5rlh;
+  margin-top: 0.5rlh !important;
 }
 
 .u-mt-tiny {
-  margin-top: 0.25rlh;
+  margin-top: 0.25rlh !important;
 }
 
 .u-align-center {
-  text-align: center;
+  text-align: center !important;
 }
