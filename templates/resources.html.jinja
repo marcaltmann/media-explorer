@@ -5,9 +5,9 @@
 <div class="container">
   <h1 class="u-mt">Resources</h1>
   <ul>
-  {% for resource in resources %}
+    {% for resource in resources %}
     <li><a href="{{url_for('resource-detail', resource_id=resource.id)}}">{{resource.id}}: {{resource.name}}</a></li>
-  {% endfor %}
+    {% endfor %}
   </ul>
 </div>
 {% endblock %}

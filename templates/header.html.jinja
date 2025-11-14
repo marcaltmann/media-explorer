@@ -17,11 +17,11 @@
         </a>
         <nav class="header__menu">
             <ul class="header__link-list">
-                <li><a class="header__link" href="">Search</a></li>
-                <li><a class="header__link" href="">Organizations</a></li>
+                <li><a class="header__link {% if request.scope['path'].startswith('/search') %}header__link--active{% endif %}" href="{{url_for('search')}}">Search</a></li>
+                <li><a class="header__link {% if request.scope['path'].startswith('/organizations') %}header__link--active{% endif %}" href="{{url_for('organizations')}}">Organizations</a></li>
                 <li><a class="header__link {% if request.scope['path'].startswith('/collections') %}header__link--active{% endif %}" href="{{url_for('collections')}}">Collections</a></li>
                 <li><a class="header__link {% if request.scope['path'].startswith('/resources') %}header__link--active{% endif %}" href="{{url_for('resources')}}">Resources</a></li>
-                <li><a class="header__link" href="">Admin</a></li>
+                <li><a class="header__link {% if request.scope['path'].startswith('/admin') %}header__link--active{% endif %}" href="{{url_for('admin')}}">Admin</a></li>
             </ul>
         </nav>
     </div>

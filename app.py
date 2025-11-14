@@ -42,9 +42,16 @@ async def on_startup(app: Litestar) -> None:
 
 
 @get("/", name="welcome")
-async def index() -> Template:
-    title = "Media Explorer"
-    return Template(template_name="welcome.html.jinja", context={"title": title})
+async def welcome() -> Template:
+    return Template(template_name="welcome.html.jinja")
+
+@get("/search", name="search")
+async def search() -> Template:
+    return Template(template_name="search.html.jinja")
+
+@get("/organizations", name="organizations")
+async def organizations() -> Template:
+    return Template(template_name="organizations.html.jinja")
 
 @get("/collections", name="collections")
 async def collections() -> Template:
@@ -60,18 +67,21 @@ async def resource_detail(db_session: AsyncSession, resource_id: int) -> Templat
     resource = await db_session.get(Resource, resource_id)
     return Template(template_name="resource_detail.html.jinja", context={"resource": resource})
 
-@get("/books/{book_id:int}")
-async def get_book(book_id: int) -> dict[str, int]:
-    return {"book_id": book_id}
+@get("/admin", name="admin")
+async def admin() -> Template:
+    return Template(template_name="admin.html.jinja")
+
 
 
 app = Litestar(
     route_handlers=[
-        index,
+        welcome,
+        search,
+        organizations,
         collections,
         resources,
         resource_detail,
-        get_book,
+        admin,
         PageController,
         create_static_files_router(path="/static", directories=["assets"]),
     ],

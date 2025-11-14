@@ -37,6 +37,10 @@ p {
   margin-block: 0;
 }
 
+a:any-link {
+  color: var(--text-color);
+}
+
 .header {
   border-bottom: 1px solid #555;
   box-sizing: border-box;
@@ -81,13 +85,13 @@ p {
   padding-left: 0;
 }
 
-.header__link {
+.header__link:any-link {
   color: var(--text-color);
   text-decoration: none;
   transition: color 125ms ease-in;
 }
 
-.header__link--active {
+.header__link--active:any-link {
   color: var(--accent-color);
 }
 
