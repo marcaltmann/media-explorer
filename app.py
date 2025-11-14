@@ -1,10 +1,13 @@
 from pathlib import Path
 
 from litestar import Litestar, get
+from litestar.connection import Request
 from litestar.contrib.jinja import JinjaTemplateEngine
 from litestar.response import Template
 from litestar.static_files import create_static_files_router
 from litestar.template.config import TemplateConfig
+
+from controllers.page_controller import PageController
 
 
 ASSETS_DIR = Path("assets")
@@ -19,29 +22,13 @@ async def index() -> Template:
     title = "Media Explorer"
     return Template(template_name="welcome.html.jinja", context={"title": title})
 
+@get("/collections", name="collections")
+async def collections() -> Template:
+    return Template(template_name="collections.html.jinja")
 
-@get("/contact", name="contact")
-async def contact() -> Template:
-    return Template(template_name="contact.html.jinja")
-
-@get("/privacy", name="privacy")
-async def privacy() -> Template:
-    return Template(template_name="privacy.html.jinja")
-
-@get("/accessibility", name="accessibility")
-async def accessibility() -> Template:
-    return Template(template_name="accessibility.html.jinja")
-
-@get("/terms-of-use", name="terms-of-use")
-async def terms_of_use() -> Template:
-    return Template(template_name="terms_of_use.html.jinja")
-
-@get("/legal-notice", name="legal-notice")
-async def legal_notice() -> Template:
-    return Template(template_name="legal_notice.html.jinja")
-
-
-
+@get("/resources", name="resources")
+async def resources() -> Template:
+    return Template(template_name="resources.html.jinja")
 
 @get("/books/{book_id:int}")
 async def get_book(book_id: int) -> dict[str, int]:
@@ -51,12 +38,10 @@ async def get_book(book_id: int) -> dict[str, int]:
 app = Litestar(
     route_handlers=[
         index,
-        contact,
-        privacy,
-        accessibility,
-        terms_of_use,
-        legal_notice,
+        collections,
+        resources,
         get_book,
+        PageController,
         create_static_files_router(path="/static", directories=["assets"]),
     ],
     template_config=TemplateConfig(

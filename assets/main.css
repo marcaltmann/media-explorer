@@ -83,6 +83,12 @@ p {
 
 .header__link {
   color: var(--text-color);
+  text-decoration: none;
+  transition: color 125ms ease-in;
+}
+
+.header__link--active {
+  color: var(--accent-color);
 }
 
 main {
