@@ -1,5 +1,4 @@
 from datetime import date
-from uuid import UUID
 from pathlib import Path
 
 from litestar import Litestar, get
@@ -21,8 +20,7 @@ ASSETS_DIR = Path("assets")
 
 
 # The SQLAlchemy base includes a declarative model for you to use in your models.
-# The `UUIDBase` class includes a `UUID` based primary key (`id`)
-class Resource(base.UUIDAuditBase):
+class Resource(base.BigIntAuditBase):
     __tablename__ = "resource"
     name: Mapped[str]
 
@@ -57,8 +55,8 @@ async def resources(db_session: AsyncSession, db_engine: AsyncEngine) -> Templat
     resources = list(await db_session.scalars(select(Resource)))
     return Template(template_name="resources.html.jinja", context={"resources": resources})
 
-@get("/resources/{resource_id:uuid}", name="resource-detail")
-async def resource_detail(db_session: AsyncSession, resource_id: UUID) -> Template:
+@get("/resources/{resource_id:int}", name="resource-detail")
+async def resource_detail(db_session: AsyncSession, resource_id: int) -> Template:
     resource = await db_session.get(Resource, resource_id)
     return Template(template_name="resource_detail.html.jinja", context={"resource": resource})
 
