@@ -17,20 +17,29 @@ def on_startup():
 @get("/", name="welcome")
 async def index() -> Template:
     title = "Media Explorer"
-    return Template(template_name="welcome.html.jinja2", context={"title": title})
+    return Template(template_name="welcome.html.jinja", context={"title": title})
 
 
 @get("/contact", name="contact")
 async def contact() -> Template:
-    return Template(template_name="contact.html.jinja2")
+    return Template(template_name="contact.html.jinja")
 
 @get("/privacy", name="privacy")
 async def privacy() -> Template:
-    return Template(template_name="privacy.html.jinja2")
+    return Template(template_name="privacy.html.jinja")
 
 @get("/accessibility", name="accessibility")
 async def accessibility() -> Template:
-    return Template(template_name="accessibility.html.jinja2")
+    return Template(template_name="accessibility.html.jinja")
+
+@get("/terms-of-use", name="terms-of-use")
+async def terms_of_use() -> Template:
+    return Template(template_name="terms_of_use.html.jinja")
+
+@get("/legal-notice", name="legal-notice")
+async def legal_notice() -> Template:
+    return Template(template_name="legal_notice.html.jinja")
+
 
 
 
@@ -45,6 +54,8 @@ app = Litestar(
         contact,
         privacy,
         accessibility,
+        terms_of_use,
+        legal_notice,
         get_book,
         create_static_files_router(path="/static", directories=["assets"]),
     ],

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  {% block head %}
+  <title>{% block title %}{% endblock %} – Media Explorer</title>
+  <link rel="stylesheet" href="/static/main.css" />
+  <link rel="icon" href="/static/favicon.png">
+  {% endblock %}
+</head>
+
+<body class="site">
+  {% include "header.html.jinja" %}
+
+  <main class="site__content">
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  {% include "footer.html.jinja" %}
+</body>
+
+</html>

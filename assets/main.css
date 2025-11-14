@@ -34,8 +34,6 @@ h1 {
 }
 
 p {
-  font-size: 1rem;
-  line-height: 1rlh;
   margin-block: 0;
 }
 
@@ -74,12 +72,26 @@ p {
   margin-left: auto;
 }
 
+.header__link-list {
+  display: flex;
+  gap: 0.5rlh;
+  justify-content: center;
+  list-style-type: none;
+  margin-block: 0;
+  padding-left: 0;
+}
+
+.header__link {
+  color: var(--text-color);
+}
+
 main {
   background-color: #111;
 }
 
 .footer {
   border-top: 1px solid #555;
+  font-size: 0.875rem;
 }
 
 .footer__inner {
@@ -87,6 +99,15 @@ main {
   max-width: var(--header-width);
   padding-block: 1rlh;
   padding-inline: 1rlh;
+}
+
+.footer__link-list {
+  display: flex;
+  gap: 0.5rlh;
+  justify-content: center;
+  list-style-type: none;
+  margin-block: 0;
+  padding-left: 0;
 }
 
 .footer__link {
