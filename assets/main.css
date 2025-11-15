@@ -162,3 +162,13 @@ main {
   grid-template-columns: 1fr 1fr;
   gap: 1rlh;
 }
+
+.audio {
+  width: 100%;
+}
+
+.marker-place {
+  display: flex;
+  gap: 0.25rlh;
+  min-height: 1rlh;
+}

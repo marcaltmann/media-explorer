@@ -13,3 +13,9 @@ class Resource(base.BigIntAuditBase):
 
     def __repr__(self):
         return f"Resource(name={self.name})"
+
+    def is_video(self):
+        return self.media_type.startswith("video/")
+
+    def is_audio(self):
+        return self.media_type.startswith("audio/")

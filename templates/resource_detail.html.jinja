@@ -4,13 +4,59 @@
 {% block content%}
 <div class="container">
     <h1 class="u-mt">{{resource.name}}</h1>
-    <video class="u-mt" controls width="700" poster="{{resource.poster_url}}">
+    {% if resource.is_video() %}
+    <video id="media-element" class="u-mt" controls width="700" poster="{{resource.poster_url}}">
         <source src="{{resource.url}}" type="{{resource.media_type}}" />
     </video>
+    {% else %}
+    <audio id="media-element" class="audio u-mt" controls width="700" poster="{{resource.poster_url}}">
+        <source src="{{resource.url}}" type="{{resource.media_type}}" />
+    </audio>
+    {% endif %}
+    <p id="marker-place" class="marker-place"></p>
+    <p>
+        <button id="set-marker" type="button">Set marker</button>
+    </p>
     <ul>
         <li>Duration: {{resource.duration|duration_format}}</li>
         <li>Created on: {{resource.created_at.strftime('%Y-%m-%d')}}</li>
         <li>Updated on: {{resource.updated_at.strftime('%Y-%m-%d')}}</li>
     </ul>
 </div>
+{% endblock %}
+{% block javascript %}
+<script>
+const setMarker = document.getElementById('set-marker');
+const markerPlace = document.getElementById('marker-place');
+const mediaElement = document.getElementById('media-element');
+
+function positionFormat(seconds) {
+    hours = Math.floor(seconds / 3600);
+    minutes = Math.floor((seconds % 3600) / 60);
+    secs = Math.floor(seconds % 60);
+
+    if (hours === 0) {
+        return `${minutes}m${secs}s`;
+    } else {
+        return `${hours}h${minutes}m${secs}s`;
+    }
+}
+
+function handleSetMarker(event) {
+    const position = mediaElement.currentTime;
+    const button = document.createElement('button');
+    button.textContent = positionFormat(position);
+    button.dataset.position = position.toString();
+    button.addEventListener('click', handleButtonClick);
+    markerPlace.append(button);
+}
+
+function handleButtonClick(event) {
+    const position = Number.parseFloat(this.dataset.position);
+    mediaElement.currentTime = position;
+    mediaElement.play();
+}
+
+setMarker.addEventListener('click', handleSetMarker);
+</script>
 {% endblock %}
