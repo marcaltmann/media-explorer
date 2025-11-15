@@ -1,5 +1,6 @@
 from datetime import date
 from pathlib import Path
+import json
 
 from jinja2 import Environment, PackageLoader, select_autoescape
 from litestar import Litestar, get
@@ -8,7 +9,7 @@ from litestar.contrib.jinja import JinjaTemplateEngine
 from litestar.plugins.sqlalchemy import (
     AsyncSessionConfig,
     SQLAlchemyAsyncConfig,
-    SQLAlchemyPlugin
+    SQLAlchemyPlugin,
 )
 from litestar.response import Template
 from litestar.static_files import create_static_files_router
@@ -20,7 +21,6 @@ from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
 from controllers.page_controller import PageController
 
 from models import Resource
-from seeds import get_resources
 
 
 session_config = AsyncSessionConfig(expire_on_commit=False)
@@ -37,7 +37,18 @@ async def on_startup(app: Litestar) -> None:
         statement = select(func.count()).select_from(Resource)
         count = await session.execute(statement)
         if not count.scalar():
-            session.add_all(get_resources())
+            with open("seeds.json") as f:
+                resources = json.load(f)
+            for resource in resources:
+                session.add(
+                    Resource(
+                        name=resource["name"],
+                        media_type=resource["media_type"],
+                        duration=resource["duration"],
+                        url=resource["url"],
+                        poster_url=resource["poster_url"],
+                    )
+                )
             await session.commit()
 
 
@@ -63,7 +74,7 @@ async def collections() -> Template:
 
 @get("/resources", name="resources")
 async def resources(db_session: AsyncSession, db_engine: AsyncEngine) -> Template:
-    resources = list(await db_session.scalars(select(Resource)))
+    resources = await db_session.scalars(select(Resource))
     return Template(
         template_name="resources.html.jinja", context={"resources": resources}
     )
@@ -88,10 +99,8 @@ def duration_format(value: float) -> str:
     secs = int(value % 60)
     return f"{hours}h{minutes}m{secs}s"
 
-env = Environment(
-    loader=PackageLoader("app"),
-    autoescape=select_autoescape()
-)
+
+env = Environment(loader=PackageLoader("app"), autoescape=select_autoescape())
 env.filters["duration_format"] = duration_format
 
 app = Litestar(
@@ -104,7 +113,7 @@ app = Litestar(
         resource_detail,
         admin,
         PageController,
-        create_static_files_router(path="/static", directories=["assets"]),
+        create_static_files_router(path="/static", directories=["public"]),
     ],
     template_config=TemplateConfig(
         directory=Path("templates"),

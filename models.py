@@ -10,3 +10,6 @@ class Resource(base.BigIntAuditBase):
     url: Mapped[str]
     poster_url: Mapped[str]
     duration: Mapped[float]
+
+    def __repr__(self):
+        return f"Resource(name={self.name})"
