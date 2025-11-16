@@ -169,6 +169,7 @@ main {
 
 .marker-place {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.25rlh;
   min-height: 1rlh;
 }
