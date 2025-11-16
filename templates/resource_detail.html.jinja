@@ -42,13 +42,35 @@ function positionFormat(seconds) {
     }
 }
 
+function insertButton(container, newButton) {
+    const children = Array.from(container.children);
+
+    //children.findIndex((button) => button.dataset.);
+
+    if (children.length === 0) {
+        container.append(newButton);
+        return;
+    }
+
+    for (let i = 0; i < children.length; i++) {
+        const buttonPos = Number.parseFloat(children[i].dataset.position);
+        const newButtonPos = Number.parseFloat(newButton.dataset.position);
+        console.log(buttonPos, newButtonPos);
+        if ((buttonPos < newButtonPos)
+            || (i === children.length - 1)) {
+            children[i].after(newButton);
+            break;
+        }
+    }
+}
+
 function handleSetMarker(event) {
     const position = mediaElement.currentTime;
     const button = document.createElement('button');
     button.textContent = positionFormat(position);
     button.dataset.position = position.toString();
     button.addEventListener('click', handleButtonClick);
-    markerPlace.append(button);
+    insertButton(markerPlace, button);
 }
 
 function handleButtonClick(event) {
