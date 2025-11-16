@@ -45,19 +45,22 @@ function positionFormat(seconds) {
 function insertButton(container, newButton) {
     const children = Array.from(container.children);
 
-    //children.findIndex((button) => button.dataset.);
-
     if (children.length === 0) {
         container.append(newButton);
         return;
     }
 
     for (let i = 0; i < children.length; i++) {
-        const buttonPos = Number.parseFloat(children[i].dataset.position);
+        if (i === children.length - 1) {
+            children[i].after(newButton);
+            break;
+        }
+
+        const currentButtonPos = Number.parseFloat(children[i].dataset.position);
+        const nextButtonPos = Number.parseFloat(children[i + 1]?.dataset?.position);
         const newButtonPos = Number.parseFloat(newButton.dataset.position);
-        console.log(buttonPos, newButtonPos);
-        if ((buttonPos < newButtonPos)
-            || (i === children.length - 1)) {
+
+        if (newButtonPos >= currentButtonPos && newButtonPos < nextButtonPos) {
             children[i].after(newButton);
             break;
         }
