@@ -16,6 +16,11 @@
     <p id="marker-place" class="marker-place"></p>
     <p>
         <button id="set-marker" type="button">Set marker</button>
+        <button id="seek-backward" type="button">-15s</button>
+        <button id="seek-forward" type="button">+30s</button>
+        <button id="playback-slow" type="button">0.8x</button>
+        <button id="playback-normal" type="button">1x</button>
+        <button id="playback-fast" type="button">1.25x</button>
     </p>
     <ul>
         <li>Duration: {{resource.duration|duration_format}}</li>
@@ -26,9 +31,24 @@
 {% endblock %}
 {% block javascript %}
 <script>
+const PLAYBACK_RATE_SLOW = 0.8;
+const PLAYBACK_RATE_NORMAL = 1.0;
+const PLAYBACK_RATE_FAST = 1.25;
+
 const setMarker = document.getElementById('set-marker');
 const markerPlace = document.getElementById('marker-place');
 const mediaElement = document.getElementById('media-element');
+const seekBackward = document.getElementById('seek-backward');
+const seekForward = document.getElementById('seek-forward');
+const setSlowPlaybackButton = document.getElementById('playback-slow');
+const setNormalPlaybackButton = document.getElementById('playback-normal');
+const setFastPlaybackButton = document.getElementById('playback-fast');
+
+seekBackward.addEventListener('click', () => mediaElement.currentTime -= 15);
+seekForward.addEventListener('click', () => mediaElement.currentTime += 30);
+setSlowPlaybackButton.addEventListener('click', () => mediaElement.playbackRate = PLAYBACK_RATE_SLOW);
+setNormalPlaybackButton.addEventListener('click', () => mediaElement.playbackRate = PLAYBACK_RATE_NORMAL);
+setFastPlaybackButton.addEventListener('click', () => mediaElement.playbackRate = PLAYBACK_RATE_FAST);
 
 function positionFormat(seconds) {
     hours = Math.floor(seconds / 3600);
