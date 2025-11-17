@@ -1,8 +1,19 @@
 from litestar.plugins.sqlalchemy import base
+from sqlalchemy import ForeignKey, func, select
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 
-# The SQLAlchemy base includes a declarative model for you to use in your models.
+class Collection(base.BigIntAuditBase):
+    __tablename__ = "collection"
+    name: Mapped[str]
+    resources: Mapped[list[Resource]] = relationship(
+        back_populates="collection", lazy="selectin"
+    )
+
+    def __repr__(self):
+        return f"Collection(name={self.name})"
+
+
 class Resource(base.BigIntAuditBase):
     __tablename__ = "resource"
     name: Mapped[str]
@@ -10,6 +21,10 @@ class Resource(base.BigIntAuditBase):
     url: Mapped[str]
     poster_url: Mapped[str]
     duration: Mapped[float]
+    collection_id: Mapped[int] = mapped_column(ForeignKey("collection.id"))
+    collection: Mapped[Collection] = relationship(
+        lazy="joined", innerjoin=True, viewonly=True
+    )
 
     def __repr__(self):
         return f"Resource(name={self.name})"

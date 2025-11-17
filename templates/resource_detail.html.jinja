@@ -1,5 +1,5 @@
 {% extends "base.html.jinja" %}
-{% block title %}Resource{% endblock %}
+{% block title %}{{resource.name}}{% endblock %}
 
 {% block content%}
 <div class="container">
@@ -23,9 +23,10 @@
         <button id="playback-fast" type="button">1.25x</button>
     </p>
     <ul>
-        <li>Duration: {{resource.duration|duration_format}}</li>
-        <li>Created on: {{resource.created_at.strftime('%Y-%m-%d')}}</li>
-        <li>Updated on: {{resource.updated_at.strftime('%Y-%m-%d')}}</li>
+        <li><a href="{{url_for('collection-detail', collection_id=resource.collection.id)}}">{{resource.collection.name}}</a></li>
+        <li>{{resource.duration|duration_format}}</li>
+        <li>Created {{resource.created_at.strftime('%Y-%m-%d')}}</li>
+        <li>Updated {{resource.updated_at.strftime('%Y-%m-%d')}}</li>
     </ul>
 </div>
 {% endblock %}

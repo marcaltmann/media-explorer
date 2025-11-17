@@ -4,6 +4,17 @@
 {% block content%}
 <div class="container">
   <h1 class="u-mt">Collections</h1>
-  <p>Coming soon: Collections</p>
+  <ul class="base-list grid u-mt">
+    {% for collection in collections %}
+    <li class="media">
+      <div class="media__body">
+        <p>
+          <a href="{{url_for('collection-detail', collection_id=collection.id)}}">{{collection.name}}</a><br>
+          {{collection.resources|length}} Videos/Audios<br>
+        </p>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
 </div>
 {% endblock %}
