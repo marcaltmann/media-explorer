@@ -26,9 +26,17 @@ body {
   margin: 0;
 }
 
-h1 {
+h1,
+.h1 {
   font-size: 1.647rem;
   line-height: 1.5rlh;
+  margin-block: 0;
+}
+
+h2,
+.h2 {
+  font-size: 1.25rem;
+  line-height: 1rlh;
   margin-block: 0;
 }
 
@@ -110,7 +118,6 @@ main {
 .footer__inner {
   margin-inline: auto;
   max-width: var(--header-width);
-  padding-block: 1rlh;
   padding-inline: 1rlh;
 }
 
@@ -151,6 +158,15 @@ main {
 
 }
 
+.player {
+  display: flex;
+  gap: 0.5rlh;
+}
+
+.player__right {
+  margin-left: auto;
+}
+
 .base-list {
   list-style-type: none;
   margin-block: 0;
@@ -171,5 +187,4 @@ main {
   display: flex;
   flex-wrap: wrap;
   gap: 0.25rlh;
-  min-height: 1rlh;
 }

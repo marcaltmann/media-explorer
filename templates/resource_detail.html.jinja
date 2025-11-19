@@ -3,7 +3,15 @@
 
 {% block content%}
 <div class="container">
-    <h1 class="u-mt">{{resource.name}}</h1>
+    <header class="player u-mt">
+        <h1 class="h2"><a href="{{url_for('resource-detail', resource_id=resource.id)}}">{{resource.name}}</a></h1>
+        <span class="player__right">{{resource.duration|duration_format}}</span>
+        <span>
+            <a
+                href="{{url_for('collection-detail', collection_id=resource.collection.id)}}">{{resource.collection.name}}</a>
+        </span>
+    </header>
+
     {% if resource.is_video() %}
     <video id="media-element" class="u-mt" controls width="700" poster="{{resource.poster_url}}">
         <source src="{{resource.url}}" type="{{resource.media_type}}" />
@@ -13,168 +21,187 @@
         <source src="{{resource.url}}" type="{{resource.media_type}}" />
     </audio>
     {% endif %}
-    <p id="marker-place" class="marker-place"></p>
-    <p>
-        <button id="set-marker" type="button">Set marker</button>
-        <button id="seek-backward" type="button">-15s</button>
-        <button id="seek-forward" type="button">+30s</button>
-        <button id="playback-slow" type="button">0.8x</button>
-        <button id="playback-normal" type="button">1x</button>
-        <button id="playback-fast" type="button">1.25x</button>
-    </p>
-    <ul>
-        <li><a href="{{url_for('collection-detail', collection_id=resource.collection.id)}}">{{resource.collection.name}}</a></li>
-        <li>{{resource.duration|duration_format}}</li>
-        <li>Created {{resource.created_at.strftime('%Y-%m-%d')}}</li>
-        <li>Updated {{resource.updated_at.strftime('%Y-%m-%d')}}</li>
-    </ul>
-    {% if resource.toc %}
-    <section>
-        <h2>Chapters</h2>
-        <ul>
-            {% for entry in resource.toc %}
-            <li>
-                <a href="#{{entry.position}}">{{entry.name}} ({{entry.position|duration_format}})</a>
-            </li>
-            {% endfor %}
-        </ul>
-    </section>
-    {% endif %}
+
+    <div class="grid u-mt">
+        {% if resource.toc %}
+        <div>
+            <ul class="base-list">
+                {% for entry in resource.toc %}
+                <li>
+                    <a href="#{{entry.position}}">{{entry.name}} ({{entry.position|duration_format}})</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        <div>
+            <fieldset>
+                <legend>Set playback rate:</legend>
+                <div class="u-display-flex">
+                <div>
+                    <label>
+                        <input type="radio" id="slow" name="rate" value="slow" />
+                        Slow
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="radio" id="normal" name="rate" value="normal" checked />
+                        Normal
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="radio" id="fast" name="rate" value="fast" />
+                        Fast
+                    </label>
+                </div>
+                </div>
+            </fieldset>
+            <p class="u-mt">
+                <button id="set-marker" type="button">Set marker</button>
+            </p>
+            <p id="marker-place" class="marker-place u-mt-tiny"></p>
+        </div>
+    </div>
 </div>
 {% endblock %}
 {% block javascript %}
 <script>
-const PLAYBACK_RATE_SLOW = 0.8;
-const PLAYBACK_RATE_NORMAL = 1.0;
-const PLAYBACK_RATE_FAST = 1.25;
+    const PLAYBACK_RATE_SLOW = 0.8;
+    const PLAYBACK_RATE_NORMAL = 1.0;
+    const PLAYBACK_RATE_FAST = 1.25;
 
-const setMarker = document.getElementById('set-marker');
-const markerPlace = document.getElementById('marker-place');
-const mediaElement = document.getElementById('media-element');
-const seekBackward = document.getElementById('seek-backward');
-const seekForward = document.getElementById('seek-forward');
-const setSlowPlaybackButton = document.getElementById('playback-slow');
-const setNormalPlaybackButton = document.getElementById('playback-normal');
-const setFastPlaybackButton = document.getElementById('playback-fast');
+    const setMarker = document.getElementById('set-marker');
+    const markerPlace = document.getElementById('marker-place');
+    const mediaElement = document.getElementById('media-element');
+    const slowPlaybackRate = document.getElementById('slow');
+    const normalPlaybackRate = document.getElementById('normal');
+    const fastPlaybackRate = document.getElementById('fast');
 
-const tocButtons = Array.from(document.getElementsByClassName('toc-button'));
+    const tocButtons = Array.from(document.getElementsByClassName('toc-button'));
 
-function togglePlay() {
-    if (mediaElement.paused || mediaElement.ended) {
-        mediaElement.play();
-    } else {
-        mediaElement.pause();
-    }
-}
-
-document.addEventListener("keydown", (e) => {
-    if (['Space', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.code)) {
-        e.preventDefault();
-    }
-    switch (e.code) {
-    case 'Space':
-        togglePlay();
-        break;
-    case 'ArrowLeft':
-        mediaElement.currentTime -= 5;
-        break;
-    case 'ArrowRight':
-        mediaElement.currentTime += 10;
-        break;
-    case 'ArrowUp':
-        mediaElement.volume += 0.1;
-        break;
-    case 'ArrowDown':
-        mediaElement.volume -= 0.1;
-        break;
-    default:
-    }
-});
-
-document.addEventListener('DOMContentLoaded', (event) => {
-    const url = new URL(document.URL);
-    const hash = url.hash;
-    const seconds = Number.parseFloat(hash.slice(1));
-    if (typeof seconds === 'number') {
-        mediaElement.currentTime = seconds;
-    }
-});
-
-window.addEventListener('hashchange', (event) => {
-    const url = new URL(event.newURL);
-    const hash = url.hash;
-    const seconds = Number.parseFloat(hash.slice(1));
-    if (typeof seconds === 'number') {
-        mediaElement.currentTime = seconds;
-        mediaElement.play();
-    }
-})
-
-function handleTocButtonClick(event) {
-    console.log(event, this);
-    const time = Number.parseFloat(this.dataset.position);
-    mediaElement.currentTime = time;
-}
-
-seekBackward.addEventListener('click', () => mediaElement.currentTime -= 15);
-seekForward.addEventListener('click', () => mediaElement.currentTime += 30);
-setSlowPlaybackButton.addEventListener('click', () => mediaElement.playbackRate = PLAYBACK_RATE_SLOW);
-setNormalPlaybackButton.addEventListener('click', () => mediaElement.playbackRate = PLAYBACK_RATE_NORMAL);
-setFastPlaybackButton.addEventListener('click', () => mediaElement.playbackRate = PLAYBACK_RATE_FAST);
-tocButtons.forEach(button => button.addEventListener('click', handleTocButtonClick));
-
-function positionFormat(seconds) {
-    hours = Math.floor(seconds / 3600);
-    minutes = Math.floor((seconds % 3600) / 60);
-    secs = Math.floor(seconds % 60);
-
-    if (hours === 0) {
-        return `${minutes}m${secs}s`;
-    } else {
-        return `${hours}h${minutes}m${secs}s`;
-    }
-}
-
-function insertButton(container, newButton) {
-    const children = Array.from(container.children);
-
-    if (children.length === 0) {
-        container.append(newButton);
-        return;
-    }
-
-    for (let i = 0; i < children.length; i++) {
-        if (i === children.length - 1) {
-            children[i].after(newButton);
-            break;
-        }
-
-        const currentButtonPos = Number.parseFloat(children[i].dataset.position);
-        const nextButtonPos = Number.parseFloat(children[i + 1]?.dataset?.position);
-        const newButtonPos = Number.parseFloat(newButton.dataset.position);
-
-        if (newButtonPos >= currentButtonPos && newButtonPos < nextButtonPos) {
-            children[i].after(newButton);
-            break;
+    function togglePlay() {
+        if (mediaElement.paused || mediaElement.ended) {
+            mediaElement.play();
+        } else {
+            mediaElement.pause();
         }
     }
-}
 
-function handleSetMarker(event) {
-    const position = mediaElement.currentTime;
-    const button = document.createElement('button');
-    button.textContent = positionFormat(position);
-    button.dataset.position = position.toString();
-    button.addEventListener('click', handleButtonClick);
-    insertButton(markerPlace, button);
-}
+    document.addEventListener("keydown", (e) => {
+        if (['Space', 'ArrowLeft', 'ArrowRight', 'KeyM', 'KeyF'].includes(e.code)) {
+            e.preventDefault();
+        }
+        let newTime;
+        switch (e.code) {
+            case 'Space':
+                togglePlay();
+                break;
+            case 'ArrowLeft':
+                newTime = mediaElement.currentTime - 5;
+                mediaElement.currentTime = newTime;
+                break;
+            case 'ArrowRight':
+                newTime = mediaElement.currentTime + 10;
+                mediaElement.currentTime = newTime;
+                break;
+            case 'KeyM':
+                mediaElement.muted = !mediaElement.muted;
+                break;
+            case 'KeyF':
+                if (mediaElement.tagName === 'VIDEO' && document.fullscreenEnabled) {
+                    if (document.fullscreenElement) {
+                        document.exitFullscreen();
+                    } else {
+                        mediaElement.requestFullscreen();
+                    }
+                }
+            default:
+        }
+    });
 
-function handleButtonClick(event) {
-    const position = Number.parseFloat(this.dataset.position);
-    mediaElement.currentTime = position;
-    mediaElement.play();
-}
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const url = new URL(document.URL);
+        const hash = url.hash;
+        const seconds = Number.parseFloat(hash.slice(1));
+        if (typeof seconds === 'number' && !Number.isNaN(seconds)) {
+            mediaElement.currentTime = seconds;
+        }
+    });
 
-setMarker.addEventListener('click', handleSetMarker);
+    window.addEventListener('hashchange', (event) => {
+        const url = new URL(event.newURL);
+        const hash = url.hash;
+        const seconds = Number.parseFloat(hash.slice(1));
+        if (typeof seconds === 'number') {
+            mediaElement.currentTime = seconds;
+            mediaElement.play();
+        }
+    })
+
+    function handleTocButtonClick(event) {
+        const time = Number.parseFloat(this.dataset.position);
+        mediaElement.currentTime = time;
+    }
+
+    slowPlaybackRate.addEventListener('click', () => mediaElement.playbackRate = PLAYBACK_RATE_SLOW);
+    normalPlaybackRate.addEventListener('click', () => mediaElement.playbackRate = PLAYBACK_RATE_NORMAL);
+    fastPlaybackRate.addEventListener('click', () => mediaElement.playbackRate = PLAYBACK_RATE_FAST);
+    tocButtons.forEach(button => button.addEventListener('click', handleTocButtonClick));
+
+    function positionFormat(seconds) {
+        hours = Math.floor(seconds / 3600);
+        minutes = Math.floor((seconds % 3600) / 60);
+        secs = Math.floor(seconds % 60);
+
+        if (hours === 0) {
+            return `${minutes}m${secs}s`;
+        } else {
+            return `${hours}h${minutes}m${secs}s`;
+        }
+    }
+
+    function insertButton(container, newButton) {
+        const children = Array.from(container.children);
+
+        if (children.length === 0) {
+            container.append(newButton);
+            return;
+        }
+
+        for (let i = 0; i < children.length; i++) {
+            if (i === children.length - 1) {
+                children[i].after(newButton);
+                break;
+            }
+
+            const currentButtonPos = Number.parseFloat(children[i].dataset.position);
+            const nextButtonPos = Number.parseFloat(children[i + 1]?.dataset?.position);
+            const newButtonPos = Number.parseFloat(newButton.dataset.position);
+
+            if (newButtonPos >= currentButtonPos && newButtonPos < nextButtonPos) {
+                children[i].after(newButton);
+                break;
+            }
+        }
+    }
+
+    function handleSetMarker(event) {
+        const position = mediaElement.currentTime;
+        const button = document.createElement('button');
+        button.textContent = positionFormat(position);
+        button.dataset.position = position.toString();
+        button.addEventListener('click', handleButtonClick);
+        insertButton(markerPlace, button);
+    }
+
+    function handleButtonClick(event) {
+        const position = Number.parseFloat(this.dataset.position);
+        mediaElement.currentTime = position;
+        mediaElement.play();
+    }
+
+    setMarker.addEventListener('click', handleSetMarker);
 </script>
 {% endblock %}
