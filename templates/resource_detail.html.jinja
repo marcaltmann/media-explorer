@@ -197,9 +197,13 @@
     }
 
     function handleButtonClick(event) {
-        const position = Number.parseFloat(this.dataset.position);
-        mediaElement.currentTime = position;
-        mediaElement.play();
+        if (event.shiftKey) {
+            this.remove();
+        } else {
+            const position = Number.parseFloat(this.dataset.position);
+            mediaElement.currentTime = position;
+            mediaElement.play();
+        }
     }
 
     setMarker.addEventListener('click', handleSetMarker);
