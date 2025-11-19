@@ -4,6 +4,12 @@
         "media_type": "audio/mp3",
         "duration": 204.54,
         "url": "/static/hsk5a01-1.mp3",
-        "poster_url": ""
+        "poster_url": "",
+        "toc": [
+            {"name": "Beginning", "position": 10},
+            {"name": "First couple", "position": 18.5},
+            {"name": "Second couple", "position": 59.5},
+            {"name": "Third couple", "position": 77.5}
+        ]
     }
 ]

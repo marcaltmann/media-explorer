@@ -28,6 +28,18 @@
         <li>Created {{resource.created_at.strftime('%Y-%m-%d')}}</li>
         <li>Updated {{resource.updated_at.strftime('%Y-%m-%d')}}</li>
     </ul>
+    {% if resource.toc %}
+    <section>
+        <h2>Chapters</h2>
+        <ul>
+            {% for entry in resource.toc %}
+            <li>
+                <a href="#{{entry.position}}">{{entry.name}} ({{entry.position|duration_format}})</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
 </div>
 {% endblock %}
 {% block javascript %}
@@ -45,11 +57,71 @@ const setSlowPlaybackButton = document.getElementById('playback-slow');
 const setNormalPlaybackButton = document.getElementById('playback-normal');
 const setFastPlaybackButton = document.getElementById('playback-fast');
 
+const tocButtons = Array.from(document.getElementsByClassName('toc-button'));
+
+function togglePlay() {
+    if (mediaElement.paused || mediaElement.ended) {
+        mediaElement.play();
+    } else {
+        mediaElement.pause();
+    }
+}
+
+document.addEventListener("keydown", (e) => {
+    if (['Space', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.code)) {
+        e.preventDefault();
+    }
+    switch (e.code) {
+    case 'Space':
+        togglePlay();
+        break;
+    case 'ArrowLeft':
+        mediaElement.currentTime -= 5;
+        break;
+    case 'ArrowRight':
+        mediaElement.currentTime += 10;
+        break;
+    case 'ArrowUp':
+        mediaElement.volume += 0.1;
+        break;
+    case 'ArrowDown':
+        mediaElement.volume -= 0.1;
+        break;
+    default:
+    }
+});
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    const url = new URL(document.URL);
+    const hash = url.hash;
+    const seconds = Number.parseFloat(hash.slice(1));
+    if (typeof seconds === 'number') {
+        mediaElement.currentTime = seconds;
+    }
+});
+
+window.addEventListener('hashchange', (event) => {
+    const url = new URL(event.newURL);
+    const hash = url.hash;
+    const seconds = Number.parseFloat(hash.slice(1));
+    if (typeof seconds === 'number') {
+        mediaElement.currentTime = seconds;
+        mediaElement.play();
+    }
+})
+
+function handleTocButtonClick(event) {
+    console.log(event, this);
+    const time = Number.parseFloat(this.dataset.position);
+    mediaElement.currentTime = time;
+}
+
 seekBackward.addEventListener('click', () => mediaElement.currentTime -= 15);
 seekForward.addEventListener('click', () => mediaElement.currentTime += 30);
 setSlowPlaybackButton.addEventListener('click', () => mediaElement.playbackRate = PLAYBACK_RATE_SLOW);
 setNormalPlaybackButton.addEventListener('click', () => mediaElement.playbackRate = PLAYBACK_RATE_NORMAL);
 setFastPlaybackButton.addEventListener('click', () => mediaElement.playbackRate = PLAYBACK_RATE_FAST);
+tocButtons.forEach(button => button.addEventListener('click', handleTocButtonClick));
 
 function positionFormat(seconds) {
     hours = Math.floor(seconds / 3600);

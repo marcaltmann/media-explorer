@@ -55,6 +55,7 @@ async def on_startup(app: Litestar) -> None:
                         duration=resource["duration"],
                         url=resource["url"],
                         poster_url=resource["poster_url"],
+                        toc=resource["toc"],
                         collection_id=1,
                     )
                 )
@@ -66,6 +67,7 @@ async def on_startup(app: Litestar) -> None:
                         duration=resource["duration"],
                         url=resource["url"],
                         poster_url=resource["poster_url"],
+                        toc=resource["toc"],
                         collection_id=2,
                     )
                 )
