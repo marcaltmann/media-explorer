@@ -188,3 +188,14 @@ main {
   flex-wrap: wrap;
   gap: 0.25rlh;
 }
+
+.button {
+  background-color: #333;
+  border-color: #999;
+  color: var(--text-color);
+  font-size: 1rem;
+}
+
+.button--small {
+  font-size: 0.875rem;
+}

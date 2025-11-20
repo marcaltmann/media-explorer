@@ -128,7 +128,10 @@ def duration_format(value: float) -> str:
     hours = int(value // 3600)
     minutes = int((value % 3600) // 60)
     secs = int(value % 60)
-    return f"{hours}h{minutes}m{secs}s"
+    if hours > 0:
+        return f"{hours}h{minutes}m{secs}s"
+    else:
+        return f"{minutes}m{secs}s"
 
 
 env = Environment(loader=PackageLoader("app"), autoescape=select_autoescape())

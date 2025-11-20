@@ -59,7 +59,7 @@
                 </div>
             </fieldset>
             <p class="u-mt">
-                <button id="set-marker" type="button">Set marker</button>
+                <button id="set-marker" type="button" class="button">Add marker</button>
             </p>
             <p id="marker-place" class="marker-place u-mt-tiny"></p>
         </div>
@@ -188,8 +188,9 @@
     }
 
     function handleSetMarker(event) {
-        const position = mediaElement.currentTime;
         const button = document.createElement('button');
+        button.classList.add('button', 'button--small');
+        const position = mediaElement.currentTime;
         button.textContent = positionFormat(position);
         button.dataset.position = position.toString();
         button.addEventListener('click', handleButtonClick);
