@@ -22,6 +22,8 @@
     </audio>
     {% endif %}
 
+    <div id="container"></div>
+
     <div class="grid u-mt">
         {% if resource.toc %}
         <div>
@@ -38,24 +40,24 @@
             <fieldset>
                 <legend>Set playback rate:</legend>
                 <div class="u-display-flex">
-                <div>
-                    <label>
-                        <input type="radio" id="slow" name="rate" value="slow" />
-                        Slow
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <input type="radio" id="normal" name="rate" value="normal" checked />
-                        Normal
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <input type="radio" id="fast" name="rate" value="fast" />
-                        Fast
-                    </label>
-                </div>
+                    <div>
+                        <label>
+                            <input type="radio" id="slow" name="rate" value="slow" />
+                            Slow
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <input type="radio" id="normal" name="rate" value="normal" checked />
+                            Normal
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <input type="radio" id="fast" name="rate" value="fast" />
+                            Fast
+                        </label>
+                    </div>
                 </div>
             </fieldset>
             <p class="u-mt">
@@ -208,5 +210,70 @@
     }
 
     setMarker.addEventListener('click', handleSetMarker);
+</script>
+<script type="module">
+    import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+
+    const mediaElement = document.getElementById('media-element');
+
+    // Declare the chart dimensions and margins.
+    const width = 1020;
+    const height = 100;
+    const marginTop = 20;
+    const marginRight = 20;
+    const marginBottom = 30;
+    const marginLeft = 20;
+
+    // Declare the x (horizontal position) scale.
+    const xScale = d3.scaleLinear()
+        .domain([0, {{ resource.duration }}])
+        .range([marginLeft, width - marginRight]);
+
+    const xAxis = d3.axisBottom(xScale)
+        .tickFormat(d => {
+            const hours = Math.floor(d / 3600);
+            const minutes = Math.floor((d % 3600) / 60);
+            const seconds = Math.floor(d % 60);
+
+            if (hours > 0) {
+                return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            } else {
+                return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            }
+        });
+
+    const svg = d3.select('#container')
+      .append('svg')
+        .attr("width", width)
+        .attr("height", height);
+
+    svg.append("rect")
+        .attr('id', 'progress')
+        .attr("width", xScale(mediaElement.currentTime))
+        .attr("height", height)
+        .attr("fill", "var(--accent-color)")
+        .attr("opacity", 0.5);
+
+    svg.append("g")
+        .attr("transform", `translate(0,${height - marginBottom})`)
+        .call(xAxis);
+
+    svg.append("rect")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("fill", "transparent")
+        .style("cursor", "crosshair")
+        .on("click", (event) => {
+            const [mouseX] = d3.pointer(event);
+            const seconds = xScale.invert(mouseX);
+            mediaElement.currentTime = seconds;
+            mediaElement.play();
+        });
+
+    mediaElement.addEventListener('timeupdate', (event) => {
+        d3.select('#progress')
+            .attr('width', xScale(mediaElement.currentTime));
+    });
+
 </script>
 {% endblock %}
