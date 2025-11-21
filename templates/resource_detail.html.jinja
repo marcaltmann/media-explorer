@@ -12,17 +12,16 @@
         </span>
     </header>
 
+    <div id="container" class="u-mt"></div>
     {% if resource.is_video() %}
-    <video id="media-element" class="u-mt" controls width="700" poster="{{resource.poster_url}}">
+    <video id="media-element" class="" controls width="700" poster="{{resource.poster_url}}">
         <source src="{{resource.url}}" type="{{resource.media_type}}" />
     </video>
     {% else %}
-    <audio id="media-element" class="audio u-mt" controls width="700" poster="{{resource.poster_url}}">
+    <audio id="media-element" class="audio" controls width="700" poster="{{resource.poster_url}}">
         <source src="{{resource.url}}" type="{{resource.media_type}}" />
     </audio>
     {% endif %}
-
-    <div id="container"></div>
 
     <div class="grid u-mt">
         {% if resource.toc %}
@@ -37,29 +36,20 @@
         </div>
         {% endif %}
         <div>
-            <fieldset>
-                <legend>Set playback rate:</legend>
-                <div class="u-display-flex">
-                    <div>
-                        <label>
-                            <input type="radio" id="slow" name="rate" value="slow" />
-                            Slow
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="radio" id="normal" name="rate" value="normal" checked />
-                            Normal
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="radio" id="fast" name="rate" value="fast" />
-                            Fast
-                        </label>
-                    </div>
-                </div>
-            </fieldset>
+            <p>
+                <label class="playback">
+                    <input class="playback__checkbox" type="radio" id="slow" name="rate" value="slow" />
+                    Slow
+                </label>
+                <label class="playback">
+                    <input class="playback__checkbox" type="radio" id="normal" name="rate" value="normal" checked />
+                    Normal
+                </label>
+                <label class="playback">
+                    <input class="playback__checkbox" type="radio" id="fast" name="rate" value="fast" />
+                    Fast
+                </label>
+            </p>
             <p class="u-mt">
                 <button id="set-marker" type="button" class="button">Add marker</button>
             </p>

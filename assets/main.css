@@ -2,6 +2,7 @@
 
 :root {
   --accent-color: #6ff0d8;
+  --accent-color-dark: #49897d;
   --background-color-ui: #111;
   --background-color-content: #222;
   --header-width: 55rlh;
@@ -198,4 +199,23 @@ main {
 
 .button--small {
   font-size: 0.875rem;
+}
+
+.playback {
+  background-color: #333;
+  border: 2px solid #999;
+  display: inline-flex;
+  padding-right: 0.25rlh;
+}
+
+.playback__checkbox {
+  appearance: none;
+  width: 0;
+}
+
+.playback__checkbox:checked {
+}
+
+.playback:has(.playback__checkbox:checked) {
+  background-color: var(--accent-color-dark);
 }
