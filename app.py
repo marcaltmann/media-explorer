@@ -1,10 +1,8 @@
-from datetime import date
 from pathlib import Path
 import json
 
 from jinja2 import Environment, PackageLoader, select_autoescape
 from litestar import Litestar, get
-from litestar.connection import Request
 from litestar.contrib.jinja import JinjaTemplateEngine
 from litestar.plugins.sqlalchemy import (
     AsyncSessionConfig,
@@ -14,12 +12,11 @@ from litestar.plugins.sqlalchemy import (
 from litestar.response import Template
 from litestar.static_files import create_static_files_router
 from litestar.template.config import TemplateConfig
-from sqlalchemy import ForeignKey, func, select
-from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
-
+from sqlalchemy import func, select
 
 from controllers.page_controller import PageController
-
+from controllers.collection_controller import CollectionController
+from controllers.resource_controller import ResourceController
 from models import Collection, Resource
 
 
@@ -88,37 +85,6 @@ async def search() -> Template:
 async def organizations() -> Template:
     return Template(template_name="organizations.html.jinja")
 
-
-@get("/collections", name="collections")
-async def collections(db_session: AsyncSession, db_engine: AsyncEngine) -> Template:
-    db_engine.echo = True
-    collections = await db_session.scalars(select(Collection))
-    return Template(
-        template_name="collections.html.jinja", context={"collections": collections}
-    )
-
-@get("/collections/{collection_id:int}", name="collection-detail")
-async def collection_detail(db_session: AsyncSession, db_engine: AsyncEngine, collection_id: int) -> Template:
-    db_engine.echo = True
-    collection = await db_session.get(Collection, collection_id)
-    return Template(
-        template_name="collection_detail.html.jinja", context={"collection": collection}
-    )
-
-@get("/resources", name="resources")
-async def resources(db_session: AsyncSession, db_engine: AsyncEngine) -> Template:
-    resources = await db_session.scalars(select(Resource))
-    return Template(
-        template_name="resources.html.jinja", context={"resources": resources}
-    )
-
-@get("/resources/{resource_id:int}", name="resource-detail")
-async def resource_detail(db_session: AsyncSession, resource_id: int) -> Template:
-    resource = await db_session.get(Resource, resource_id)
-    return Template(
-        template_name="resource_detail.html.jinja", context={"resource": resource}
-    )
-
 @get("/admin", name="admin")
 async def admin() -> Template:
     return Template(template_name="admin.html.jinja")
@@ -142,12 +108,10 @@ app = Litestar(
         welcome,
         search,
         organizations,
-        collections,
-        collection_detail,
-        resources,
-        resource_detail,
         admin,
+        CollectionController,
         PageController,
+        ResourceController,
         create_static_files_router(path="/static", directories=["public"]),
     ],
     template_config=TemplateConfig(
