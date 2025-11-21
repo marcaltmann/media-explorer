@@ -7,7 +7,7 @@
   <ul class="base-list grid u-mt">
     {% for resource in resources %}
     <li class="media">
-      <img class="media__image" src="{{resource.poster_url}}" alt="" width="240" />
+      <img class="media__image" src="{{resource.poster_url}}" alt="" width="240" height="240" />
       <div class="media__body">
         <p>
           <a href="{{url_for('resource-detail', resource_id=resource.id)}}">{{resource.name}}</a><br>

@@ -1,4 +1,6 @@
-from litestar import get
+from typing import Any
+
+from litestar import get, MediaType
 from litestar.controller import Controller
 from litestar.response import Template
 from sqlalchemy import select
@@ -23,3 +25,8 @@ class ResourceController(Controller):
         return Template(
             template_name="resource_detail.html.jinja", context={"resource": resource}
         )
+
+    @get("/{resource_id:int}/toc", name="resource-toc", media_type=MediaType.JSON)
+    async def resource_toc(self, db_session: AsyncSession, resource_id: int) -> dict[str, Any]:
+        resource = await db_session.get(Resource, resource_id)
+        return resource.toc

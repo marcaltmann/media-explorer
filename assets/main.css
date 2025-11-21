@@ -1,8 +1,9 @@
 @import url("/static/utilities.css");
 
 :root {
-  --accent-color: #6ff0d8;
+  --accent-color: #49897d;
   --accent-color-dark: #49897d;
+  --secondary-color: #ffe448;
   --background-color-ui: #111;
   --background-color-content: #222;
   --header-width: 55rlh;
@@ -29,7 +30,8 @@ body {
 
 h1,
 .h1 {
-  font-size: 1.647rem;
+  font-size: 2rem;
+  font-weight: 200;
   line-height: 1.5rlh;
   margin-block: 0;
 }
@@ -152,7 +154,7 @@ main {
 }
 
 .media__image {
-
+  object-fit: cover;
 }
 
 .media__body {
@@ -166,6 +168,12 @@ main {
 
 .player__right {
   margin-left: auto;
+}
+
+.toc {
+  color: var(--secondary-color);
+  margin-block: 0;
+  padding-left: 1rlh;
 }
 
 .base-list {
@@ -218,4 +226,8 @@ main {
 
 .playback:has(.playback__checkbox:checked) {
   background-color: var(--accent-color-dark);
+}
+
+.chapter-name {
+  writing-mode: vertical-lr;
 }

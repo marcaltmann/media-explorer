@@ -3,13 +3,19 @@
 
 {% block content%}
 <div class="container">
-    <header class="player u-mt">
-        <h1 class="h2"><a href="{{url_for('resource-detail', resource_id=resource.id)}}">{{resource.name}}</a></h1>
-        <span class="player__right">{{resource.duration|duration_format}}</span>
-        <span>
-            <a
-                href="{{url_for('collection-detail', collection_id=resource.collection.id)}}">{{resource.collection.name}}</a>
-        </span>
+    <header class="u-mt">
+        <div class="media">
+            <img class="media__image" src="{{resource.poster_url}}" alt="" width="50" height="50" />
+            <div class="media__body">
+                <h1 class="h2"><a href="{{url_for('resource-detail', resource_id=resource.id)}}">{{resource.name}}</a></h1>
+                <div>
+                    <span>
+                        <a href="{{url_for('collection-detail', collection_id=resource.collection.id)}}">{{resource.collection.name}}</a>
+                    </span>
+                    <span class="player__right">{{resource.duration|duration_format}}</span>
+                </div>
+            </div>
+        </div>
     </header>
 
     <div id="container" class="u-mt"></div>
@@ -26,13 +32,13 @@
     <div class="grid u-mt">
         {% if resource.toc %}
         <div>
-            <ul class="base-list">
+            <ol class="toc">
                 {% for entry in resource.toc %}
                 <li>
                     <a href="#{{entry.position}}">{{entry.name}} ({{entry.position|duration_format}})</a>
                 </li>
                 {% endfor %}
-            </ul>
+            </ol>
         </div>
         {% endif %}
         <div>
@@ -204,15 +210,17 @@
 <script type="module">
     import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 
+    const data = await d3.json("/resources/{{resource.id}}/toc");
+
     const mediaElement = document.getElementById('media-element');
 
     // Declare the chart dimensions and margins.
     const width = 1020;
-    const height = 100;
+    const height = 200;
     const marginTop = 20;
-    const marginRight = 20;
+    const marginRight = 0;
     const marginBottom = 30;
-    const marginLeft = 20;
+    const marginLeft = 0;
 
     // Declare the x (horizontal position) scale.
     const xScale = d3.scaleLinear()
@@ -239,7 +247,9 @@
 
     svg.append("rect")
         .attr('id', 'progress')
-        .attr("width", xScale(mediaElement.currentTime))
+        .attr('x', xScale(0))
+        .attr('y', 0)
+        .attr("width", xScale(mediaElement.currentTime) - xScale(0))
         .attr("height", height)
         .attr("fill", "var(--accent-color)")
         .attr("opacity", 0.5);
@@ -248,6 +258,31 @@
         .attr("transform", `translate(0,${height - marginBottom})`)
         .call(xAxis);
 
+    /* TOC */
+    svg
+      .selectAll(".chapter-line")
+      .data(data)
+      .join("line")
+        .classed('chapter-line', true)
+        .attr("x1", d => xScale(d.position))
+        .attr("x2", d => xScale(d.position))
+        .attr("y1", 0)
+        .attr("y2", height - marginBottom)
+        .attr("stroke", "var(--secondary-color)");
+
+    svg
+      .selectAll(".chapter-name")
+      .data(data)
+      .join("text")
+        .classed('chapter-name', true)
+        .attr("x", d => xScale(d.position) + 10)
+        .attr("y", 5)
+        .attr('fill', 'var(--secondary-color)')
+        .attr('font-size', '12px')
+        .text((d, idx) => d.name)
+
+
+    /* Invisible click area */
     svg.append("rect")
         .attr("width", width)
         .attr("height", height)
@@ -262,7 +297,7 @@
 
     mediaElement.addEventListener('timeupdate', (event) => {
         d3.select('#progress')
-            .attr('width', xScale(mediaElement.currentTime));
+            .attr('width', xScale(mediaElement.currentTime) - xScale(0));
     });
 
 </script>
