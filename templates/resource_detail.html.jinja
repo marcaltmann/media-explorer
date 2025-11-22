@@ -259,27 +259,29 @@
         .call(xAxis);
 
     /* TOC */
-    svg
-      .selectAll(".chapter-line")
-      .data(data)
-      .join("line")
-        .classed('chapter-line', true)
-        .attr("x1", d => xScale(d.position))
-        .attr("x2", d => xScale(d.position))
-        .attr("y1", 0)
-        .attr("y2", height - marginBottom)
-        .attr("stroke", "var(--secondary-color)");
+    if (data) {
+        svg
+        .selectAll(".chapter-line")
+        .data(data)
+        .join("line")
+            .classed('chapter-line', true)
+            .attr("x1", d => xScale(d.position))
+            .attr("x2", d => xScale(d.position))
+            .attr("y1", 0)
+            .attr("y2", height - marginBottom)
+            .attr("stroke", "var(--secondary-color)");
 
-    svg
-      .selectAll(".chapter-name")
-      .data(data)
-      .join("text")
-        .classed('chapter-name', true)
-        .attr("x", d => xScale(d.position) + 10)
-        .attr("y", 5)
-        .attr('fill', 'var(--secondary-color)')
-        .attr('font-size', '12px')
-        .text((d, idx) => d.name)
+        svg
+        .selectAll(".chapter-name")
+        .data(data)
+        .join("text")
+            .classed('chapter-name', true)
+            .attr("x", d => xScale(d.position) + 10)
+            .attr("y", 5)
+            .attr('fill', 'var(--secondary-color)')
+            .attr('font-size', '12px')
+            .text((d, idx) => d.name)
+    }
 
 
     /* Invisible click area */

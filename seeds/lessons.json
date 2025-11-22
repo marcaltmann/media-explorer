@@ -12,5 +12,29 @@
             {"name": "第三对夫妻", "position": 77.5},
             {"name": "结果", "position": 182}
         ]
+    },
+    {
+        "name": "HSK5a 01 Vocabulary",
+        "media_type": "audio/mp3",
+        "duration": 77.19,
+        "url": "/static/hsk5a01-2.mp3",
+        "poster_url": "/static/hsk5a.jpg",
+        "toc": null
+    },
+    {
+        "name": "HSK5a 02",
+        "media_type": "audio/mp3",
+        "duration": 173.818776,
+        "url": "/static/hsk5a02-1.mp3",
+        "poster_url": "/static/hsk5a.jpg",
+        "toc": []
+    },
+    {
+        "name": "HSK5a 02 Vocabulary",
+        "media_type": "audio/mp3",
+        "duration": 77.949388,
+        "url": "/static/hsk5a02-2.mp3",
+        "poster_url": "/static/hsk5a.jpg",
+        "toc": null
     }
 ]
