@@ -22,12 +22,41 @@
         "toc": null
     },
     {
+        "name": "HSK5a 练习册 01 听力 1",
+        "media_type": "audio/mp3",
+        "duration": 213.368163,
+        "url": "/static/hsk5aworkbook01-1.mp3",
+        "poster_url": "/static/hsk5a.jpg",
+        "toc": [
+            {"name": "头", "position": 10},
+            {"name": "1", "position": 25},
+            {"name": "2", "position": 60},
+            {"name": "3", "position": 88},
+            {"name": "4", "position": 123},
+            {"name": "5", "position": 152},
+            {"name": "6", "position": 184}
+        ]
+    },
+    {
+        "name": "HSK5a 练习册 01 听力 2",
+        "media_type": "audio/mp3",
+        "duration": 305.867755,
+        "url": "/static/hsk5aworkbook01-2.mp3",
+        "poster_url": "/static/hsk5a.jpg",
+        "toc": [
+            {"name": "头", "position": 10}
+        ]
+    },
+    {
         "name": "HSK5a 02",
         "media_type": "audio/mp3",
         "duration": 173.818776,
         "url": "/static/hsk5a02-1.mp3",
         "poster_url": "/static/hsk5a.jpg",
-        "toc": []
+        "toc": [
+            {"name": "头", "position": 13},
+            {"name": "半年后", "position": 106}
+        ]
     },
     {
         "name": "HSK5a 02 Vocabulary",
