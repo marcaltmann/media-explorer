@@ -29,8 +29,10 @@ sqlalchemy_config = SQLAlchemyAsyncConfig(
     create_all=True,
 )
 
+
 async def on_startup(app: Litestar) -> None:
     await seed_database(sqlalchemy_config)
+
 
 env = Environment(loader=PackageLoader("app"), autoescape=select_autoescape())
 env.filters["duration_format"] = duration_format

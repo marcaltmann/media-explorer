@@ -1,5 +1,6 @@
 """Filters for Jinja2 templates."""
 
+
 def duration_format(value: float) -> str:
     """Format media duration."""
     hours = int(value // 3600)
