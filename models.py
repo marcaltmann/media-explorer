@@ -1,3 +1,5 @@
+from typing import Optional
+
 from litestar.plugins.sqlalchemy import base
 from sqlalchemy import ForeignKey, func, select, String, JSON
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -22,7 +24,7 @@ class Resource(base.BigIntAuditBase):
     url: Mapped[str]
     poster_url: Mapped[str]
     duration: Mapped[float]
-    toc: Mapped[list] = mapped_column(JSON, nullable=True)
+    toc: Mapped[Optional[list]] = mapped_column(JSON, nullable=True)
     collection_id: Mapped[int] = mapped_column(ForeignKey("collection.id"))
     collection: Mapped[Collection] = relationship(
         lazy="joined", innerjoin=True, viewonly=True

@@ -18,6 +18,7 @@ from controllers.resource import ResourceController
 from controllers.search import SearchController
 from controllers.admin import AdminController
 from controllers.organization import OrganizationController
+from controllers.api import ApiController
 
 from seeds.seed_db import seed_database
 from utils.filters import duration_format
@@ -46,6 +47,7 @@ app = Litestar(
         CollectionController,
         PageController,
         ResourceController,
+        ApiController,
         create_static_files_router(path="/static", directories=["public"]),
     ],
     template_config=TemplateConfig(
