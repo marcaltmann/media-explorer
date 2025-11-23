@@ -36,3 +36,10 @@ class ResourceController(Controller):
     ) -> dict[str, Any]:
         resource = await db_session.get(Resource, resource_id)
         return resource.toc
+
+    @get("/{resource_id:int}/waveform", name="resource-waveform", media_type=MediaType.JSON)
+    async def resource_waveform(
+        self, db_session: AsyncSession, resource_id: int
+    ) -> dict[str, Any]:
+        resource = await db_session.get(Resource, resource_id)
+        return resource.waveform

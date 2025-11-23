@@ -213,7 +213,10 @@
 
     const mediaElement = document.getElementById('media-element');
 
-    const chapters = await d3.json("/resources/{{resource.id}}/toc");
+    const chapters = await d3.json('/resources/{{resource.id}}/toc');
+    const waveform = await d3.json('/resources/{{resource.id}}/waveform');
+
+    console.log(waveform);
 
     document.addEventListener("keydown", (e) => {
         if (['Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0'].includes(e.code)) {
@@ -273,6 +276,20 @@
     svg.append("g")
         .attr("transform", `translate(0,${height - marginBottom})`)
         .call(xAxis);
+
+    /* Waveform */
+    if (waveform) {
+        svg
+        .selectAll(".waveform-line")
+        .data(waveform)
+        .join("line")
+            .classed('waveform-line', true)
+            .attr("x1", (d, idx) => xScale(idx / 10))
+            .attr("x2", (d, idx) => xScale(idx / 10))
+            .attr("y1", d => (height - marginBottom) / 2 - d)
+            .attr("y2", d => (height - marginBottom) / 2 + d)
+            .attr("stroke", "gray");
+    }
 
     /* TOC */
     if (chapters) {

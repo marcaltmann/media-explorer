@@ -25,6 +25,7 @@ class Resource(base.BigIntAuditBase):
     poster_url: Mapped[str]
     duration: Mapped[float]
     toc: Mapped[Optional[list]] = mapped_column(JSON, nullable=True)
+    waveform: Mapped[Optional[list]] = mapped_column(JSON, nullable=True)
     collection_id: Mapped[int] = mapped_column(ForeignKey("collection.id"))
     collection: Mapped[Collection] = relationship(
         lazy="joined", innerjoin=True, viewonly=True

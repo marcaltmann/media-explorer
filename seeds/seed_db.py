@@ -31,6 +31,7 @@ async def seed_database(sqlalchemy_config: SQLAlchemyAsyncConfig) -> None:
                         url=resource["url"],
                         poster_url=resource["poster_url"],
                         toc=resource["toc"],
+                        waveform=resource["waveform"],
                         collection_id=1,
                     )
                 )
