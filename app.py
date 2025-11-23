@@ -34,6 +34,9 @@ sqlalchemy_config = SQLAlchemyAsyncConfig(
 async def on_startup(app: Litestar) -> None:
     await seed_database(sqlalchemy_config)
 
+def print_message() -> None:
+    print("Byebye")
+
 
 env = Environment(loader=PackageLoader("app"), autoescape=select_autoescape())
 env.filters["duration_format"] = duration_format
@@ -55,6 +58,7 @@ app = Litestar(
         engine=JinjaTemplateEngine.from_environment(env),
     ),
     on_startup=[on_startup],
+    on_shutdown=[print_message],
     plugins=[SQLAlchemyPlugin(config=sqlalchemy_config)],
     debug=True,
 )

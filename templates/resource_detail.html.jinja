@@ -210,9 +210,25 @@
 <script type="module">
     import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 
-    const data = await d3.json("/resources/{{resource.id}}/toc");
 
     const mediaElement = document.getElementById('media-element');
+
+    const chapters = await d3.json("/resources/{{resource.id}}/toc");
+
+    document.addEventListener("keydown", (e) => {
+        if (['Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0'].includes(e.code)) {
+            e.preventDefault();
+
+            const digit = Number.parseInt(e.code[5]);
+            const chapterNum = digit === 0 ? 10 : digit;
+
+            if (chapters.length >= chapterNum) {
+                const time = chapters[chapterNum - 1].position;
+                mediaElement.currentTime = time;
+                mediaElement.play();
+            }
+        }
+    });
 
     // Declare the chart dimensions and margins.
     const width = 1020;
@@ -259,10 +275,10 @@
         .call(xAxis);
 
     /* TOC */
-    if (data) {
+    if (chapters) {
         svg
         .selectAll(".chapter-line")
-        .data(data)
+        .data(chapters)
         .join("line")
             .classed('chapter-line', true)
             .attr("x1", d => xScale(d.position))
@@ -273,7 +289,7 @@
 
         svg
         .selectAll(".chapter-name")
-        .data(data)
+        .data(chapters)
         .join("text")
             .classed('chapter-name', true)
             .attr("x", d => xScale(d.position) + 10)

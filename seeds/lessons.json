@@ -28,7 +28,6 @@
         "url": "/static/hsk5aworkbook01-1.mp3",
         "poster_url": "/static/hsk5a.jpg",
         "toc": [
-            {"name": "头", "position": 10},
             {"name": "1", "position": 25},
             {"name": "2", "position": 60},
             {"name": "3", "position": 88},
