@@ -43,7 +43,12 @@
         "url": "/static/hsk5aworkbook01-2.mp3",
         "poster_url": "/static/hsk5a.jpg",
         "toc": [
-            {"name": "头", "position": 10}
+            {"name": "7", "position": 14},
+            {"name": "8", "position": 44},
+            {"name": "9", "position": 79},
+            {"name": "10", "position": 119},
+            {"name": "11+12", "position": 161},
+            {"name": "13+14", "position": 236}
         ]
     },
     {
