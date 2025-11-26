@@ -88,7 +88,8 @@
     }
 
     document.addEventListener("keydown", (e) => {
-        if (['Space', 'ArrowLeft', 'ArrowRight', 'KeyM', 'KeyF'].includes(e.code)) {
+        console.log(e)
+        if (['Space', 'ArrowLeft', 'ArrowRight', 'KeyM', 'KeyF', 'KeyQ', 'KeyW', 'KeyE'].includes(e.code)) {
             e.preventDefault();
         }
         let newTime;
@@ -115,6 +116,18 @@
                         mediaElement.requestFullscreen();
                     }
                 }
+            case 'KeyQ':
+                mediaElement.playbackRate = PLAYBACK_RATE_SLOW;
+                slowPlaybackRate.checked = true;
+                break;
+            case 'KeyW':
+                mediaElement.playbackRate = PLAYBACK_RATE_NORMAL;
+                normalPlaybackRate.checked = true;
+                break;
+            case 'KeyE':
+                mediaElement.playbackRate = PLAYBACK_RATE_FAST;
+                fastPlaybackRate.checked = true;
+                break;
             default:
         }
     });
