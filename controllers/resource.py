@@ -1,8 +1,14 @@
-from typing import Any
+from dataclasses import dataclass
+from typing import Annotated, Any
+import msgspec
 
-from litestar import get, delete, MediaType
+
+from litestar import Litestar, get, post, MediaType
 from litestar.controller import Controller
-from litestar.response import Template
+from litestar.enums import RequestEncodingType
+from litestar.params import Body
+from litestar import Request
+from litestar.response import Template, Redirect
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
 
@@ -30,6 +36,16 @@ class ResourceController(Controller):
             template_name="resource_detail.html.jinja", context={"resource": resource}
         )
 
+    @get("/new", name="resource-new")
+    async def resource_new(self, db_session: AsyncSession) -> Template:
+        return Template(template_name="resource_new.html.jinja")
+
+    @post("/new", name="create-resource")
+    async def create_resource(self, request: Request) -> Redirect:
+        form = await request.form()
+        print(form)
+        return Redirect(path="/")
+
     @get("/{resource_id:int}/toc", name="resource-toc", media_type=MediaType.JSON)
     async def resource_toc(
         self, db_session: AsyncSession, resource_id: int
@@ -37,7 +53,11 @@ class ResourceController(Controller):
         resource = await db_session.get(Resource, resource_id)
         return resource.toc
 
-    @get("/{resource_id:int}/waveform", name="resource-waveform", media_type=MediaType.JSON)
+    @get(
+        "/{resource_id:int}/waveform",
+        name="resource-waveform",
+        media_type=MediaType.JSON,
+    )
     async def resource_waveform(
         self, db_session: AsyncSession, resource_id: int
     ) -> dict[str, Any]:

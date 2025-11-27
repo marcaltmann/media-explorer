@@ -1,0 +1,21 @@
+{% extends "base.html.jinja" %}
+{% block title %}New resource{% endblock %}
+
+{% block content%}
+<div class="container">
+    <h1 class="u-mt">New resource</h1>
+
+    <form method="post" action="/resources/new" class="u-mt">
+        <div>
+            <label for="name">Name</label>
+            <input id="name" type="text" name="name" value="" placeholder="Tenet" />
+        </div>
+
+        <div>
+            <button class="button" type="submit">
+                Submit
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

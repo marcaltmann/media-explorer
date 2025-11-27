@@ -34,6 +34,7 @@ sqlalchemy_config = SQLAlchemyAsyncConfig(
 async def on_startup(app: Litestar) -> None:
     await seed_database(sqlalchemy_config)
 
+
 def print_message() -> None:
     print("Byebye")
 
