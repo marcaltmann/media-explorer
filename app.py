@@ -10,6 +10,7 @@ from litestar.plugins.sqlalchemy import (
 )
 from litestar.static_files import create_static_files_router
 from litestar.template.config import TemplateConfig
+from litestar_vite import ViteConfig, VitePlugin
 
 from controllers.welcome import WelcomeController
 from controllers.page import PageController
@@ -42,6 +43,8 @@ def print_message() -> None:
 env = Environment(loader=PackageLoader("app"), autoescape=select_autoescape())
 env.filters["duration_format"] = duration_format
 
+vite = VitePlugin(config=ViteConfig())
+
 app = Litestar(
     route_handlers=[
         WelcomeController,
@@ -52,7 +55,7 @@ app = Litestar(
         PageController,
         ResourceController,
         ApiController,
-        create_static_files_router(path="/static", directories=["public"]),
+        #create_static_files_router(path="/static", directories=["public"]),
     ],
     template_config=TemplateConfig(
         directory=Path("templates"),
@@ -60,6 +63,6 @@ app = Litestar(
     ),
     on_startup=[on_startup],
     on_shutdown=[print_message],
-    plugins=[SQLAlchemyPlugin(config=sqlalchemy_config)],
+    plugins=[vite, SQLAlchemyPlugin(config=sqlalchemy_config)],
     debug=True,
 )

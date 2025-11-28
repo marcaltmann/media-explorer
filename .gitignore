@@ -11,3 +11,4 @@ wheels/
 
 *.sqlite
 /public
+/node_modules
