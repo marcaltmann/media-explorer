@@ -14,8 +14,9 @@ class CollectionController(Controller):
     async def collections(
         self, db_session: AsyncSession, db_engine: AsyncEngine
     ) -> Template:
-        db_engine.echo = True
         collections = await db_session.scalars(select(Collection))
+        await db_session.commit()
+
         return Template(
             template_name="collections.html.jinja", context={"collections": collections}
         )
@@ -24,8 +25,8 @@ class CollectionController(Controller):
     async def collection_detail(
         self, db_session: AsyncSession, db_engine: AsyncEngine, collection_id: int
     ) -> Template:
-        db_engine.echo = True
         collection = await db_session.get(Collection, collection_id)
+        await db_session.commit()
         return Template(
             template_name="collection_detail.html.jinja",
             context={"collection": collection},

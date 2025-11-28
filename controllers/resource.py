@@ -9,7 +9,7 @@ from litestar.enums import RequestEncodingType
 from litestar.params import Body
 from litestar import Request
 from litestar.response import Template, Redirect
-from sqlalchemy import select
+from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
 
 from models import Resource
@@ -22,7 +22,10 @@ class ResourceController(Controller):
     async def resources(
         self, db_session: AsyncSession, db_engine: AsyncEngine
     ) -> Template:
-        resources = await db_session.scalars(select(Resource))
+        statement = select(Resource)
+        result = await db_session.execute(statement)
+        resources = result.scalars()
+        await db_session.commit()
         return Template(
             template_name="resources.html.jinja", context={"resources": resources}
         )
@@ -32,6 +35,8 @@ class ResourceController(Controller):
         self, db_session: AsyncSession, resource_id: int
     ) -> Template:
         resource = await db_session.get(Resource, resource_id)
+        await db_session.commit()
+
         return Template(
             template_name="resource_detail.html.jinja", context={"resource": resource}
         )
@@ -41,10 +46,24 @@ class ResourceController(Controller):
         return Template(template_name="resource_new.html.jinja")
 
     @post("/new", name="create-resource")
-    async def create_resource(self, request: Request) -> Redirect:
+    async def create_resource(
+        self, db_session: AsyncSession, request: Request
+    ) -> Redirect:
         form = await request.form()
-        print(form)
-        return Redirect(path="/")
+        name = form.get("name")
+
+        resource = Resource(
+            name=name,
+            media_type="video/mp4",
+            url="http://www.example.com",
+            poster_url="http://www.example.com",
+            duration=1000,
+            collection_id=2
+        )
+        db_session.add(resource)
+        await db_session.commit()
+
+        return Redirect(path=f"/resources/{resource.id}")
 
     @get("/{resource_id:int}/toc", name="resource-toc", media_type=MediaType.JSON)
     async def resource_toc(
