@@ -4,6 +4,9 @@
 {% block content%}
 <div class="container">
     <h1 class="u-mt">{{collection.name}}</h1>
+    <nav>
+        <a href="{{url_for('new-resource')}}">Add resource</a>
+    </nav>
     <ul class="base-list grid u-mt">
         {% for resource in collection.resources %}
         <li class="media">

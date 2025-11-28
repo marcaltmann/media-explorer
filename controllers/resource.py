@@ -12,7 +12,7 @@ from litestar.response import Template, Redirect
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
 
-from models import Resource
+from models import Collection, Resource
 
 
 class ResourceController(Controller):
@@ -41,9 +41,17 @@ class ResourceController(Controller):
             template_name="resource_detail.html.jinja", context={"resource": resource}
         )
 
-    @get("/new", name="resource-new")
-    async def resource_new(self, db_session: AsyncSession) -> Template:
-        return Template(template_name="resource_new.html.jinja")
+    @get("/new", name="new-resource")
+    async def new_resource(self, db_session: AsyncSession) -> Template:
+        statement = select(Collection).order_by(Collection.name.asc())
+        result = await db_session.execute(statement)
+        collection_list = result.scalars()
+        await db_session.commit()
+
+        return Template(
+            template_name="resource_new.html.jinja",
+            context={"collection_list": collection_list},
+        )
 
     @post("/new", name="create-resource")
     async def create_resource(
@@ -51,14 +59,17 @@ class ResourceController(Controller):
     ) -> Redirect:
         form = await request.form()
         name = form.get("name")
+        media_type = form.get("media_type")
+        duration = float(form.get("duration"))
+        collection_id = int(form.get("collection_id"))
 
         resource = Resource(
             name=name,
-            media_type="video/mp4",
+            media_type=media_type,
             url="http://www.example.com",
             poster_url="http://www.example.com",
-            duration=1000,
-            collection_id=2
+            duration=duration,
+            collection_id=collection_id,
         )
         db_session.add(resource)
         await db_session.commit()

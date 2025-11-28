@@ -5,13 +5,41 @@
 <div class="container">
     <h1 class="u-mt">New resource</h1>
 
-    <form method="post" action="/resources/new" class="u-mt">
+    <form method="post" action="/resources/new" class="u-mt u-ll">
         <div>
-            <label for="name">Name</label>
-            <input id="name" type="text" name="name" value="" placeholder="Tenet" />
+            <label for="name">Name:</label>
+            <input id="name" type="text" name="name" value="" placeholder="Tenet" size="20" required minlength="2" maxlength="255" />
         </div>
 
-        <div>
+        <fieldset class="u-mt">
+            <legend>Media type</legend>
+            <div>
+                <input id="video/mp4" type="radio" name="media_type" value="video/mp4" checked />
+                <label for="video/mp4">Video / MP4</label>
+            </div>
+            <div>
+                <input id="audio/mp3" type="radio" name="media_type" value="audio/mp3" />
+                <label for="audio/mp3">Audio / MP3</label>
+            </div>
+        </fieldset>
+
+        <div class="u-mt">
+            <label for="duration">Duration:</label>
+            <input type="number" id="duration" name="duration" min="0" max="3600000" value="0" />
+        </div>
+
+        <div class="u-mt">
+            <label for="collection">Collection:</label>
+            <select name="collection_id" id="collection" required>
+            {% for collection in collection_list %}
+                <option value="{{collection.id}}">
+                    {{collection.name}}
+                </option>
+            {% endfor %}
+            </select>
+        </div>
+
+        <div class="u-mt">
             <button class="button" type="submit">
                 Submit
             </button>
