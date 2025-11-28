@@ -13,6 +13,7 @@ from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
 
 from models import Collection, Resource
+from src.domain.resources.services import probe_mediafile_metadata, format_to_media_type
 
 
 class ResourceController(Controller):
@@ -59,14 +60,20 @@ class ResourceController(Controller):
     ) -> Redirect:
         form = await request.form()
         name = form.get("name")
-        media_type = form.get("media_type")
-        duration = float(form.get("duration"))
+        url = form.get("url")
         collection_id = int(form.get("collection_id"))
+
+        data = probe_mediafile_metadata(url)
+        duration = float(data["format"]["duration"])
+        format = data["format"]["format_name"]
+        size = int(data["format"]["size"])
+        media_type = format_to_media_type(format)
 
         resource = Resource(
             name=name,
             media_type=media_type,
-            url="http://www.example.com",
+            url=url,
+            size=size,
             poster_url="http://www.example.com",
             duration=duration,
             collection_id=collection_id,

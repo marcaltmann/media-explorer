@@ -12,7 +12,8 @@
                     <span>
                         <a href="{{url_for('collection-detail', collection_id=resource.collection.id)}}">{{resource.collection.name}}</a>
                     </span>
-                    <span class="player__right">{{resource.duration|duration_format}}</span>
+                    <span>{{resource.duration|duration_format}}</span>
+                    <span class="player__right">{{resource.size|filesizeformat}}</span>
                 </div>
             </div>
         </div>

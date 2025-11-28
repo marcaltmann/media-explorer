@@ -11,21 +11,9 @@
             <input id="name" type="text" name="name" value="" placeholder="Tenet" size="20" required minlength="2" maxlength="255" />
         </div>
 
-        <fieldset class="u-mt">
-            <legend>Media type</legend>
-            <div>
-                <input id="video/mp4" type="radio" name="media_type" value="video/mp4" checked />
-                <label for="video/mp4">Video / MP4</label>
-            </div>
-            <div>
-                <input id="audio/mp3" type="radio" name="media_type" value="audio/mp3" />
-                <label for="audio/mp3">Audio / MP3</label>
-            </div>
-        </fieldset>
-
         <div class="u-mt">
-            <label for="duration">Duration:</label>
-            <input type="number" id="duration" name="duration" min="0" max="3600000" value="0" />
+            <label for="url">URL:</label>
+            <input type="url" id="url" name="url" value="" placeholder="http://www.example.com" required />
         </div>
 
         <div class="u-mt">

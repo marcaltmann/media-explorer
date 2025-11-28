@@ -9,6 +9,7 @@ class Collection(base.BigIntAuditBase):
     __tablename__ = "collection"
     name: Mapped[str]
     description: Mapped[str] = mapped_column(default="", nullable=False)
+    color: Mapped[str] = mapped_column(default="#333", nullable=False)
     resources: Mapped[list[Resource]] = relationship(
         back_populates="collection", lazy="selectin"
     )
@@ -24,6 +25,7 @@ class Resource(base.BigIntAuditBase):
     url: Mapped[str]
     poster_url: Mapped[str]
     duration: Mapped[float]
+    size: Mapped[Optional[int]] = mapped_column(default=0)
     toc: Mapped[Optional[list]] = mapped_column(JSON, nullable=True)
     waveform: Mapped[Optional[list]] = mapped_column(JSON, nullable=True)
     collection_id: Mapped[int] = mapped_column(ForeignKey("collection.id"))
