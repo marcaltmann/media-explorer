@@ -1,7 +1,8 @@
 import { axisBottom } from 'd3-axis';
 import { json } from 'd3-fetch';
-import { scaleLinear } from 'd3-scale';
+import { NumberValue, scaleLinear } from 'd3-scale';
 import { select, pointer } from 'd3-selection';
+import type { Chapter } from './types';
 
 document.addEventListener('DOMContentLoaded', buildChart);
 
@@ -12,7 +13,7 @@ async function buildChart() {
     const resourceId = Number.parseInt(mediaElement.dataset.id || "0");
     const duration = Number.parseFloat(mediaElement.dataset.duration || "0");
 
-    const chapters: any = await json(`/resources/${resourceId}/toc`);
+    const chapters: Array<Chapter> | undefined = await json(`/resources/${resourceId}/toc`);
     const waveform: Array<number> | undefined = await json(`/resources/${resourceId}/waveform`);
 
     console.log(waveform);
@@ -24,7 +25,7 @@ async function buildChart() {
             const digit = Number.parseInt(e.code[5]);
             const chapterNum = digit === 0 ? 10 : digit;
 
-            if (chapters.length >= chapterNum) {
+            if (chapters && chapters.length >= chapterNum) {
                 const time = chapters[chapterNum - 1].position;
                 mediaElement.currentTime = time;
                 mediaElement.play();
@@ -97,8 +98,8 @@ async function buildChart() {
         .data(chapters)
         .join("line")
             .classed('chapter-line', true)
-            .attr("x1", (d: any) => xScale(d.position))
-            .attr("x2", (d: any) => xScale(d.position))
+            .attr("x1", (d: Chapter) => xScale(d.position))
+            .attr("x2", (d: Chapter) => xScale(d.position))
             .attr("y1", 0)
             .attr("y2", height - marginBottom)
             .attr("stroke", "var(--secondary-color)");
@@ -108,11 +109,11 @@ async function buildChart() {
         .data(chapters)
         .join("text")
             .classed('chapter-name', true)
-            .attr("x", (d: any) => xScale(d.position) + 10)
+            .attr("x", (d: Chapter) => xScale(d.position) + 10)
             .attr("y", 5)
             .attr('fill', 'var(--secondary-color)')
             .attr('font-size', '12px')
-            .text((d: any) => d.name)
+            .text((d: Chapter) => d.name)
     }
 
 
