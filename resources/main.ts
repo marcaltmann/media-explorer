@@ -1,1 +1,3 @@
-import "./styles.css"
+import "./main.css"
+
+import './chart';

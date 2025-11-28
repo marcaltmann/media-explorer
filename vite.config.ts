@@ -17,11 +17,11 @@ export default defineConfig({
     },
   },
   plugins: [
-    
-    
+
+
     litestar({
       input: [
-        "resources/styles.css", "resources/main.ts"
+        "resources/main.css", "resources/main.ts"
       ],
       assetUrl: `${ASSET_URL}`,
       bundleDirectory: "public",

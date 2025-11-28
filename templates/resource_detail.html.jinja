@@ -20,11 +20,13 @@
 
     <div id="container" class="u-mt"></div>
     {% if resource.is_video() %}
-    <video id="media-element" class="" controls width="700" poster="{{resource.poster_url}}">
+    <video id="media-element" class="" controls width="700" poster="{{resource.poster_url}}"
+        data-id="{{resource.id}}" data-duration="{{resource.duration}}">
         <source src="{{resource.url}}" type="{{resource.media_type}}" />
     </video>
     {% else %}
-    <audio id="media-element" class="audio" controls width="700" poster="{{resource.poster_url}}">
+    <audio id="media-element" class="audio" controls width="700" poster="{{resource.poster_url}}"
+        data-id="{{resource.id}}" data-duration="{{resource.duration}}">
         <source src="{{resource.url}}" type="{{resource.media_type}}" />
     </audio>
     {% endif %}
@@ -219,134 +221,5 @@
     }
 
     setMarker.addEventListener('click', handleSetMarker);
-</script>
-<script type="module">
-    import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
-
-
-    const mediaElement = document.getElementById('media-element');
-
-    const chapters = await d3.json('/resources/{{resource.id}}/toc');
-    const waveform = await d3.json('/resources/{{resource.id}}/waveform');
-
-    console.log(waveform);
-
-    document.addEventListener("keydown", (e) => {
-        if (['Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0'].includes(e.code)) {
-            e.preventDefault();
-
-            const digit = Number.parseInt(e.code[5]);
-            const chapterNum = digit === 0 ? 10 : digit;
-
-            if (chapters.length >= chapterNum) {
-                const time = chapters[chapterNum - 1].position;
-                mediaElement.currentTime = time;
-                mediaElement.play();
-            }
-        }
-    });
-
-    // Declare the chart dimensions and margins.
-    const width = 1320;
-    const height = 200;
-    const marginTop = 20;
-    const marginRight = 0;
-    const marginBottom = 30;
-    const marginLeft = 0;
-
-    // Declare the x (horizontal position) scale.
-    const xScale = d3.scaleLinear()
-        .domain([0, {{ resource.duration }}])
-        .range([marginLeft, width - marginRight]);
-
-    const xAxis = d3.axisBottom(xScale)
-        .tickFormat(d => {
-            const hours = Math.floor(d / 3600);
-            const minutes = Math.floor((d % 3600) / 60);
-            const seconds = Math.floor(d % 60);
-
-            if (hours > 0) {
-                return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            } else {
-                return `${minutes}:${seconds.toString().padStart(2, '0')}`;
-            }
-        });
-
-    const svg = d3.select('#container')
-      .append('svg')
-        .attr("width", width)
-        .attr("height", height);
-
-    svg.append("rect")
-        .attr('id', 'progress')
-        .attr('x', xScale(0))
-        .attr('y', 0)
-        .attr("width", xScale(mediaElement.currentTime) - xScale(0))
-        .attr("height", height)
-        .attr("fill", "var(--accent-color)")
-        .attr("opacity", 0.5);
-
-    svg.append("g")
-        .attr("transform", `translate(0,${height - marginBottom})`)
-        .call(xAxis);
-
-    /* Waveform */
-    if (waveform) {
-        svg
-        .selectAll(".waveform-line")
-        .data(waveform)
-        .join("line")
-            .classed('waveform-line', true)
-            .attr("x1", (d, idx) => xScale(idx / 10))
-            .attr("x2", (d, idx) => xScale(idx / 10))
-            .attr("y1", d => (height - marginBottom) / 2 - d)
-            .attr("y2", d => (height - marginBottom) / 2 + d)
-            .attr("stroke", "gray");
-    }
-
-    /* TOC */
-    if (chapters) {
-        svg
-        .selectAll(".chapter-line")
-        .data(chapters)
-        .join("line")
-            .classed('chapter-line', true)
-            .attr("x1", d => xScale(d.position))
-            .attr("x2", d => xScale(d.position))
-            .attr("y1", 0)
-            .attr("y2", height - marginBottom)
-            .attr("stroke", "var(--secondary-color)");
-
-        svg
-        .selectAll(".chapter-name")
-        .data(chapters)
-        .join("text")
-            .classed('chapter-name', true)
-            .attr("x", d => xScale(d.position) + 10)
-            .attr("y", 5)
-            .attr('fill', 'var(--secondary-color)')
-            .attr('font-size', '12px')
-            .text((d, idx) => d.name)
-    }
-
-
-    /* Invisible click area */
-    svg.append("rect")
-        .attr("width", width)
-        .attr("height", height)
-        .attr("fill", "transparent")
-        .style("cursor", "crosshair")
-        .on("click", (event) => {
-            const [mouseX] = d3.pointer(event);
-            const seconds = xScale.invert(mouseX);
-            mediaElement.currentTime = seconds;
-            mediaElement.play();
-        });
-
-    mediaElement.addEventListener('timeupdate', (event) => {
-        d3.select('#progress')
-            .attr('width', xScale(mediaElement.currentTime) - xScale(0));
-    });
-
 </script>
 {% endblock %}

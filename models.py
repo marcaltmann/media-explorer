@@ -14,7 +14,7 @@ class Collection(base.BigIntAuditBase):
     )
 
     def __repr__(self):
-        return f"Collection(name={self.name})"
+        return f"Collection(id={self.id}, name={self.name})"
 
 
 class Resource(base.BigIntAuditBase):
@@ -32,7 +32,7 @@ class Resource(base.BigIntAuditBase):
     )
 
     def __repr__(self):
-        return f"Resource(name={self.name})"
+        return f"Resource(id={self.id}, name={self.name}, duration={self.duration})"
 
     def is_video(self):
         return self.media_type.startswith("video/")
