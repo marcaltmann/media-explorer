@@ -12,8 +12,8 @@ from litestar.response import Template, Redirect
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
 
-from models import Collection, Resource
-from src.domain.resources.services import probe_mediafile_metadata, format_to_media_type
+from src.app.models import Collection, Resource
+from src.app.domain.resources.services import probe_mediafile_metadata, format_to_media_type
 
 
 class ResourceController(Controller):

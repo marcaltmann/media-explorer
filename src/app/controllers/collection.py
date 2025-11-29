@@ -4,7 +4,7 @@ from litestar.response import Template
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
 
-from models import Collection
+from src.app.models import Collection
 
 
 class CollectionController(Controller):

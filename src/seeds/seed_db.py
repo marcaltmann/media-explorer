@@ -3,7 +3,7 @@ import json
 from litestar.plugins.sqlalchemy import SQLAlchemyAsyncConfig
 from sqlalchemy import func, select
 
-from models import Collection, Resource
+from src.app.models import Collection, Resource
 
 
 async def seed_database(sqlalchemy_config: SQLAlchemyAsyncConfig) -> None:

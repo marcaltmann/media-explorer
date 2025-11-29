@@ -12,17 +12,17 @@ from litestar.static_files import create_static_files_router
 from litestar.template.config import TemplateConfig
 from litestar_vite import ViteConfig, VitePlugin
 
-from controllers.welcome import WelcomeController
-from controllers.page import PageController
-from controllers.collection import CollectionController
-from controllers.resource import ResourceController
-from controllers.search import SearchController
-from controllers.admin import AdminController
-from controllers.organization import OrganizationController
-from controllers.api import ApiController
+from src.app.controllers.welcome import WelcomeController
+from src.app.controllers.page import PageController
+from src.app.controllers.collection import CollectionController
+from src.app.controllers.resource import ResourceController
+from src.app.controllers.search import SearchController
+from src.app.controllers.admin import AdminController
+from src.app.controllers.organization import OrganizationController
+from src.app.controllers.api import ApiController
 
-from seeds.seed_db import seed_database
-from utils.filters import duration_format
+from src.seeds.seed_db import seed_database
+from src.utils.filters import duration_format
 
 session_config = AsyncSessionConfig(expire_on_commit=False)
 sqlalchemy_config = SQLAlchemyAsyncConfig(
