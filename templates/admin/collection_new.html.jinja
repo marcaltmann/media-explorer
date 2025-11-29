@@ -1,0 +1,31 @@
+{% extends "admin/base.html.jinja" %}
+{% block title %}New collection{% endblock %}
+
+{% block content%}
+<div class="container">
+    <h1 class="u-mt">New collection</h1>
+
+    <form method="post" action="{{ url_for('admin-new-collection') }}" class="u-mt u-ll">
+        <div>
+            <label for="name">Name:</label>
+            <input id="name" type="text" name="name" value="" size="20" required minlength="2" maxlength="255" />
+        </div>
+
+        <div class="u-mt">
+            <label for="description">Description (optional):</label>
+            <textarea id="description" name="description" placeholder="Description of the collection" maxlength="10000"></textarea>
+        </div>
+
+        <div class="u-mt">
+            <label for="color">Color (optional):</label>
+            <input id="color" type="color" name="color" value="#999999" />
+        </div>
+
+        <div class="u-mt">
+            <button class="button" type="submit">
+                Create collection
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -2,7 +2,7 @@ from litestar import get, post
 from litestar.controller import Controller
 from litestar import Request
 from litestar.response import Template, Redirect
-from sqlalchemy import select
+from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.app.models import Collection, Resource
@@ -11,6 +11,21 @@ from src.app.domain.resources.services import probe_mediafile_metadata, format_t
 
 class AdminResourceController(Controller):
     path = "/admin/resources"
+
+    @get("", name="admin-resource-list")
+    async def resources(self, db_session: AsyncSession ) -> Template:
+        statement = select(Resource).order_by(Resource.created_at.desc())
+        result = await db_session.execute(statement)
+        resources = result.scalars()
+
+        statement = select(func.count("*")).select_from(Resource)
+        result = await db_session.execute(statement)
+        count = result.scalar()
+
+        await db_session.commit()
+        return Template(
+            template_name="admin/resource_list.html.jinja", context={"resources": resources, "count": count}
+        )
 
     @get("/new", name="admin-new-resource")
     async def new_resource(self, db_session: AsyncSession) -> Template:

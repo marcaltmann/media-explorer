@@ -1,7 +1,24 @@
-<p>
-<a href="{{ url_for('admin') }}">Dashboard</a>
-</p>
+<nav class="a-menu">
+    <section class="a-menu__section">
+        <h2>Dashboard</h2>
+        <ul class="base-list">
+            <li><a href="{{ url_for('admin') }}">Overview</a></li>
+        </ul>
+    </section>
 
-<p>
-<a href="{{ url_for('admin-new-resource') }}">Add resource</a>
-</p>
+    <section class="a-menu__section u-mt">
+        <h2>Collections</h2>
+        <ul class="base-list">
+            <li><a href="{{ url_for('admin') }}">Overview</a></li>
+            <li><a href="{{ url_for('admin-new-collection') }}">Add collection</a></li>
+        </ul>
+    </section>
+
+    <section class="a-menu__section u-mt">
+        <h2>Resources</h2>
+        <ul class="base-list">
+            <li><a href="{{ url_for('admin-resource-list') }}">List</a></li>
+            <li><a href="{{ url_for('admin-new-resource') }}">Add resource</a></li>
+        </ul>
+    </section>
+</nav>

@@ -18,6 +18,7 @@ from src.app.controllers.collection import CollectionController
 from src.app.controllers.resource import ResourceController
 from src.app.controllers.search import SearchController
 from src.app.controllers.admin import AdminController
+from src.app.controllers.admin_collection import AdminCollectionController
 from src.app.controllers.admin_resource import AdminResourceController
 from src.app.controllers.organization import OrganizationController
 from src.app.controllers.api import ApiController
@@ -50,6 +51,7 @@ app = Litestar(
     route_handlers=[
         WelcomeController,
         AdminController,
+        AdminCollectionController,
         AdminResourceController,
         OrganizationController,
         SearchController,
