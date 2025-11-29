@@ -4,7 +4,52 @@
   grid-template-columns: 10rlh 1fr;
 }
 
-.a-sidebar {
+.a-site {
+
+}
+
+.a-site__header {
+  background-color: var(--background-color-ui);
+  height: 2rlh;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.a-header__inner {
+  display: flex;
+}
+
+.a-header__menu {
+  margin-left: auto;
+}
+
+.a-header__link-list {
+  display: flex;
+  list-style-type: none;
+  margin-block: 0;
+  padding-left: 0;
+}
+
+.a-site__sidebar {
   background-color: #555;
+  bottom: 0;
+  box-sizing: border-box;
+  left: 0;
   padding: 1rlh 0.5rlh;
+  position: fixed;
+  top: 2rlh;
+  width: 10rlh;
+}
+
+.a-site__content {
+  padding-left: 10rlh;
+  padding-top: 2rlh;
+}
+
+.a-container {
+  margin-inline: auto;
+  max-width: 50rlh;
+  padding-inline: 1rlh;
 }

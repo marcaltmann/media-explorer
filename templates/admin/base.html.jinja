@@ -10,23 +10,19 @@
     {% endblock %}
 </head>
 
-<body class="site">
+<body class="a-site">
     {% include "admin/header.html.jinja" %}
 
-    <main class="site__content">
-        <div class="admin-grid">
-            <div class="a-sidebar">
-                {% include "admin/sidebar.html.jinja" %}
-            </div>
-            <div>
-                {% block content %}
-                {% endblock %}
-            </div>
-        </div>
+    <div class="a-site__sidebar">
+        {% include "admin/sidebar.html.jinja" %}
+    </div>
+
+    <main class="a-site__content">
+        {% block content %}
+        {% endblock %}
     </main>
 
     {% block javascript %}
     {% endblock %}
 </body>
-
 </html>
