@@ -23,7 +23,7 @@ class Resource(base.BigIntAuditBase):
     name: Mapped[str]
     media_type: Mapped[str]
     url: Mapped[str]
-    poster_url: Mapped[str]
+    poster_url: Mapped[str] = mapped_column(default="")
     duration: Mapped[float]
     size: Mapped[Optional[int]] = mapped_column(default=0)
     toc: Mapped[Optional[list]] = mapped_column(JSON, nullable=True)

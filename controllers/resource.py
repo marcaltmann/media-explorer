@@ -74,7 +74,6 @@ class ResourceController(Controller):
             media_type=media_type,
             url=url,
             size=size,
-            poster_url="http://www.example.com",
             duration=duration,
             collection_id=collection_id,
         )
