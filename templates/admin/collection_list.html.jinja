@@ -1,0 +1,25 @@
+{% extends "admin/base.html.jinja" %}
+{% block title %}Collections{% endblock %}
+
+{% block content%}
+<div class="a-container">
+    <h1 class="h2 u-mt">{{count}} collections</h1>
+    <nav>
+        <a href="{{url_for('admin-new-collection')}}">Create collection</a>
+    </nav>
+    <ul class="base-list u-mt">
+        {% for collection in collection_list %}
+        <li class="media u-mt-small">
+            <img class="media__image" src="" alt="" width="60" height="60" />
+            <div class="media__body">
+                <p>
+                    <a href="{{url_for('admin-collection-detail', collection_id=collection.id)}}">{{collection.name}}</a>
+                    {{collection.resources|length}} resources
+                    {{collection.color}}
+                </p>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "admin/base.html.jinja" %}
+{% block title %}{{resource.name}}{% endblock %}
+
+{% block content%}
+<div class="a-container u-mt">
+    <h1>{{resource.name}}</h1>
+
+    <dl>
+        <dt>Name</dt>
+        <dd>{{resource.name}}</dd>
+        <dt>Media type</dt>
+        <dd>{{resource.media_type}}</dd>
+        <dt>Duration</dt>
+        <dd>{{resource.duration|duration_format}}</dd>
+        <dt>Size</dt>
+        <dd>{{resource.size|filesizeformat}}</dd>
+        <dt>Collection</dt>
+        <dd>
+            <a href="{{url_for('admin-collection-detail', collection_id=resource.collection.id)}}">{{resource.collection.name}}</a>
+        </dd>
+    </dl>
+</div>
+{% endblock %}

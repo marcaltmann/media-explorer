@@ -6,14 +6,17 @@ from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.app.models import Collection, Resource
-from src.app.domain.resources.services import probe_mediafile_metadata, format_to_media_type
+from src.app.domain.resources.services import (
+    probe_mediafile_metadata,
+    format_to_media_type,
+)
 
 
 class AdminResourceController(Controller):
     path = "/admin/resources"
 
     @get("", name="admin-resource-list")
-    async def resources(self, db_session: AsyncSession ) -> Template:
+    async def admin_resource_list(self, db_session: AsyncSession) -> Template:
         statement = select(Resource).order_by(Resource.created_at.desc())
         result = await db_session.execute(statement)
         resources = result.scalars()
@@ -24,11 +27,24 @@ class AdminResourceController(Controller):
 
         await db_session.commit()
         return Template(
-            template_name="admin/resource_list.html.jinja", context={"resources": resources, "count": count}
+            template_name="admin/resource_list.html.jinja",
+            context={"resources": resources, "count": count},
+        )
+
+    @get("/{resource_id:int}", name="admin-resource-detail")
+    async def admin_resource_detail(
+        self, db_session: AsyncSession, resource_id: int
+    ) -> Template:
+        resource = await db_session.get(Resource, resource_id)
+        await db_session.commit()
+
+        return Template(
+            template_name="admin/resource_detail.html.jinja",
+            context={"resource": resource},
         )
 
     @get("/new", name="admin-new-resource")
-    async def new_resource(self, db_session: AsyncSession) -> Template:
+    async def admin_new_resource(self, db_session: AsyncSession) -> Template:
         statement = select(Collection).order_by(Collection.name.asc())
         result = await db_session.execute(statement)
         collection_list = result.scalars()
@@ -40,7 +56,7 @@ class AdminResourceController(Controller):
         )
 
     @post("/new", name="admin-create-resource")
-    async def create_resource(
+    async def admin_create_resource(
         self, db_session: AsyncSession, request: Request
     ) -> Redirect:
         form = await request.form()
@@ -65,4 +81,4 @@ class AdminResourceController(Controller):
         db_session.add(resource)
         await db_session.commit()
 
-        return Redirect(path=f"/resources/{resource.id}")
+        return Redirect(path=f"/admin/resources/{resource.id}")

@@ -9,7 +9,7 @@ class Collection(base.BigIntAuditBase):
     __tablename__ = "collection"
     name: Mapped[str]
     description: Mapped[str] = mapped_column(default="", nullable=False)
-    color: Mapped[str] = mapped_column(default="#333", nullable=False)
+    color: Mapped[str] = mapped_column(String(7), default="#333333", nullable=False)
     resources: Mapped[list[Resource]] = relationship(
         back_populates="collection", lazy="selectin"
     )
