@@ -55,7 +55,8 @@ app = Litestar(
         PageController,
         ResourceController,
         ApiController,
-        # create_static_files_router(path="/static", directories=["public"]),
+        create_static_files_router(path="/", directories=["public"]),
+        create_static_files_router(path="/media", directories=["media"]),
     ],
     template_config=TemplateConfig(
         directory=Path("templates"),

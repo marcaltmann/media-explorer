@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 
 from litestar.plugins.sqlalchemy import SQLAlchemyAsyncConfig
 from sqlalchemy import func, select
@@ -12,9 +13,9 @@ async def seed_database(sqlalchemy_config: SQLAlchemyAsyncConfig) -> None:
         statement = select(func.count()).select_from(Resource)
         count = await session.execute(statement)
         if not count.scalar():
-            with open("seeds/lessons.json") as f:
+            with open(Path(__file__).parent / "lessons.json") as f:
                 lessons = json.load(f)
-            with open("seeds/movies.json") as f:
+            with open(Path(__file__).parent / "movies.json") as f:
                 movies = json.load(f)
 
             lesson_collection = Collection(name="Chinese Lessons")
