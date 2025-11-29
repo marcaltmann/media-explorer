@@ -1,19 +1,12 @@
-from dataclasses import dataclass
-from typing import Annotated, Any
-import msgspec
+from typing import Any
 
-
-from litestar import Litestar, get, post, MediaType
+from litestar import get, MediaType
 from litestar.controller import Controller
-from litestar.enums import RequestEncodingType
-from litestar.params import Body
-from litestar import Request
-from litestar.response import Template, Redirect
-from sqlalchemy import select, func
+from litestar.response import Template
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
 
-from src.app.models import Collection, Resource
-from src.app.domain.resources.services import probe_mediafile_metadata, format_to_media_type
+from src.app.models import Resource
 
 
 class ResourceController(Controller):
@@ -41,46 +34,6 @@ class ResourceController(Controller):
         return Template(
             template_name="resource_detail.html.jinja", context={"resource": resource}
         )
-
-    @get("/new", name="new-resource")
-    async def new_resource(self, db_session: AsyncSession) -> Template:
-        statement = select(Collection).order_by(Collection.name.asc())
-        result = await db_session.execute(statement)
-        collection_list = result.scalars()
-        await db_session.commit()
-
-        return Template(
-            template_name="resource_new.html.jinja",
-            context={"collection_list": collection_list},
-        )
-
-    @post("/new", name="create-resource")
-    async def create_resource(
-        self, db_session: AsyncSession, request: Request
-    ) -> Redirect:
-        form = await request.form()
-        name = form.get("name")
-        url = form.get("url")
-        collection_id = int(form.get("collection_id"))
-
-        data = probe_mediafile_metadata(url)
-        duration = float(data["format"]["duration"])
-        format = data["format"]["format_name"]
-        size = int(data["format"]["size"])
-        media_type = format_to_media_type(format)
-
-        resource = Resource(
-            name=name,
-            media_type=media_type,
-            url=url,
-            size=size,
-            duration=duration,
-            collection_id=collection_id,
-        )
-        db_session.add(resource)
-        await db_session.commit()
-
-        return Redirect(path=f"/resources/{resource.id}")
 
     @get("/{resource_id:int}/toc", name="resource-toc", media_type=MediaType.JSON)
     async def resource_toc(

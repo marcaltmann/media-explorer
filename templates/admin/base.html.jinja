@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    {% block head %}
+    <title>{% block title %}{% endblock %} – Media Annotator</title>
+    <link rel="icon" href="/favicon.png">
+
+    {{ vite_hmr() }} {{ vite('resources/main.ts') }}
+    {% endblock %}
+</head>
+
+<body class="site">
+    {% include "admin/header.html.jinja" %}
+
+    <main class="site__content">
+        <div class="admin-grid">
+            <div>
+                {% include "admin/sidebar.html.jinja" %}
+            </div>
+            <div>
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </main>
+
+    {% include "admin/footer.html.jinja" %}
+    {% block javascript %}
+    {% endblock %}
+</body>
+
+</html>

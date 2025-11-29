@@ -1,4 +1,5 @@
 @import url("/resources/utilities.css");
+@import url("/resources/admin.css");
 
 :root {
   --accent-color: #49897d;

@@ -2,25 +2,25 @@
 <html lang="en">
 
 <head>
-  {% block head %}
-  <title>{% block title %}{% endblock %} – Media Explorer</title>
-  <link rel="icon" href="/favicon.png">
+    {% block head %}
+    <title>{% block title %}{% endblock %} – Media Explorer</title>
+    <link rel="icon" href="/favicon.png">
 
-  {{ vite_hmr() }} {{ vite('resources/main.ts') }}
-  {% endblock %}
+    {{ vite_hmr() }} {{ vite('resources/main.ts') }}
+    {% endblock %}
 </head>
 
 <body class="site">
-  {% include "header.html.jinja" %}
+    {% include "header.html.jinja" %}
 
-  <main class="site__content">
-    {% block content %}
+    <main class="site__content">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    {% include "footer.html.jinja" %}
+    {% block javascript %}
     {% endblock %}
-  </main>
-
-  {% include "footer.html.jinja" %}
-  {% block javascript %}
-  {% endblock %}
 </body>
 
 </html>

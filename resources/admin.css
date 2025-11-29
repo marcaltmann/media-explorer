@@ -1,0 +1,5 @@
+.admin-grid {
+  display: grid;
+  gap: 1rlh;
+  grid-template-columns: 1fr 3fr;
+}

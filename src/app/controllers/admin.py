@@ -8,4 +8,4 @@ class AdminController(Controller):
 
     @get("", name="admin")
     async def admin(self) -> Template:
-        return Template(template_name="admin.html.jinja")
+        return Template(template_name="admin/admin.html.jinja")
