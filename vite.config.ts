@@ -22,7 +22,7 @@ export default defineConfig({
         "resources/main.css", "resources/main.ts"
       ],
       assetUrl: `${ASSET_URL}`,
-      bundleDirectory: "public/dist",
+      bundleDirectory: "public",
       resourceDirectory: "resources",
       hotFile: "public/hot"
     }),
