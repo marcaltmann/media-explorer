@@ -1,225 +1,305 @@
 {% extends "base.html.jinja" %}
-{% block title %}{{resource.name}}{% endblock %}
+{% block title %}{{ resource.name }}{% endblock %}
 
-{% block content%}
-<div class="container">
+{% block content %}
+  <div class="container">
     <header class="u-mt">
-        <div class="media">
-            <img class="media__image" src="{{resource.poster_url}}" alt="" width="50" height="50" />
-            <div class="media__body">
-                <h1 class="h2"><a href="{{url_for('resource-detail', resource_id=resource.id)}}">{{resource.name}}</a></h1>
-                <div>
-                    <span>
-                        <a href="{{url_for('collection-detail', collection_id=resource.collection.id)}}">{{resource.collection.name}}</a>
-                    </span>
-                    <span>{{resource.duration|duration_format}}</span>
-                    <span class="player__right">{{resource.size|filesizeformat}}</span>
-                </div>
-            </div>
+      <div class="media">
+        <img
+          class="media__image"
+          src="{{ resource.poster_url }}"
+          alt=""
+          width="50"
+          height="50"
+        />
+        <div class="media__body">
+          <h1 class="h2">
+            <a href="{{ url_for('resource-detail', resource_id=resource.id) }}"
+              >{{ resource.name }}</a
+            >
+          </h1>
+          <div>
+            <span>
+              <a
+                href="{{ url_for('collection-detail', collection_id=resource.collection.id) }}"
+                >{{ resource.collection.name }}</a
+              >
+            </span>
+            <span>{{ resource.duration|duration_format }}</span>
+            <span class="player__right"
+              >{{ resource.size|filesizeformat }}</span
+            >
+          </div>
         </div>
+      </div>
     </header>
 
     <div id="container" class="u-mt"></div>
     {% if resource.is_video() %}
-    <video id="media-element" class="" controls width="700" poster="{{resource.poster_url}}"
-        data-id="{{resource.id}}" data-duration="{{resource.duration}}">
-        <source src="{{resource.url}}" type="{{resource.media_type}}" />
-    </video>
+      <video
+        id="media-element"
+        class=""
+        controls
+        width="700"
+        poster="{{ resource.poster_url }}"
+        data-id="{{ resource.id }}"
+        data-duration="{{ resource.duration }}"
+      >
+        <source src="{{ resource.url }}" type="{{ resource.media_type }}" />
+      </video>
     {% else %}
-    <audio id="media-element" class="audio" controls width="700" poster="{{resource.poster_url}}"
-        data-id="{{resource.id}}" data-duration="{{resource.duration}}">
-        <source src="{{resource.url}}" type="{{resource.media_type}}" />
-    </audio>
+      <audio
+        id="media-element"
+        class="audio"
+        controls
+        width="700"
+        poster="{{ resource.poster_url }}"
+        data-id="{{ resource.id }}"
+        data-duration="{{ resource.duration }}"
+      >
+        <source src="{{ resource.url }}" type="{{ resource.media_type }}" />
+      </audio>
     {% endif %}
 
     <div class="grid u-mt">
-        {% if resource.toc %}
+      {% if resource.toc %}
         <div>
-            <ol class="toc">
-                {% for entry in resource.toc %}
-                <li>
-                    <a href="#{{entry.position}}">{{entry.name}} ({{entry.position|duration_format}})</a>
-                </li>
-                {% endfor %}
-            </ol>
+          <ol class="toc">
+            {% for entry in resource.toc %}
+              <li>
+                <a href="#{{ entry.position }}"
+                  >{{ entry.name }} ({{ entry.position|duration_format }})</a
+                >
+              </li>
+            {% endfor %}
+          </ol>
         </div>
-        {% endif %}
-        <div>
-            <p>
-                <label class="playback">
-                    <input class="playback__checkbox" type="radio" id="slow" name="rate" value="slow" />
-                    Slow
-                </label>
-                <label class="playback">
-                    <input class="playback__checkbox" type="radio" id="normal" name="rate" value="normal" checked />
-                    Normal
-                </label>
-                <label class="playback">
-                    <input class="playback__checkbox" type="radio" id="fast" name="rate" value="fast" />
-                    Fast
-                </label>
-            </p>
-            <p class="u-mt">
-                <button id="set-marker" type="button" class="button">Add marker</button>
-            </p>
-            <p id="marker-place" class="marker-place u-mt-tiny"></p>
-        </div>
+      {% endif %}
+      <div>
+        <p>
+          <label class="playback">
+            <input
+              class="playback__checkbox"
+              type="radio"
+              id="slow"
+              name="rate"
+              value="slow"
+            />
+            Slow
+          </label>
+          <label class="playback">
+            <input
+              class="playback__checkbox"
+              type="radio"
+              id="normal"
+              name="rate"
+              value="normal"
+              checked
+            />
+            Normal
+          </label>
+          <label class="playback">
+            <input
+              class="playback__checkbox"
+              type="radio"
+              id="fast"
+              name="rate"
+              value="fast"
+            />
+            Fast
+          </label>
+        </p>
+        <p class="u-mt">
+          <button id="set-marker" type="button" class="button">
+            Add marker
+          </button>
+        </p>
+        <p id="marker-place" class="marker-place u-mt-tiny"></p>
+      </div>
     </div>
-</div>
+  </div>
 {% endblock %}
 {% block javascript %}
-<script>
+  <script>
     const PLAYBACK_RATE_SLOW = 0.8;
     const PLAYBACK_RATE_NORMAL = 1.0;
     const PLAYBACK_RATE_FAST = 1.25;
 
-    const setMarker = document.getElementById('set-marker');
-    const markerPlace = document.getElementById('marker-place');
-    const mediaElement = document.getElementById('media-element');
-    const slowPlaybackRate = document.getElementById('slow');
-    const normalPlaybackRate = document.getElementById('normal');
-    const fastPlaybackRate = document.getElementById('fast');
+    const setMarker = document.getElementById("set-marker");
+    const markerPlace = document.getElementById("marker-place");
+    const mediaElement = document.getElementById("media-element");
+    const slowPlaybackRate = document.getElementById("slow");
+    const normalPlaybackRate = document.getElementById("normal");
+    const fastPlaybackRate = document.getElementById("fast");
 
-    const tocButtons = Array.from(document.getElementsByClassName('toc-button'));
+    const tocButtons = Array.from(
+      document.getElementsByClassName("toc-button"),
+    );
 
     function togglePlay() {
-        if (mediaElement.paused || mediaElement.ended) {
-            mediaElement.play();
-        } else {
-            mediaElement.pause();
-        }
+      if (mediaElement.paused || mediaElement.ended) {
+        mediaElement.play();
+      } else {
+        mediaElement.pause();
+      }
     }
 
     document.addEventListener("keydown", (e) => {
-        if (['Space', 'ArrowLeft', 'ArrowRight', 'KeyM', 'KeyF', 'KeyQ', 'KeyW', 'KeyE'].includes(e.code)) {
-            e.preventDefault();
-        }
-        let newTime;
-        switch (e.code) {
-            case 'Space':
-                togglePlay();
-                break;
-            case 'ArrowLeft':
-                newTime = mediaElement.currentTime - 5;
-                mediaElement.currentTime = newTime;
-                break;
-            case 'ArrowRight':
-                newTime = mediaElement.currentTime + 10;
-                mediaElement.currentTime = newTime;
-                break;
-            case 'KeyM':
-                mediaElement.muted = !mediaElement.muted;
-                break;
-            case 'KeyF':
-                if (mediaElement.tagName === 'VIDEO' && document.fullscreenEnabled) {
-                    if (document.fullscreenElement) {
-                        document.exitFullscreen();
-                    } else {
-                        mediaElement.requestFullscreen();
-                    }
-                }
-            case 'KeyQ':
-                mediaElement.playbackRate = PLAYBACK_RATE_SLOW;
-                slowPlaybackRate.checked = true;
-                break;
-            case 'KeyW':
-                mediaElement.playbackRate = PLAYBACK_RATE_NORMAL;
-                normalPlaybackRate.checked = true;
-                break;
-            case 'KeyE':
-                mediaElement.playbackRate = PLAYBACK_RATE_FAST;
-                fastPlaybackRate.checked = true;
-                break;
-            default:
-        }
+      if (
+        [
+          "Space",
+          "ArrowLeft",
+          "ArrowRight",
+          "KeyM",
+          "KeyF",
+          "KeyQ",
+          "KeyW",
+          "KeyE",
+        ].includes(e.code)
+      ) {
+        e.preventDefault();
+      }
+      let newTime;
+      switch (e.code) {
+        case "Space":
+          togglePlay();
+          break;
+        case "ArrowLeft":
+          newTime = mediaElement.currentTime - 5;
+          mediaElement.currentTime = newTime;
+          break;
+        case "ArrowRight":
+          newTime = mediaElement.currentTime + 10;
+          mediaElement.currentTime = newTime;
+          break;
+        case "KeyM":
+          mediaElement.muted = !mediaElement.muted;
+          break;
+        case "KeyF":
+          if (mediaElement.tagName === "VIDEO" && document.fullscreenEnabled) {
+            if (document.fullscreenElement) {
+              document.exitFullscreen();
+            } else {
+              mediaElement.requestFullscreen();
+            }
+          }
+        case "KeyQ":
+          mediaElement.playbackRate = PLAYBACK_RATE_SLOW;
+          slowPlaybackRate.checked = true;
+          break;
+        case "KeyW":
+          mediaElement.playbackRate = PLAYBACK_RATE_NORMAL;
+          normalPlaybackRate.checked = true;
+          break;
+        case "KeyE":
+          mediaElement.playbackRate = PLAYBACK_RATE_FAST;
+          fastPlaybackRate.checked = true;
+          break;
+        default:
+      }
     });
 
-    document.addEventListener('DOMContentLoaded', (event) => {
-        const url = new URL(document.URL);
-        const hash = url.hash;
-        const seconds = Number.parseFloat(hash.slice(1));
-        if (typeof seconds === 'number' && !Number.isNaN(seconds)) {
-            mediaElement.currentTime = seconds;
-        }
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const url = new URL(document.URL);
+      const hash = url.hash;
+      const seconds = Number.parseFloat(hash.slice(1));
+      if (typeof seconds === "number" && !Number.isNaN(seconds)) {
+        mediaElement.currentTime = seconds;
+      }
     });
 
-    window.addEventListener('hashchange', (event) => {
-        const url = new URL(event.newURL);
-        const hash = url.hash;
-        const seconds = Number.parseFloat(hash.slice(1));
-        if (typeof seconds === 'number') {
-            mediaElement.currentTime = seconds;
-            mediaElement.play();
-        }
-    })
+    window.addEventListener("hashchange", (event) => {
+      const url = new URL(event.newURL);
+      const hash = url.hash;
+      const seconds = Number.parseFloat(hash.slice(1));
+      if (typeof seconds === "number") {
+        mediaElement.currentTime = seconds;
+        mediaElement.play();
+      }
+    });
 
     function handleTocButtonClick(event) {
-        const time = Number.parseFloat(this.dataset.position);
-        mediaElement.currentTime = time;
+      const time = Number.parseFloat(this.dataset.position);
+      mediaElement.currentTime = time;
     }
 
-    slowPlaybackRate.addEventListener('click', () => mediaElement.playbackRate = PLAYBACK_RATE_SLOW);
-    normalPlaybackRate.addEventListener('click', () => mediaElement.playbackRate = PLAYBACK_RATE_NORMAL);
-    fastPlaybackRate.addEventListener('click', () => mediaElement.playbackRate = PLAYBACK_RATE_FAST);
-    tocButtons.forEach(button => button.addEventListener('click', handleTocButtonClick));
+    slowPlaybackRate.addEventListener(
+      "click",
+      () => (mediaElement.playbackRate = PLAYBACK_RATE_SLOW),
+    );
+    normalPlaybackRate.addEventListener(
+      "click",
+      () => (mediaElement.playbackRate = PLAYBACK_RATE_NORMAL),
+    );
+    fastPlaybackRate.addEventListener(
+      "click",
+      () => (mediaElement.playbackRate = PLAYBACK_RATE_FAST),
+    );
+    tocButtons.forEach((button) =>
+      button.addEventListener("click", handleTocButtonClick),
+    );
 
     function positionFormat(seconds) {
-        hours = Math.floor(seconds / 3600);
-        minutes = Math.floor((seconds % 3600) / 60);
-        secs = Math.floor(seconds % 60);
+      hours = Math.floor(seconds / 3600);
+      minutes = Math.floor((seconds % 3600) / 60);
+      secs = Math.floor(seconds % 60);
 
-        if (hours === 0) {
-            return `${minutes}m${secs}s`;
-        } else {
-            return `${hours}h${minutes}m${secs}s`;
-        }
+      if (hours === 0) {
+        return `${minutes}m${secs}s`;
+      } else {
+        return `${hours}h${minutes}m${secs}s`;
+      }
     }
 
     function insertButton(container, newButton) {
-        const children = Array.from(container.children);
+      const children = Array.from(container.children);
 
-        if (children.length === 0) {
-            container.append(newButton);
-            return;
+      if (children.length === 0) {
+        container.append(newButton);
+        return;
+      }
+
+      for (let i = 0; i < children.length; i++) {
+        if (i === children.length - 1) {
+          children[i].after(newButton);
+          break;
         }
 
-        for (let i = 0; i < children.length; i++) {
-            if (i === children.length - 1) {
-                children[i].after(newButton);
-                break;
-            }
+        const currentButtonPos = Number.parseFloat(
+          children[i].dataset.position,
+        );
+        const nextButtonPos = Number.parseFloat(
+          children[i + 1]?.dataset?.position,
+        );
+        const newButtonPos = Number.parseFloat(newButton.dataset.position);
 
-            const currentButtonPos = Number.parseFloat(children[i].dataset.position);
-            const nextButtonPos = Number.parseFloat(children[i + 1]?.dataset?.position);
-            const newButtonPos = Number.parseFloat(newButton.dataset.position);
-
-            if (newButtonPos >= currentButtonPos && newButtonPos < nextButtonPos) {
-                children[i].after(newButton);
-                break;
-            }
+        if (newButtonPos >= currentButtonPos && newButtonPos < nextButtonPos) {
+          children[i].after(newButton);
+          break;
         }
+      }
     }
 
     function handleSetMarker(event) {
-        const button = document.createElement('button');
-        button.classList.add('button', 'button--small');
-        const position = mediaElement.currentTime;
-        button.textContent = positionFormat(position);
-        button.dataset.position = position.toString();
-        button.addEventListener('click', handleButtonClick);
-        insertButton(markerPlace, button);
+      const button = document.createElement("button");
+      button.classList.add("button", "button--small");
+      const position = mediaElement.currentTime;
+      button.textContent = positionFormat(position);
+      button.dataset.position = position.toString();
+      button.addEventListener("click", handleButtonClick);
+      insertButton(markerPlace, button);
     }
 
     function handleButtonClick(event) {
-        if (event.shiftKey) {
-            this.remove();
-        } else {
-            const position = Number.parseFloat(this.dataset.position);
-            mediaElement.currentTime = position;
-            mediaElement.play();
-        }
+      if (event.shiftKey) {
+        this.remove();
+      } else {
+        const position = Number.parseFloat(this.dataset.position);
+        mediaElement.currentTime = position;
+        mediaElement.play();
+      }
     }
 
-    setMarker.addEventListener('click', handleSetMarker);
-</script>
+    setMarker.addEventListener("click", handleSetMarker);
+  </script>
 {% endblock %}

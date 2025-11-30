@@ -1,25 +1,47 @@
 <header class="a-site__header a-header">
-    <div class="a-header__inner">
-        <a href="{{url_for('admin') }}" class="a-header__home">
-            <svg class="header__logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
-                <circle cx="50" cy="50" r="45" fill="#eee" class="a-header__accent" />
-                <circle cx="50" cy="50" r="4" fill="#333" />
+  <div class="a-header__inner">
+    <a href="{{ url_for('admin') }}" class="a-header__home">
+      <svg
+        class="header__logo"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+      >
+        <circle cx="50" cy="50" r="45" fill="#eee" class="a-header__accent" />
+        <circle cx="50" cy="50" r="4" fill="#333" />
 
-                <circle cx="50" cy="26" r="13" fill="#333" />
-                <circle cx="74" cy="50" r="13" fill="#333" />
-                <circle cx="50" cy="74" r="13" fill="#333" />
-                <circle cx="26" cy="50" r="13" fill="#333" />
+        <circle cx="50" cy="26" r="13" fill="#333" />
+        <circle cx="74" cy="50" r="13" fill="#333" />
+        <circle cx="50" cy="74" r="13" fill="#333" />
+        <circle cx="26" cy="50" r="13" fill="#333" />
 
-                <line x1="50" y1="93.5" x2="98.5" y2="93.5" stroke="#eee" stroke-width="3" stroke-linecap="round"
-                    class="a-header__accent" />
-            </svg>
-            Media Annotator
-        </a>
-        <nav class="a-header__menu">
-            <ul class="a-header__link-list">
-                <li><a class="a-header__link" href="{{url_for('welcome')}}">Site</a></li>
-                <li><a class="a-header__link {% if request.scope['path'].startswith('/admin') %}header__link--active{% endif %}" href="{{url_for('admin')}}">Admin</a></li>
-            </ul>
-        </nav>
-    </div>
+        <line
+          x1="50"
+          y1="93.5"
+          x2="98.5"
+          y2="93.5"
+          stroke="#eee"
+          stroke-width="3"
+          stroke-linecap="round"
+          class="a-header__accent"
+        />
+      </svg>
+      Media Annotator
+    </a>
+    <nav class="a-header__menu">
+      <ul class="a-header__link-list">
+        <li>
+          <a class="a-header__link" href="{{ url_for('welcome') }}">Site</a>
+        </li>
+        <li>
+          <a
+            class="a-header__link {% if request.scope['path'].startswith('/admin') %}header__link--active{% endif %}"
+            href="{{ url_for('admin') }}"
+            >Admin</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </div>
 </header>

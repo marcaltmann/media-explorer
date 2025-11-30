@@ -1,22 +1,30 @@
 {% extends "base.html.jinja" %}
-{% block title %}{{collection.name}}{% endblock %}
+{% block title %}{{ collection.name }}{% endblock %}
 
-{% block content%}
-<div class="container">
-    <h1 class="u-mt">{{collection.name}}</h1>
+{% block content %}
+  <div class="container">
+    <h1 class="u-mt">{{ collection.name }}</h1>
     <ul class="base-list grid u-mt">
-        {% for resource in collection.resources %}
+      {% for resource in collection.resources %}
         <li class="media">
-        <img class="media__image" src="{{resource.poster_url}}" alt="" width="240" />
-        <div class="media__body">
+          <img
+            class="media__image"
+            src="{{ resource.poster_url }}"
+            alt=""
+            width="240"
+          />
+          <div class="media__body">
             <p>
-            <a href="{{url_for('resource-detail', resource_id=resource.id)}}">{{resource.name}}</a><br>
-            {% if resource.is_video() %}Video{% else %}Audio{% endif %}<br>
-            {{resource.duration|duration_format}}
+              <a
+                href="{{ url_for('resource-detail', resource_id=resource.id) }}"
+                >{{ resource.name }}</a
+              ><br />
+              {% if resource.is_video() %}Video{% else %}Audio{% endif %}<br />
+              {{ resource.duration|duration_format }}
             </p>
-        </div>
+          </div>
         </li>
-        {% endfor %}
+      {% endfor %}
     </ul>
-</div>
+  </div>
 {% endblock %}

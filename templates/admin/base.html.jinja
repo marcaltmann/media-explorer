@@ -1,28 +1,29 @@
 <!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     {% block head %}
-    <title>{% block title %}{% endblock %} – Media Annotator</title>
-    <link rel="icon" href="/favicon.png">
+      <title>
+        {% block title %}
+        {% endblock %}
+        – Media Annotator
+      </title>
+      <link rel="icon" href="/favicon.png" />
 
-    {{ vite_hmr() }} {{ vite('resources/main.ts') }}
+      {{ vite_hmr() }} {{ vite('resources/main.ts') }}
     {% endblock %}
-</head>
+  </head>
 
-<body class="a-site">
+  <body class="a-site">
     {% include "admin/header.html.jinja" %}
 
-    <div class="a-site__sidebar">
-        {% include "admin/sidebar.html.jinja" %}
-    </div>
+    <div class="a-site__sidebar">{% include "admin/sidebar.html.jinja" %}</div>
 
     <main class="a-site__content">
-        {% block content %}
-        {% endblock %}
+      {% block content %}
+      {% endblock %}
     </main>
 
     {% block javascript %}
     {% endblock %}
-</body>
+  </body>
 </html>

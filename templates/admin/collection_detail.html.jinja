@@ -1,19 +1,21 @@
 {% extends "admin/base.html.jinja" %}
-{% block title %}{{collection.name}}{% endblock %}
+{% block title %}{{ collection.name }}{% endblock %}
 
-{% block content%}
-<div class="a-container u-mt">
-    <h1>{{collection.name}}</h1>
+{% block content %}
+  <div class="a-container u-mt">
+    <h1>{{ collection.name }}</h1>
 
     <dl class="u-ll u-mt-small">
-        <dt>Name</dt>
-        <dd>{{collection.name}}</dd>
-        <dt>Description</dt>
-        <dd>{{collection.description}}</dd>
-        <dt>Color</dt>
-        <dd style="background-color: {{collection.color}};">{{collection.color}}</dd>
-        <dt>Resources</dt>
-        <dd>{{collection.resources|length}}</dd>
+      <dt>Name</dt>
+      <dd>{{ collection.name }}</dd>
+      <dt>Description</dt>
+      <dd>{{ collection.description }}</dd>
+      <dt>Color</dt>
+      <dd style="background-color: {{ collection.color }};">
+        {{ collection.color }}
+      </dd>
+      <dt>Resources</dt>
+      <dd>{{ collection.resources|length }}</dd>
     </dl>
-</div>
+  </div>
 {% endblock %}

@@ -20,6 +20,8 @@
         "@types/d3-selection": "^3.0.11",
         "@types/node": "^24.10.1",
         "litestar-vite-plugin": "^0.14.0",
+        "prettier": "^3.7.3",
+        "prettier-plugin-jinja-template": "^2.1.0",
         "typescript": "^5.8.3",
         "vite": "^7.2.4"
     }

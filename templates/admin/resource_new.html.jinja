@@ -1,37 +1,60 @@
 {% extends "admin/base.html.jinja" %}
 {% block title %}New resource{% endblock %}
 
-{% block content%}
-<div class="a-container">
+{% block content %}
+  <div class="a-container">
     <h1 class="u-mt">New resource</h1>
 
-    <form method="post" action="{{ url_for('admin-new-resource') }}" class="u-mt u-ll">
-        <div>
-            <label for="name">Name:</label>
-            <input id="name" type="text" name="name" value="" placeholder="Tenet" size="20" required minlength="2" maxlength="255" />
-        </div>
+    <form
+      class="u-mt u-ll"
+      method="post"
+      action="{{ url_for('admin-new-resource') }}"
+      enctype="multipart/form-data"
+    >
+      <div>
+        <label for="name">Name:</label>
+        <input
+          id="name"
+          type="text"
+          name="name"
+          value=""
+          placeholder="Tenet"
+          size="20"
+          required
+          minlength="2"
+          maxlength="255"
+        />
+      </div>
 
-        <div class="u-mt">
-            <label for="url">URL:</label>
-            <input type="url" id="url" name="url" value="" placeholder="http://www.example.com" required />
-        </div>
+      <div class="u-mt">
+        <label for="url">URL:</label>
+        <input
+          type="url"
+          id="url"
+          name="url"
+          value=""
+          placeholder="http://www.example.com"
+          required
+        />
+      </div>
 
-        <div class="u-mt">
-            <label for="collection">Collection:</label>
-            <select name="collection_id" id="collection" required>
-            {% for collection in collection_list %}
-                <option value="{{collection.id}}">
-                    {{collection.name}}
-                </option>
-            {% endfor %}
-            </select>
-        </div>
+      <div class="u-mt">
+        <label for="file">File:</label>
+        <input type="file" id="file" name="file" accept="video/*,audio/*" />
+      </div>
 
-        <div class="u-mt">
-            <button class="button" type="submit">
-                Add resource
-            </button>
-        </div>
+      <div class="u-mt">
+        <label for="collection">Collection:</label>
+        <select name="collection_id" id="collection" required>
+          {% for collection in collection_list %}
+            <option value="{{ collection.id }}">{{ collection.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="u-mt">
+        <button class="button" type="submit">Add resource</button>
+      </div>
     </form>
-</div>
+  </div>
 {% endblock %}
