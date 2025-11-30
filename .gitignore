@@ -13,3 +13,4 @@ wheels/
 /media
 /public
 /node_modules
+/.env
