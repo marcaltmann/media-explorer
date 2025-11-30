@@ -33,6 +33,7 @@ h1,
 .h1 {
   font-size: 2rem;
   font-weight: 200;
+  letter-spacing: 0.05rem;
   line-height: 1.5rlh;
   margin-block: 0;
 }
