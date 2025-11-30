@@ -1,7 +1,6 @@
 from os import getenv
 from pathlib import Path
 
-from dotenv import load_dotenv
 from jinja2 import Environment, PackageLoader, select_autoescape
 from litestar import Litestar
 from litestar.contrib.jinja import JinjaTemplateEngine
@@ -28,13 +27,14 @@ from src.app.controllers.api import ApiController
 from src.seeds.seed_db import seed_database
 from src.utils.filters import duration_format
 
-load_dotenv()
+from src.app.config import Settings
 
-database_url = getenv("DATABASE_URL")
+settings = Settings.from_env()
+
 
 session_config = AsyncSessionConfig(expire_on_commit=False)
 sqlalchemy_config = SQLAlchemyAsyncConfig(
-    connection_string=database_url,
+    connection_string=settings.db.URL,
     session_config=session_config,
     create_all=True,
 )
