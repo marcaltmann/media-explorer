@@ -1,3 +1,4 @@
+from pathlib import Path
 from litestar import get, post
 from litestar.controller import Controller
 from litestar import Request
@@ -10,6 +11,17 @@ from src.app.domain.resources.services import (
     probe_mediafile_metadata,
     format_to_media_type,
 )
+
+
+from litestar.datastructures import UploadFile
+import shutil
+
+async def save_upload(upload: UploadFile, dest_path: str):
+    # Rewind before copying
+    upload.file.seek(0)
+
+    with open(dest_path, "wb") as out:
+        shutil.copyfileobj(upload.file, out)
 
 
 class AdminResourceController(Controller):
@@ -60,9 +72,12 @@ class AdminResourceController(Controller):
         self, db_session: AsyncSession, request: Request
     ) -> Redirect:
         form = await request.form()
-        name = form.get("name")
-        url = form.get("url")
+        name: str = form.get("name")
+        url: str = form.get("url")
         collection_id = int(form.get("collection_id"))
+
+        file: UploadFile = form.get("file")
+        await save_upload(file, Path("media") / file.filename)
 
         data = probe_mediafile_metadata(url)
         duration = float(data["format"]["duration"])

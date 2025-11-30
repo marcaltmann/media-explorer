@@ -5,7 +5,13 @@
   <div class="a-container u-mt">
     <h1>{{ collection.name }}</h1>
 
-    <dl class="u-ll u-mt-small">
+    <p class="u-mt-small">
+      <a href="{{ url_for('collection-detail', collection_id=collection.id) }}"
+        >View in app</a
+      >
+    </p>
+
+    <dl class="u-ll u-mt">
       <dt>Name</dt>
       <dd>{{ collection.name }}</dd>
       <dt>Description</dt>

@@ -5,7 +5,13 @@
   <div class="a-container u-mt">
     <h1>{{ resource.name }}</h1>
 
-    <dl>
+    <p class="u-mt-small">
+      <a href="{{ url_for('resource-detail', resource_id=resource.id) }}"
+        >View in app</a
+      >
+    </p>
+
+    <dl class="u-mt">
       <dt>Name</dt>
       <dd>{{ resource.name }}</dd>
       <dt>Media type</dt>

@@ -10,5 +10,6 @@ wheels/
 .venv
 
 *.sqlite
+/media
 /public
 /node_modules
