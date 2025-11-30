@@ -1,32 +1,7 @@
 <header class="header">
   <div class="header__inner">
     <a href="{{ url_for('welcome') }}" class="header__home">
-      <svg
-        class="header__logo"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-        width="32"
-        height="32"
-      >
-        <circle cx="50" cy="50" r="45" fill="#eee" class="header__accent" />
-        <circle cx="50" cy="50" r="4" fill="#333" />
-
-        <circle cx="50" cy="26" r="13" fill="#333" />
-        <circle cx="74" cy="50" r="13" fill="#333" />
-        <circle cx="50" cy="74" r="13" fill="#333" />
-        <circle cx="26" cy="50" r="13" fill="#333" />
-
-        <line
-          x1="50"
-          y1="93.5"
-          x2="98.5"
-          y2="93.5"
-          stroke="#eee"
-          stroke-width="3"
-          stroke-linecap="round"
-          class="header__accent"
-        />
-      </svg>
+      {% include "_logo.svg.jinja" %}
       Media Explorer
     </a>
     <nav class="header__menu">

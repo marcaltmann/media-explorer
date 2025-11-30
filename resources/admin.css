@@ -9,7 +9,6 @@
 }
 
 .a-site__header {
-  background-color: var(--background-color-ui);
   height: 2rlh;
   left: 0;
   position: fixed;
@@ -17,8 +16,19 @@
   top: 0;
 }
 
-.a-header__inner {
+.a-header {
+  align-items: center;
+  background-color: var(--background-color-ui);
   display: flex;
+  padding-inline: 1rlh;
+}
+
+.a-header__home {
+  align-items: center;
+  display: flex;
+  font-weight: bold;
+  gap: 0.5rlh;
+  text-decoration: none;
 }
 
 .a-header__menu {
@@ -26,10 +36,16 @@
 }
 
 .a-header__link-list {
+  align-items: center;
   display: flex;
+  gap: 0.5rlh;
   list-style-type: none;
   margin-block: 0;
   padding-left: 0;
+}
+
+.a-header__link {
+  text-decoration: none;
 }
 
 .a-site__sidebar {

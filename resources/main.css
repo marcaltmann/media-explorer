@@ -80,11 +80,6 @@ a:any-link {
   text-decoration: none;
 }
 
-.header__accent {
-  fill: var(--accent-color);
-  stroke: var(--accent-color);
-}
-
 .header__menu {
   margin-left: auto;
 }
@@ -107,6 +102,15 @@ a:any-link {
 .header__link--active:any-link {
   color: var(--accent-color);
   font-weight: bold;
+}
+
+.logo {
+
+}
+
+.logo__accent {
+  fill: var(--accent-color);
+  stroke: var(--accent-color);
 }
 
 main {
