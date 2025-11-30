@@ -1,0 +1,19 @@
+{% extends "admin/base.html.jinja" %}
+{% block title %}Admin{% endblock %}
+
+{% block content%}
+<div class="a-container">
+    <h1 class="u-mt">Admin Dashboard</h1>
+
+    <p class="u-mt-small">Welcome to the admin dashboard.</p>
+    <p>Your currently have:</p>
+    <ul class="u-mt u-mb">
+        <li><a href="{{url_for('admin-collection-list')}}">{{collection_count}} collections</a></li>
+        <li><a href="{{url_for('admin-resource-list')}}">{{resource_count}} resources</a></li>
+    </ul>
+
+    <p class="u-mt">
+        Create a collection, then you can add resources to it.
+    </p>
+</div>
+{% endblock %}

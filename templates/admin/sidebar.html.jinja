@@ -1,13 +1,13 @@
 <nav class="a-menu">
     <section class="a-menu__section">
-        <h2>Dashboard</h2>
+        <h2><a href="{{ url_for('admin') }}">Dashboard</a></h2>
         <ul class="base-list">
             <li><a href="{{ url_for('admin') }}">Overview</a></li>
         </ul>
     </section>
 
     <section class="a-menu__section u-mt">
-        <h2>Collections</h2>
+        <h2><a href="{{ url_for('admin-collection-list') }}">Collections</a></h2>
         <ul class="base-list">
             <li><a href="{{ url_for('admin-collection-list') }}">List</a></li>
             <li><a href="{{ url_for('admin-new-collection') }}">Create collection</a></li>
@@ -15,7 +15,7 @@
     </section>
 
     <section class="a-menu__section u-mt">
-        <h2>Resources</h2>
+        <h2><a href="{{ url_for('admin-resource-list') }}">Resources</a></h2>
         <ul class="base-list">
             <li><a href="{{ url_for('admin-resource-list') }}">List</a></li>
             <li><a href="{{ url_for('admin-new-resource') }}">Add resource</a></li>
