@@ -53,3 +53,7 @@
   max-width: 50rlh;
   padding-inline: 1rlh;
 }
+
+dl {
+  margin-block: 0;
+}

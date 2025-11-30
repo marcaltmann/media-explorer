@@ -58,6 +58,7 @@ class AdminCollectionController(Controller):
             description=description,
             color=color,
         )
+
         db_session.add(collection)
         await db_session.commit()
 
