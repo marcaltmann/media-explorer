@@ -1,0 +1,42 @@
+services:
+  db:
+    image: postgres:17
+    ports:
+      - "15432:5432"
+    hostname: db
+    environment:
+      POSTGRES_PASSWORD: "app"
+      POSTGRES_USER: "app"
+      POSTGRES_DB: "app"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    healthcheck:
+      test:
+        - CMD
+        - pg_isready
+        - -U
+        - app
+      interval: 2s
+      timeout: 3s
+      retries: 40
+  s3:
+    image: quay.io/minio/minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: root
+      MINIO_ROOT_PASSWORD: password
+      MINIO_ACCESS_KEY: access-key
+      MINIO_SECRET_KEY: secret-key
+      MINIO_SITE_NAME: test-server
+      MINIO_SITE_REGION: berlin
+
+volumes:
+  db-data: {}
