@@ -10,7 +10,9 @@ from ._utils import get_env
 class DatabaseSettings:
     ECHO: bool = field(default_factory=get_env("DATABASE_ECHO", False))
     """Enable SQLAlchemy engine logs."""
-    URL: str = field(default_factory=get_env("DATABASE_URL", "sqlite+aiosqlite:///db.sqlite3"))
+    URL: str = field(
+        default_factory=get_env("DATABASE_URL", "sqlite+aiosqlite:///db.sqlite3")
+    )
     """SQLAlchemy Database URL."""
 
 
@@ -18,7 +20,9 @@ class DatabaseSettings:
 class S3Settings:
     S3_ACCESS_KEY_ID: str = field(default_factory=get_env("S3_ACCESS_KEY_ID", ""))
     """The public key id."""
-    S3_SECRET_ACCESS_KEY: str = field(default_factory=get_env("S3_SECRET_ACCESS_KEY", ""))
+    S3_SECRET_ACCESS_KEY: str = field(
+        default_factory=get_env("S3_SECRET_ACCESS_KEY", "")
+    )
     """The secret key."""
     S3_ENDPOINT_URL: str = field(default_factory=get_env("S3_ENDPOINT_URL", ""))
     """Endpoint URL including region."""
@@ -39,7 +43,9 @@ class Settings:
         if env_file.is_file():
             from dotenv import load_dotenv
 
-            print(f"[yellow]Loading environment configuration from {dotenv_filename}[/]")
+            print(
+                f"[yellow]Loading environment configuration from {dotenv_filename}[/]"
+            )
 
             load_dotenv(env_file, override=True)
         return Settings()

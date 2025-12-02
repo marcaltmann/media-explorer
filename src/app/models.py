@@ -1,4 +1,5 @@
 from typing import Optional
+from uuid import UUID, uuid4
 
 from litestar.plugins.sqlalchemy import base
 from sqlalchemy import ForeignKey, func, select, String, JSON
@@ -8,6 +9,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 class Collection(base.BigIntAuditBase):
     __tablename__ = "collection"
     name: Mapped[str]
+    uuid: Mapped[UUID] = mapped_column(default=uuid4, nullable=False)
     description: Mapped[str] = mapped_column(default="", nullable=False)
     color: Mapped[str] = mapped_column(String(7), default="#333333", nullable=False)
     resources: Mapped[list[Resource]] = relationship(
@@ -21,6 +23,7 @@ class Collection(base.BigIntAuditBase):
 class Resource(base.BigIntAuditBase):
     __tablename__ = "resource"
     name: Mapped[str]
+    uuid: Mapped[UUID] = mapped_column(default=uuid4, nullable=False)
     media_type: Mapped[str]
     url: Mapped[str]
     poster_url: Mapped[str] = mapped_column(default="")

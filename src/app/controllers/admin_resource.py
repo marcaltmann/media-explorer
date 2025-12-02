@@ -16,6 +16,7 @@ from src.app.domain.resources.services import (
 from litestar.datastructures import UploadFile
 import shutil
 
+
 async def save_upload(upload: UploadFile, dest_path: str):
     # Rewind before copying
     upload.file.seek(0)
