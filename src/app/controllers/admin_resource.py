@@ -1,28 +1,41 @@
-from pathlib import Path
+from urllib.parse import urljoin
+
+import boto3.session
 from litestar import get, post
 from litestar.controller import Controller
 from litestar import Request
+from litestar.datastructures import UploadFile
 from litestar.response import Template, Redirect
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.app.models import Collection, Resource
+from src.app.config import Settings
 from src.app.domain.resources.services import (
     probe_mediafile_metadata,
     format_to_media_type,
 )
+from src.app.models import Collection, Resource
 
 
-from litestar.datastructures import UploadFile
-import shutil
+settings = Settings.from_env()
 
 
-async def save_upload(upload: UploadFile, dest_path: str):
-    # Rewind before copying
-    upload.file.seek(0)
+def save_upload(upload: UploadFile) -> str:
+    """Returns object store URL."""
+    session = boto3.session.Session()
+    endpoint_url = settings.s3.S3_ENDPOINT_URL
+    bucket_name = settings.s3.S3_BUCKET_NAME
+    s3_client = session.client(
+        service_name='s3',
+        aws_access_key_id=settings.s3.AWS_ACCESS_KEY_ID,
+        aws_secret_access_key=settings.s3.AWS_SECRET_ACCESS_KEY,
+        endpoint_url=endpoint_url,
+        region_name=settings.s3.AWS_DEFAULT_REGION,
+    )
 
-    with open(dest_path, "wb") as out:
-        shutil.copyfileobj(upload.file, out)
+    s3_client.upload_fileobj(upload.file, bucket_name, upload.filename)
+    bucket_url = urljoin(endpoint_url, bucket_name)
+    return f"{bucket_url}/{upload.filename}"
 
 
 class AdminResourceController(Controller):
@@ -74,11 +87,11 @@ class AdminResourceController(Controller):
     ) -> Redirect:
         form = await request.form()
         name: str = form.get("name")
-        url: str = form.get("url")
+        # url: str = form.get("url")
         collection_id = int(form.get("collection_id"))
 
         file: UploadFile = form.get("file")
-        await save_upload(file, Path("media") / file.filename)
+        url = save_upload(file)
 
         data = probe_mediafile_metadata(url)
         duration = float(data["format"]["duration"])

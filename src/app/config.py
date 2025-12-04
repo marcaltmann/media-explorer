@@ -18,16 +18,16 @@ class DatabaseSettings:
 
 @dataclass
 class S3Settings:
-    S3_ACCESS_KEY_ID: str = field(default_factory=get_env("S3_ACCESS_KEY_ID", ""))
+    AWS_ACCESS_KEY_ID: str = field(default_factory=get_env("AWS_ACCESS_KEY_ID", ""))
     """The public key id."""
-    S3_SECRET_ACCESS_KEY: str = field(
-        default_factory=get_env("S3_SECRET_ACCESS_KEY", "")
+    AWS_SECRET_ACCESS_KEY: str = field(
+        default_factory=get_env("AWS_SECRET_ACCESS_KEY", "")
     )
     """The secret key."""
+    AWS_DEFAULT_REGION: str = field(default_factory=get_env("AWS_DEFAULT_REGION", ""))
+    """Region name, e.g. eu-west-1"""
     S3_ENDPOINT_URL: str = field(default_factory=get_env("S3_ENDPOINT_URL", ""))
     """Endpoint URL including region."""
-    S3_REGION_NAME: str = field(default_factory=get_env("S3_REGION_NAME", ""))
-    """Region name, e.g. eu-west-1"""
     S3_BUCKET_NAME: str = field(default_factory=get_env("S3_BUCKET_NAME", ""))
     """The bucket name."""
 
