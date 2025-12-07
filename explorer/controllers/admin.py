@@ -4,7 +4,7 @@ from litestar.response import Template
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.app.models import Collection, Resource
+from explorer.models import Collection, Resource
 
 
 class AdminController(Controller):

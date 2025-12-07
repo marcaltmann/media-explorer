@@ -4,7 +4,7 @@ from pathlib import Path
 from litestar.plugins.sqlalchemy import SQLAlchemyAsyncConfig
 from sqlalchemy import func, select
 
-from src.app.models import Collection, Resource
+from explorer.models import Collection, Resource
 
 
 async def seed_database(sqlalchemy_config: SQLAlchemyAsyncConfig) -> None:

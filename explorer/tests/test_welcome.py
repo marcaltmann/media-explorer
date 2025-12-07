@@ -14,8 +14,4 @@ def test_welcome():
 
         soup = BeautifulSoup(response.text, 'html.parser')
         h1 = soup.find('h1')
-        assert h1.get_text() == "Media Explorer"
-
-
-if __name__ == "__main__":
-    test_welcome()
+        assert h1.get_text('Media Explorer')

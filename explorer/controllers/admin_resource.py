@@ -9,12 +9,12 @@ from litestar.response import Template, Redirect
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.app.config import Settings
-from src.app.domain.resources.services import (
+from explorer.config import Settings
+from explorer.domain.resources.services import (
     probe_mediafile_metadata,
     format_to_media_type,
 )
-from src.app.models import Collection, Resource
+from explorer.models import Collection, Resource
 
 
 settings = Settings.from_env()

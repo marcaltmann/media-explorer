@@ -5,7 +5,7 @@ from litestar.controller import Controller
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
 
-from src.app.models import Resource
+from explorer.models import Resource
 
 
 class ApiController(Controller):

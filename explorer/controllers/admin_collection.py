@@ -5,7 +5,7 @@ from litestar.response import Template, Redirect
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.app.models import Collection
+from explorer.models import Collection
 
 
 class AdminCollectionController(Controller):

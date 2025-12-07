@@ -4,7 +4,7 @@ from pathlib import Path
 from jinja2 import Environment, PackageLoader, select_autoescape
 from litestar import Litestar
 from litestar.contrib.jinja import JinjaTemplateEngine
-from litestar.plugins.sqlalchemy import (
+from advanced_alchemy.extensions.litestar import (
     AsyncSessionConfig,
     SQLAlchemyAsyncConfig,
     SQLAlchemyPlugin,
@@ -13,21 +13,24 @@ from litestar.static_files import create_static_files_router
 from litestar.template.config import TemplateConfig
 from litestar_vite import ViteConfig, VitePlugin
 
-from src.app.controllers.welcome import WelcomeController
-from src.app.controllers.page import PageController
-from src.app.controllers.collection import CollectionController
-from src.app.controllers.resource import ResourceController
-from src.app.controllers.search import SearchController
-from src.app.controllers.admin import AdminController
-from src.app.controllers.admin_collection import AdminCollectionController
-from src.app.controllers.admin_resource import AdminResourceController
-from src.app.controllers.organization import OrganizationController
-from src.app.controllers.api import ApiController
+import sys
+print(sys.path)
 
-from src.seeds.seed_db import seed_database
-from src.utils.filters import duration_format
+from explorer.controllers.welcome import WelcomeController
+from explorer.controllers.page import PageController
+from explorer.controllers.collection import CollectionController
+from explorer.controllers.resource import ResourceController
+from explorer.controllers.search import SearchController
+from explorer.controllers.admin import AdminController
+from explorer.controllers.admin_collection import AdminCollectionController
+from explorer.controllers.admin_resource import AdminResourceController
+from explorer.controllers.organization import OrganizationController
+from explorer.controllers.api import ApiController
 
-from src.app.config import Settings
+from explorer.seeds.seed_db import seed_database
+from explorer.utils.filters import duration_format
+
+from explorer.config import Settings
 
 settings = Settings.from_env()
 
