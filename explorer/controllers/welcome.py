@@ -4,8 +4,8 @@ from litestar.response import Template
 
 
 class WelcomeController(Controller):
-    path = ""
+    path = ''
 
-    @get("/", name="welcome")
+    @get('/', name='welcome')
     async def welcome(self) -> Template:
-        return Template(template_name="welcome.html.jinja")
+        return Template(template_name='welcome.html.jinja')

@@ -1,6 +1,6 @@
 def main():
-    print("Hello from mediaexplorer-ls!")
+    print('Hello from mediaexplorer-ls!')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

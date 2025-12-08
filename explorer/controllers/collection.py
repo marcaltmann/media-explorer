@@ -8,9 +8,9 @@ from explorer.models import Collection
 
 
 class CollectionController(Controller):
-    path = "/collections"
+    path = '/collections'
 
-    @get("", name="collections")
+    @get('', name='collections')
     async def collections(
         self, db_session: AsyncSession, db_engine: AsyncEngine
     ) -> Template:
@@ -18,16 +18,16 @@ class CollectionController(Controller):
         await db_session.commit()
 
         return Template(
-            template_name="collections.html.jinja", context={"collections": collections}
+            template_name='collections.html.jinja', context={'collections': collections}
         )
 
-    @get("/{collection_id:int}", name="collection-detail")
+    @get('/{collection_id:int}', name='collection-detail')
     async def collection_detail(
         self, db_session: AsyncSession, db_engine: AsyncEngine, collection_id: int
     ) -> Template:
         collection = await db_session.get(Collection, collection_id)
         await db_session.commit()
         return Template(
-            template_name="collection_detail.html.jinja",
-            context={"collection": collection},
+            template_name='collection_detail.html.jinja',
+            context={'collection': collection},
         )

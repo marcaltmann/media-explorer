@@ -4,8 +4,8 @@ from litestar.response import Template
 
 
 class SearchController(Controller):
-    path = "/search"
+    path = '/search'
 
-    @get("", name="search")
+    @get('', name='search')
     async def search(self) -> Template:
-        return Template(template_name="search.html.jinja")
+        return Template(template_name='search.html.jinja')

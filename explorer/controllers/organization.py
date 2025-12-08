@@ -4,8 +4,8 @@ from litestar.response import Template
 
 
 class OrganizationController(Controller):
-    path = "/organizations"
+    path = '/organizations'
 
-    @get("", name="organizations")
+    @get('', name='organizations')
     async def organizations(self) -> Template:
-        return Template(template_name="organizations.html.jinja")
+        return Template(template_name='organizations.html.jinja')

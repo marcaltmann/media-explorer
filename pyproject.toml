@@ -20,6 +20,10 @@ dev = [
     "pytest>=9.0.1",
 ]
 
+[tool.ruff.format]
+# Like blue, use single quotes for strings.
+quote-style = "single"
+
 [pytest]
 filterwarnings = [
     "error",

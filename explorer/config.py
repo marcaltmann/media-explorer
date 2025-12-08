@@ -29,43 +29,55 @@ if TYPE_CHECKING:
 
     from litestar.data_extractors import ResponseExtractorField
 
-DEFAULT_MODULE_NAME = "app"
+DEFAULT_MODULE_NAME = 'app'
 BASE_DIR: Final[Path] = module_to_os_path(DEFAULT_MODULE_NAME)
-
-
 
 
 @dataclass
 class DatabaseSettings:
-    ECHO: bool = field(default_factory=get_env("DATABASE_ECHO", False))
+    ECHO: bool = field(default_factory=get_env('DATABASE_ECHO', False))
     """Enable SQLAlchemy engine logs."""
-    ECHO_POOL: bool = field(default_factory=get_env("DATABASE_ECHO_POOL", False))
+    ECHO_POOL: bool = field(default_factory=get_env('DATABASE_ECHO_POOL', False))
     """Enable SQLAlchemy connection pool logs."""
-    POOL_DISABLED: bool = field(default_factory=get_env("DATABASE_POOL_DISABLED", False))
+    POOL_DISABLED: bool = field(
+        default_factory=get_env('DATABASE_POOL_DISABLED', False)
+    )
     """Disable SQLAlchemy pool configuration."""
-    POOL_MAX_OVERFLOW: int = field(default_factory=get_env("DATABASE_MAX_POOL_OVERFLOW", 10))
+    POOL_MAX_OVERFLOW: int = field(
+        default_factory=get_env('DATABASE_MAX_POOL_OVERFLOW', 10)
+    )
     """Max overflow for SQLAlchemy connection pool"""
-    POOL_SIZE: int = field(default_factory=get_env("DATABASE_POOL_SIZE", 5))
+    POOL_SIZE: int = field(default_factory=get_env('DATABASE_POOL_SIZE', 5))
     """Pool size for SQLAlchemy connection pool"""
-    POOL_TIMEOUT: int = field(default_factory=get_env("DATABASE_POOL_TIMEOUT", 30))
+    POOL_TIMEOUT: int = field(default_factory=get_env('DATABASE_POOL_TIMEOUT', 30))
     """Time in seconds for timing connections out of the connection pool."""
-    POOL_RECYCLE: int = field(default_factory=get_env("DATABASE_POOL_RECYCLE", 300))
+    POOL_RECYCLE: int = field(default_factory=get_env('DATABASE_POOL_RECYCLE', 300))
     """Amount of time to wait before recycling connections."""
-    POOL_PRE_PING: bool = field(default_factory=get_env("DATABASE_PRE_POOL_PING", False))
+    POOL_PRE_PING: bool = field(
+        default_factory=get_env('DATABASE_PRE_POOL_PING', False)
+    )
     """Optionally ping database before fetching a session from the connection pool."""
-    URL: str = field(default_factory=get_env("DATABASE_URL", "sqlite+aiosqlite:///db.sqlite3"))
+    URL: str = field(
+        default_factory=get_env('DATABASE_URL', 'sqlite+aiosqlite:///db.sqlite3')
+    )
     """SQLAlchemy Database URL."""
     MIGRATION_CONFIG: str = field(
-        default_factory=get_env("DATABASE_MIGRATION_CONFIG", f"{BASE_DIR}/db/migrations/alembic.ini")
+        default_factory=get_env(
+            'DATABASE_MIGRATION_CONFIG', f'{BASE_DIR}/db/migrations/alembic.ini'
+        )
     )
     """The path to the `alembic.ini` configuration file."""
-    MIGRATION_PATH: str = field(default_factory=get_env("DATABASE_MIGRATION_PATH", f"{BASE_DIR}/db/migrations"))
+    MIGRATION_PATH: str = field(
+        default_factory=get_env('DATABASE_MIGRATION_PATH', f'{BASE_DIR}/db/migrations')
+    )
     """The path to the `alembic` database migrations."""
     MIGRATION_DDL_VERSION_TABLE: str = field(
-        default_factory=get_env("DATABASE_MIGRATION_DDL_VERSION_TABLE", "ddl_version")
+        default_factory=get_env('DATABASE_MIGRATION_DDL_VERSION_TABLE', 'ddl_version')
     )
     """The name to use for the `alembic` versions table name."""
-    FIXTURE_PATH: str = field(default_factory=get_env("DATABASE_FIXTURE_PATH", f"{BASE_DIR}/db/fixtures"))
+    FIXTURE_PATH: str = field(
+        default_factory=get_env('DATABASE_FIXTURE_PATH', f'{BASE_DIR}/db/fixtures')
+    )
     """The path to JSON fixture files to load into tables."""
     _engine_instance: AsyncEngine | None = None
     """SQLAlchemy engine instance generated from settings."""
@@ -77,7 +89,7 @@ class DatabaseSettings:
     def get_engine(self) -> AsyncEngine:
         if self._engine_instance is not None:
             return self._engine_instance
-        if self.URL.startswith("postgresql+asyncpg"):
+        if self.URL.startswith('postgresql+asyncpg'):
             engine = create_async_engine(
                 url=self.URL,
                 future=True,
@@ -98,8 +110,10 @@ class DatabaseSettings:
             See [`async_sessionmaker()`][sqlalchemy.ext.asyncio.async_sessionmaker].
             """
 
-            @event.listens_for(engine.sync_engine, "connect")
-            def _sqla_on_connect(dbapi_connection: Any, _: Any) -> Any:  # pragma: no cover
+            @event.listens_for(engine.sync_engine, 'connect')
+            def _sqla_on_connect(
+                dbapi_connection: Any, _: Any
+            ) -> Any:  # pragma: no cover
                 """Using msgspec for serialization of the json column values means that the
                 output is binary, not `str` like `json.dumps` would output.
                 SQLAlchemy expects that the json serializer returns `str` and calls `.encode()` on the value to
@@ -110,7 +124,7 @@ class DatabaseSettings:
                 """
 
                 def encoder(bin_value: bytes) -> bytes:
-                    return b"\x01" + encode_json(bin_value)
+                    return b'\x01' + encode_json(bin_value)
 
                 def decoder(bin_value: bytes) -> Any:
                     # the byte is the \x01 prefix for jsonb used by PostgreSQL.
@@ -119,23 +133,23 @@ class DatabaseSettings:
 
                 dbapi_connection.await_(
                     dbapi_connection.driver_connection.set_type_codec(
-                        "jsonb",
+                        'jsonb',
                         encoder=encoder,
                         decoder=decoder,
-                        schema="pg_catalog",
-                        format="binary",
+                        schema='pg_catalog',
+                        format='binary',
                     ),
                 )
                 dbapi_connection.await_(
                     dbapi_connection.driver_connection.set_type_codec(
-                        "json",
+                        'json',
                         encoder=encoder,
                         decoder=decoder,
-                        schema="pg_catalog",
-                        format="binary",
+                        schema='pg_catalog',
+                        format='binary',
                     ),
                 )
-        elif self.URL.startswith("sqlite+aiosqlite"):
+        elif self.URL.startswith('sqlite+aiosqlite'):
             engine = create_async_engine(
                 url=self.URL,
                 future=True,
@@ -151,15 +165,17 @@ class DatabaseSettings:
             See [`async_sessionmaker()`][sqlalchemy.ext.asyncio.async_sessionmaker].
             """
 
-            @event.listens_for(engine.sync_engine, "connect")
-            def _sqla_on_connect(dbapi_connection: Any, _: Any) -> Any:  # pragma: no cover
+            @event.listens_for(engine.sync_engine, 'connect')
+            def _sqla_on_connect(
+                dbapi_connection: Any, _: Any
+            ) -> Any:  # pragma: no cover
                 """Override the default begin statement.  The disables the built in begin execution."""
                 dbapi_connection.isolation_level = None
 
-            @event.listens_for(engine.sync_engine, "begin")
+            @event.listens_for(engine.sync_engine, 'begin')
             def _sqla_on_begin(dbapi_connection: Any) -> Any:  # pragma: no cover
                 """Emits a custom begin"""
-                dbapi_connection.exec_driver_sql("BEGIN")
+                dbapi_connection.exec_driver_sql('BEGIN')
         else:
             engine = create_async_engine(
                 url=self.URL,
@@ -180,21 +196,19 @@ class DatabaseSettings:
         return self._engine_instance
 
 
-
-
 @dataclass
 class S3Settings:
-    AWS_ACCESS_KEY_ID: str = field(default_factory=get_env("AWS_ACCESS_KEY_ID", ""))
+    AWS_ACCESS_KEY_ID: str = field(default_factory=get_env('AWS_ACCESS_KEY_ID', ''))
     """The public key id."""
     AWS_SECRET_ACCESS_KEY: str = field(
-        default_factory=get_env("AWS_SECRET_ACCESS_KEY", "")
+        default_factory=get_env('AWS_SECRET_ACCESS_KEY', '')
     )
     """The secret key."""
-    AWS_DEFAULT_REGION: str = field(default_factory=get_env("AWS_DEFAULT_REGION", ""))
+    AWS_DEFAULT_REGION: str = field(default_factory=get_env('AWS_DEFAULT_REGION', ''))
     """Region name, e.g. eu-west-1"""
-    S3_ENDPOINT_URL: str = field(default_factory=get_env("S3_ENDPOINT_URL", ""))
+    S3_ENDPOINT_URL: str = field(default_factory=get_env('S3_ENDPOINT_URL', ''))
     """Endpoint URL including region."""
-    S3_BUCKET_NAME: str = field(default_factory=get_env("S3_BUCKET_NAME", ""))
+    S3_BUCKET_NAME: str = field(default_factory=get_env('S3_BUCKET_NAME', ''))
     """The bucket name."""
 
 
@@ -204,13 +218,13 @@ class Settings:
     s3: S3Settings = field(default_factory=S3Settings)
 
     @classmethod
-    def from_env(cls, dotenv_filename: str = ".env") -> Settings:
-        env_file = Path(f"{os.curdir}/{dotenv_filename}")
+    def from_env(cls, dotenv_filename: str = '.env') -> Settings:
+        env_file = Path(f'{os.curdir}/{dotenv_filename}')
         if env_file.is_file():
             from dotenv import load_dotenv
 
             print(
-                f"[yellow]Loading environment configuration from {dotenv_filename}[/]"
+                f'[yellow]Loading environment configuration from {dotenv_filename}[/]'
             )
 
             load_dotenv(env_file, override=True)

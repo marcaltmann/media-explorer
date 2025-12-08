@@ -10,10 +10,10 @@ if TYPE_CHECKING:
 
 BASE_DIR: Final[Path] = Path(__file__).parent.parent
 TRUE_VALUES: Final[frozenset[str]] = frozenset(
-    {"True", "true", "1", "yes", "YES", "Y", "y", "T", "t"}
+    {'True', 'true', '1', 'yes', 'YES', 'Y', 'y', 'T', 't'}
 )
 
-T = TypeVar("T")
+T = TypeVar('T')
 ParseTypes = bool | int | str | list[str] | Path | list[Path]
 
 
@@ -136,54 +136,54 @@ def get_config_val(  # noqa: C901, PLR0912, PLR0911
     str_value = os.getenv(key)
     if str_value is None:
         if type_hint != _UNSET:
-            return cast("T", default)
+            return cast('T', default)
         return default
     value: str = str_value
     if type(default) is bool:
         bool_value = value in TRUE_VALUES
         if type_hint != _UNSET:
-            return cast("T", bool_value)
+            return cast('T', bool_value)
         return bool_value
     if type(default) is int:
         int_value = int(value)
         if type_hint != _UNSET:
-            return cast("T", int_value)
+            return cast('T', int_value)
         return int_value
     if type(default) is Path:
         path_value = Path(value)
         if type_hint != _UNSET:
-            return cast("T", path_value)
+            return cast('T', path_value)
         return path_value
     if type(default) is list[Path]:
-        if value.startswith("[") and value.endswith("]"):
+        if value.startswith('[') and value.endswith(']'):
             try:
                 path_list = [Path(s) for s in json.loads(value)]
                 if type_hint != _UNSET:
-                    return cast("T", path_list)
+                    return cast('T', path_list)
             except (SyntaxError, ValueError) as e:
-                msg = f"{key} is not a valid list representation."
+                msg = f'{key} is not a valid list representation.'
                 raise ValueError(msg) from e
             else:
                 return value
-        path_list = [Path(host.strip()) for host in value.split(",")]
+        path_list = [Path(host.strip()) for host in value.split(',')]
         if type_hint != _UNSET:
-            return cast("T", path_list)
+            return cast('T', path_list)
         return path_list
     if type(default) is list[str]:
-        if value.startswith("[") and value.endswith("]"):
+        if value.startswith('[') and value.endswith(']'):
             try:
-                str_list = cast("list[str]", json.loads(value))
+                str_list = cast('list[str]', json.loads(value))
                 if type_hint != _UNSET:
-                    return cast("T", str_list)
+                    return cast('T', str_list)
             except (SyntaxError, ValueError) as e:
-                msg = f"{key} is not a valid list representation."
+                msg = f'{key} is not a valid list representation.'
                 raise ValueError(msg) from e
             else:
                 return value
-        str_list = [host.strip() for host in value.split(",")]
+        str_list = [host.strip() for host in value.split(',')]
         if type_hint != _UNSET:
-            return cast("T", str_list)
+            return cast('T', str_list)
         return str_list
     if type_hint != _UNSET:
-        return cast("T", value)
+        return cast('T', value)
     return value

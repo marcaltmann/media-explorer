@@ -35,29 +35,29 @@ def save_upload(upload: UploadFile) -> str:
 
     s3_client.upload_fileobj(upload.file, bucket_name, upload.filename)
     bucket_url = urljoin(endpoint_url, bucket_name)
-    return f"{bucket_url}/{upload.filename}"
+    return f'{bucket_url}/{upload.filename}'
 
 
 class AdminResourceController(Controller):
-    path = "/admin/resources"
+    path = '/admin/resources'
 
-    @get("", name="admin-resource-list")
+    @get('', name='admin-resource-list')
     async def admin_resource_list(self, db_session: AsyncSession) -> Template:
         statement = select(Resource).order_by(Resource.created_at.desc())
         result = await db_session.execute(statement)
         resources = result.scalars()
 
-        statement = select(func.count("*")).select_from(Resource)
+        statement = select(func.count('*')).select_from(Resource)
         result = await db_session.execute(statement)
         count = result.scalar()
 
         await db_session.commit()
         return Template(
-            template_name="admin/resource_list.html.jinja",
-            context={"resources": resources, "count": count},
+            template_name='admin/resource_list.html.jinja',
+            context={'resources': resources, 'count': count},
         )
 
-    @get("/{resource_id:int}", name="admin-resource-detail")
+    @get('/{resource_id:int}', name='admin-resource-detail')
     async def admin_resource_detail(
         self, db_session: AsyncSession, resource_id: int
     ) -> Template:
@@ -65,11 +65,11 @@ class AdminResourceController(Controller):
         await db_session.commit()
 
         return Template(
-            template_name="admin/resource_detail.html.jinja",
-            context={"resource": resource},
+            template_name='admin/resource_detail.html.jinja',
+            context={'resource': resource},
         )
 
-    @get("/new", name="admin-new-resource")
+    @get('/new', name='admin-new-resource')
     async def admin_new_resource(self, db_session: AsyncSession) -> Template:
         statement = select(Collection).order_by(Collection.name.asc())
         result = await db_session.execute(statement)
@@ -77,26 +77,26 @@ class AdminResourceController(Controller):
         await db_session.commit()
 
         return Template(
-            template_name="admin/resource_new.html.jinja",
-            context={"collection_list": collection_list},
+            template_name='admin/resource_new.html.jinja',
+            context={'collection_list': collection_list},
         )
 
-    @post("/new", name="admin-create-resource")
+    @post('/new', name='admin-create-resource')
     async def admin_create_resource(
         self, db_session: AsyncSession, request: Request
     ) -> Redirect:
         form = await request.form()
-        name: str = form.get("name")
+        name: str = form.get('name')
         # url: str = form.get("url")
-        collection_id = int(form.get("collection_id"))
+        collection_id = int(form.get('collection_id'))
 
-        file: UploadFile = form.get("file")
+        file: UploadFile = form.get('file')
         url = save_upload(file)
 
         data = probe_mediafile_metadata(url)
-        duration = float(data["format"]["duration"])
-        format = data["format"]["format_name"]
-        size = int(data["format"]["size"])
+        duration = float(data['format']['duration'])
+        format = data['format']['format_name']
+        size = int(data['format']['size'])
         media_type = format_to_media_type(format)
 
         resource = Resource(
@@ -110,4 +110,4 @@ class AdminResourceController(Controller):
         db_session.add(resource)
         await db_session.commit()
 
-        return Redirect(path=f"/admin/resources/{resource.id}")
+        return Redirect(path=f'/admin/resources/{resource.id}')

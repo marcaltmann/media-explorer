@@ -9,7 +9,7 @@ app.debug = True
 
 def test_resource_detail_page():
     with TestClient(app=app) as client:
-        response = client.get("/resources/7")
+        response = client.get('/resources/7')
         assert response.status_code == HTTP_200_OK
 
         soup = BeautifulSoup(response.text, 'html.parser')

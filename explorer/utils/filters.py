@@ -7,6 +7,6 @@ def duration_format(value: float) -> str:
     minutes = int((value % 3600) // 60)
     secs = int(value % 60)
     if hours > 0:
-        return f"{hours}h{minutes}m{secs}s"
+        return f'{hours}h{minutes}m{secs}s'
     else:
-        return f"{minutes}m{secs}s"
+        return f'{minutes}m{secs}s'
