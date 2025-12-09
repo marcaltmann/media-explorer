@@ -14,7 +14,7 @@ from explorer.domain.resources.services import (
     probe_mediafile_metadata,
     format_to_media_type,
 )
-from explorer.models import Collection, Resource
+from explorer.models import Collection, Resource, License
 
 
 settings = Settings.from_env()
@@ -78,7 +78,7 @@ class AdminResourceController(Controller):
 
         return Template(
             template_name='admin/resource_new.html.jinja',
-            context={'collection_list': collection_list},
+            context={'collection_list': collection_list, 'License': License},
         )
 
     @post('/new', name='admin-create-resource')
@@ -88,6 +88,7 @@ class AdminResourceController(Controller):
         form = await request.form()
         name: str = form.get('name')
         # url: str = form.get("url")
+        license_value = int(form.get('license'))
         collection_id = int(form.get('collection_id'))
 
         file: UploadFile = form.get('file')
@@ -105,6 +106,7 @@ class AdminResourceController(Controller):
             url=url,
             size=size,
             duration=duration,
+            license=License(license_value),
             collection_id=collection_id,
         )
         db_session.add(resource)

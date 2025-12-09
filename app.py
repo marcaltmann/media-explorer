@@ -13,10 +13,6 @@ from litestar.static_files import create_static_files_router
 from litestar.template.config import TemplateConfig
 from litestar_vite import ViteConfig, VitePlugin
 
-import sys
-
-print(sys.path)
-
 from explorer.controllers.welcome import WelcomeController
 from explorer.controllers.page import PageController
 from explorer.controllers.collection import CollectionController
@@ -52,7 +48,7 @@ def print_message() -> None:
     print('Byebye')
 
 
-env = Environment(loader=PackageLoader('app'), autoescape=select_autoescape())
+env = Environment(loader=PackageLoader('explorer'), autoescape=select_autoescape())
 env.filters['duration_format'] = duration_format
 
 vite = VitePlugin(config=ViteConfig())
@@ -73,7 +69,7 @@ app = Litestar(
         create_static_files_router(path='/media', directories=['media']),
     ],
     template_config=TemplateConfig(
-        directory=Path('templates'),
+        directory=Path('explorer/templates'),
         engine=JinjaTemplateEngine.from_environment(env),
     ),
     on_startup=[on_startup],

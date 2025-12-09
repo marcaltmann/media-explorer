@@ -44,6 +44,15 @@
       </div>
 
       <div class="u-mt">
+        <label for="license">License (later):</label>
+        <select name="license" id="license" required>
+          {% for license in License %}
+            <option value="{{ license.value }}">{{ license.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="u-mt">
         <label for="collection">Collection:</label>
         <select name="collection_id" id="collection" required>
           {% for collection in collection_list %}

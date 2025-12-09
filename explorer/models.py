@@ -1,9 +1,23 @@
+import enum
 from typing import Optional
 from uuid import UUID, uuid4
 
 from litestar.plugins.sqlalchemy import base
-from sqlalchemy import ForeignKey, func, select, String, JSON
+from sqlalchemy import ForeignKey, func, select, String, JSON, Enum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+
+class License(enum.Enum):
+    cc0 = 0
+    by = 1
+    by_sa = 2
+    by_nd = 3
+    by_nc = 4
+    by_nc_sa = 5
+    by_nc_nd = 6
+    private = 7
+    other = 8
+    unknown = 9
 
 
 class Collection(base.BigIntAuditBase):
@@ -29,6 +43,7 @@ class Resource(base.BigIntAuditBase):
     poster_url: Mapped[str] = mapped_column(default='')
     duration: Mapped[float]
     size: Mapped[Optional[int]] = mapped_column(default=0)
+    license: Mapped[License] = mapped_column(Enum(License), server_default="private")
     toc: Mapped[Optional[list]] = mapped_column(JSON, nullable=True)
     waveform: Mapped[Optional[list]] = mapped_column(JSON, nullable=True)
     collection_id: Mapped[int] = mapped_column(ForeignKey('collection.id'))
