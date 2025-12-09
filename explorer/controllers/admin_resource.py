@@ -20,6 +20,9 @@ from explorer.models import Collection, Resource, License
 settings = Settings.from_env()
 
 
+MAX_UPLOAD_SIZE = 1 * 1024**3  # 1GB
+
+
 def save_upload(upload: UploadFile) -> str:
     """Returns object store URL."""
     session = boto3.session.Session()
@@ -81,7 +84,7 @@ class AdminResourceController(Controller):
             context={'collection_list': collection_list, 'License': License},
         )
 
-    @post('/new', name='admin-create-resource')
+    @post('/new', name='admin-create-resource', request_max_body_size=MAX_UPLOAD_SIZE)
     async def admin_create_resource(
         self, db_session: AsyncSession, request: Request
     ) -> Redirect:
