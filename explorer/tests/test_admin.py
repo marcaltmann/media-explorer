@@ -9,7 +9,7 @@ app.debug = True
 
 def test_admin_dashboard():
     with TestClient(app=app) as client:
-        response = client.get("/admin")
+        response = client.get('/admin')
         assert response.status_code == HTTP_200_OK
 
         soup = BeautifulSoup(response.text, 'html.parser')

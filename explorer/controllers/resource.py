@@ -10,9 +10,9 @@ from explorer.models import Resource
 
 
 class ResourceController(Controller):
-    path = "/resources"
+    path = '/resources'
 
-    @get("", name="resources")
+    @get('', name='resources')
     async def resources(
         self, db_session: AsyncSession, db_engine: AsyncEngine
     ) -> Template:
@@ -21,10 +21,10 @@ class ResourceController(Controller):
         resources = result.scalars()
         await db_session.commit()
         return Template(
-            template_name="resources.html.jinja", context={"resources": resources}
+            template_name='resources.html.jinja', context={'resources': resources}
         )
 
-    @get("/{resource_id:int}", name="resource-detail")
+    @get('/{resource_id:int}', name='resource-detail')
     async def resource_detail(
         self, db_session: AsyncSession, resource_id: int
     ) -> Template:
@@ -32,10 +32,10 @@ class ResourceController(Controller):
         await db_session.commit()
 
         return Template(
-            template_name="resource_detail.html.jinja", context={"resource": resource}
+            template_name='resource_detail.html.jinja', context={'resource': resource}
         )
 
-    @get("/{resource_id:int}/toc", name="resource-toc", media_type=MediaType.JSON)
+    @get('/{resource_id:int}/toc', name='resource-toc', media_type=MediaType.JSON)
     async def resource_toc(
         self, db_session: AsyncSession, resource_id: int
     ) -> dict[str, Any]:
@@ -43,8 +43,8 @@ class ResourceController(Controller):
         return resource.toc
 
     @get(
-        "/{resource_id:int}/waveform",
-        name="resource-waveform",
+        '/{resource_id:int}/waveform',
+        name='resource-waveform',
         media_type=MediaType.JSON,
     )
     async def resource_waveform(

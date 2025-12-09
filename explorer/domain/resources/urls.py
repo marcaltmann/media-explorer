@@ -1,13 +1,13 @@
-RESOURCE_LIST = "/resources"
-RESOURCE_NEW = "/resources/new"
-RESOURCE_CREATE = "/resources/new"
-RESOURCE_EDIT = "/resources/{resource_id:int}/update"
-RESOURCE_UPDATE = "/resources/{resource_id:int}/update"
-RESOURCE_DELETE = "/resources/{resource_id:int}/delete"
-RESOURCE_DETAILS = "/resources/{resource_id:int}"
+RESOURCE_LIST = '/resources'
+RESOURCE_NEW = '/resources/new'
+RESOURCE_CREATE = '/resources/new'
+RESOURCE_EDIT = '/resources/{resource_id:int}/update'
+RESOURCE_UPDATE = '/resources/{resource_id:int}/update'
+RESOURCE_DELETE = '/resources/{resource_id:int}/delete'
+RESOURCE_DETAILS = '/resources/{resource_id:int}'
 
-API_RESOURCE_LIST = "/api/resources"
-API_RESOURCE_CREATE = "/api/resources"
-API_RESOURCE_UPDATE = "/api/resources/{resource_id:int}"
-API_RESOURCE_DELETE = "/api/resources/{resource_id:int}"
-API_RESOURCE_DETAILS = "/api/resources/{resource_id:int}"
+API_RESOURCE_LIST = '/api/resources'
+API_RESOURCE_CREATE = '/api/resources'
+API_RESOURCE_UPDATE = '/api/resources/{resource_id:int}'
+API_RESOURCE_DELETE = '/api/resources/{resource_id:int}'
+API_RESOURCE_DETAILS = '/api/resources/{resource_id:int}'

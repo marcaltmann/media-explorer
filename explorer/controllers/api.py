@@ -9,9 +9,9 @@ from explorer.models import Resource
 
 
 class ApiController(Controller):
-    path = "/api"
+    path = '/api'
 
-    @get("/resources", name="api-resources")
+    @get('/resources', name='api-resources')
     async def resources(self, db_session: AsyncSession) -> List[Resource]:
         resources = await db_session.scalars(select(Resource))
         return list(resources)

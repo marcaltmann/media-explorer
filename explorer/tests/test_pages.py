@@ -9,7 +9,7 @@ app.debug = True
 
 def test_contact_page():
     with TestClient(app=app) as client:
-        response = client.get("/pages/contact")
+        response = client.get('/pages/contact')
         assert response.status_code == HTTP_200_OK
 
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -19,7 +19,7 @@ def test_contact_page():
 
 def test_privacy_page():
     with TestClient(app=app) as client:
-        response = client.get("/pages/privacy")
+        response = client.get('/pages/privacy')
         assert response.status_code == HTTP_200_OK
 
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -29,25 +29,27 @@ def test_privacy_page():
 
 def test_accessibility_page():
     with TestClient(app=app) as client:
-        response = client.get("/pages/accessibility")
+        response = client.get('/pages/accessibility')
         assert response.status_code == HTTP_200_OK
 
         soup = BeautifulSoup(response.text, 'html.parser')
         h1 = soup.find('h1')
         assert h1.get_text() == 'Accessibility'
 
+
 def test_terms_page():
     with TestClient(app=app) as client:
-        response = client.get("/pages/terms-of-use")
+        response = client.get('/pages/terms-of-use')
         assert response.status_code == HTTP_200_OK
 
         soup = BeautifulSoup(response.text, 'html.parser')
         h1 = soup.find('h1')
         assert h1.get_text() == 'Terms of Use'
 
+
 def test_legal_notice_page():
     with TestClient(app=app) as client:
-        response = client.get("/pages/legal-notice")
+        response = client.get('/pages/legal-notice')
         assert response.status_code == HTTP_200_OK
 
         soup = BeautifulSoup(response.text, 'html.parser')

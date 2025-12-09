@@ -14,6 +14,7 @@ from litestar.template.config import TemplateConfig
 from litestar_vite import ViteConfig, VitePlugin
 
 import sys
+
 print(sys.path)
 
 from explorer.controllers.welcome import WelcomeController
@@ -48,11 +49,11 @@ async def on_startup(app: Litestar) -> None:
 
 
 def print_message() -> None:
-    print("Byebye")
+    print('Byebye')
 
 
-env = Environment(loader=PackageLoader("app"), autoescape=select_autoescape())
-env.filters["duration_format"] = duration_format
+env = Environment(loader=PackageLoader('app'), autoescape=select_autoescape())
+env.filters['duration_format'] = duration_format
 
 vite = VitePlugin(config=ViteConfig())
 
@@ -68,11 +69,11 @@ app = Litestar(
         PageController,
         ResourceController,
         ApiController,
-        create_static_files_router(path="/", directories=["assets"]),
-        create_static_files_router(path="/media", directories=["media"]),
+        create_static_files_router(path='/', directories=['assets']),
+        create_static_files_router(path='/media', directories=['media']),
     ],
     template_config=TemplateConfig(
-        directory=Path("templates"),
+        directory=Path('templates'),
         engine=JinjaTemplateEngine.from_environment(env),
     ),
     on_startup=[on_startup],

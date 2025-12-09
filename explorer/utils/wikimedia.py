@@ -6,23 +6,23 @@ from urllib.parse import urljoin
 class WikimediaCommonsVideoFinder:
     """Tool to search Wikimedia Commons for public domain videos."""
 
-    BASE_URL = "https://commons.wikimedia.org/w/api.php"
+    BASE_URL = 'https://commons.wikimedia.org/w/api.php'
 
     def __init__(self):
         self.session = requests.Session()
-        self.session.headers.update({"User-Agent": "PublicDomainVideoFinder/1.0"})
+        self.session.headers.update({'User-Agent': 'PublicDomainVideoFinder/1.0'})
 
     def get_category_members(
-        self, category: str, member_type: str = "file", continue_params: Dict = None
+        self, category: str, member_type: str = 'file', continue_params: Dict = None
     ) -> Dict:
         """Fetch members of a category from Wikimedia Commons."""
         params = {
-            "action": "query",
-            "list": "categorymembers",
-            "cmtitle": f"Category:{category}",
-            "cmlimit": "500",  # Get maximum results per request
-            "cmtype": member_type,  # 'file', 'subcat', or 'page'
-            "format": "json",
+            'action': 'query',
+            'list': 'categorymembers',
+            'cmtitle': f'Category:{category}',
+            'cmlimit': '500',  # Get maximum results per request
+            'cmtype': member_type,  # 'file', 'subcat', or 'page'
+            'format': 'json',
         }
 
         # Add continuation parameters if provided
@@ -36,11 +36,11 @@ class WikimediaCommonsVideoFinder:
     def get_file_info(self, titles: List[str]) -> Dict:
         """Get detailed information about files including their URLs."""
         params = {
-            "action": "query",
-            "titles": "|".join(titles),
-            "prop": "imageinfo",
-            "iiprop": "url|mime|mediatype",
-            "format": "json",
+            'action': 'query',
+            'titles': '|'.join(titles),
+            'prop': 'imageinfo',
+            'iiprop': 'url|mime|mediatype',
+            'format': 'json',
         }
 
         response = self.session.get(self.BASE_URL, params=params)
@@ -49,7 +49,7 @@ class WikimediaCommonsVideoFinder:
 
     def is_video_file(self, mime_type: str, media_type: str) -> bool:
         """Check if a file is a video based on MIME type and media type."""
-        return media_type == "VIDEO" or mime_type.startswith("video/")
+        return media_type == 'VIDEO' or mime_type.startswith('video/')
 
     def search_public_domain_videos(
         self, recursive: bool = True
@@ -67,11 +67,11 @@ class WikimediaCommonsVideoFinder:
             - mime_type: MIME type of the video
         """
         videos = []
-        category = "Films_in_the_public_domain"
+        category = 'Films_in_the_public_domain'
         processed_categories = set()
         categories_to_process = [category]
 
-        print(f"Searching category: {category}")
+        print(f'Searching category: {category}')
 
         while categories_to_process:
             current_category = categories_to_process.pop(0)
@@ -80,7 +80,7 @@ class WikimediaCommonsVideoFinder:
                 continue
 
             processed_categories.add(current_category)
-            print(f"\n--- Processing category: {current_category} ---")
+            print(f'\n--- Processing category: {current_category} ---')
 
             # First, get all files in this category
             videos_in_category = self._get_videos_from_category(current_category)
@@ -90,7 +90,7 @@ class WikimediaCommonsVideoFinder:
             if recursive:
                 subcats = self._get_subcategories(current_category)
                 if subcats:
-                    print(f"Found {len(subcats)} subcategories")
+                    print(f'Found {len(subcats)} subcategories')
                     categories_to_process.extend(subcats)
 
         return videos
@@ -102,17 +102,17 @@ class WikimediaCommonsVideoFinder:
 
         while True:
             data = self.get_category_members(
-                category, member_type="subcat", continue_params=continue_params
+                category, member_type='subcat', continue_params=continue_params
             )
 
-            members = data.get("query", {}).get("categorymembers", [])
+            members = data.get('query', {}).get('categorymembers', [])
             for member in members:
                 # Remove 'Category:' prefix
-                subcat_name = member["title"].replace("Category:", "")
+                subcat_name = member['title'].replace('Category:', '')
                 subcategories.append(subcat_name)
 
-            if "continue" in data:
-                continue_params = data["continue"]
+            if 'continue' in data:
+                continue_params = data['continue']
             else:
                 break
 
@@ -127,50 +127,50 @@ class WikimediaCommonsVideoFinder:
         while True:
             page_count += 1
             data = self.get_category_members(
-                category, member_type="file", continue_params=continue_params
+                category, member_type='file', continue_params=continue_params
             )
 
-            members = data.get("query", {}).get("categorymembers", [])
-            print(f"  Page {page_count}: Retrieved {len(members)} files")
+            members = data.get('query', {}).get('categorymembers', [])
+            print(f'  Page {page_count}: Retrieved {len(members)} files')
 
             if not members:
                 break
 
             # Process in batches (API allows up to 50 titles at once)
             batch_size = 50
-            titles = [member["title"] for member in members]
+            titles = [member['title'] for member in members]
 
             for i in range(0, len(titles), batch_size):
                 batch = titles[i : i + batch_size]
                 file_info = self.get_file_info(batch)
 
-                pages = file_info.get("query", {}).get("pages", {})
+                pages = file_info.get('query', {}).get('pages', {})
                 for page_id, page_data in pages.items():
-                    if "imageinfo" not in page_data:
+                    if 'imageinfo' not in page_data:
                         continue
 
-                    image_info = page_data["imageinfo"][0]
-                    mime_type = image_info.get("mime", "")
-                    media_type = image_info.get("mediatype", "")
+                    image_info = page_data['imageinfo'][0]
+                    mime_type = image_info.get('mime', '')
+                    media_type = image_info.get('mediatype', '')
 
                     # Filter for videos only
                     if self.is_video_file(mime_type, media_type):
                         videos.append(
                             {
-                                "title": page_data["title"],
-                                "url": image_info.get("url", ""),
-                                "mime_type": mime_type,
+                                'title': page_data['title'],
+                                'url': image_info.get('url', ''),
+                                'mime_type': mime_type,
                             }
                         )
-                        print(f"    ✓ Found video: {page_data['title']}")
+                        print(f'    ✓ Found video: {page_data["title"]}')
 
             # Check if there are more results
-            if "continue" in data:
-                continue_params = data["continue"]
+            if 'continue' in data:
+                continue_params = data['continue']
             else:
                 break
 
-        print(f"  Total videos in this category: {len(videos)}")
+        print(f'  Total videos in this category: {len(videos)}')
         return videos
 
 
@@ -181,22 +181,22 @@ def main():
     try:
         videos = finder.search_public_domain_videos()
 
-        print(f"\n{'=' * 80}")
-        print(f"Found {len(videos)} public domain videos")
-        print(f"{'=' * 80}\n")
+        print(f'\n{"=" * 80}')
+        print(f'Found {len(videos)} public domain videos')
+        print(f'{"=" * 80}\n')
 
         for i, video in enumerate(videos, 1):
-            print(f"{i}. {video['title']}")
-            print(f"   URL: {video['url']}")
-            print(f"   Type: {video['mime_type']}")
+            print(f'{i}. {video["title"]}')
+            print(f'   URL: {video["url"]}')
+            print(f'   Type: {video["mime_type"]}')
             print()
 
         return videos
 
     except requests.RequestException as e:
-        print(f"Error fetching data from Wikimedia Commons: {e}")
+        print(f'Error fetching data from Wikimedia Commons: {e}')
         return []
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

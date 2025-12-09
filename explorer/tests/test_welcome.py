@@ -9,7 +9,7 @@ app.debug = True
 
 def test_welcome():
     with TestClient(app=app) as client:
-        response = client.get("/")
+        response = client.get('/')
         assert response.status_code == HTTP_200_OK
 
         soup = BeautifulSoup(response.text, 'html.parser')
