@@ -1,10 +1,29 @@
 import enum
 from typing import Optional
+from urllib.parse import urljoin
 from uuid import UUID, uuid4
 
 from litestar.plugins.sqlalchemy import base
 from sqlalchemy import ForeignKey, func, select, String, JSON, Enum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from explorer.config import Settings
+
+settings = Settings.from_env()
+
+
+class Collection(base.BigIntAuditBase):
+    __tablename__ = 'collection'
+    name: Mapped[str]
+    uuid: Mapped[UUID] = mapped_column(default=uuid4, nullable=False)
+    description: Mapped[str] = mapped_column(default='', nullable=False)
+    color: Mapped[str] = mapped_column(String(7), default='#333333', nullable=False)
+    resources: Mapped[list[Resource]] = relationship(
+        back_populates='collection', lazy='selectin'
+    )
+
+    def __repr__(self):
+        return f"Collection(id={self.id}, name='{self.name}')"
 
 
 class License(enum.Enum):
@@ -20,42 +39,83 @@ class License(enum.Enum):
     unknown = 9
 
 
-class Collection(base.BigIntAuditBase):
-    __tablename__ = 'collection'
-    name: Mapped[str]
-    uuid: Mapped[UUID] = mapped_column(default=uuid4, nullable=False)
-    description: Mapped[str] = mapped_column(default='', nullable=False)
-    color: Mapped[str] = mapped_column(String(7), default='#333333', nullable=False)
-    resources: Mapped[list[Resource]] = relationship(
-        back_populates='collection', lazy='selectin'
-    )
-
-    def __repr__(self):
-        return f'Collection(id={self.id}, name={self.name})'
-
-
 class Resource(base.BigIntAuditBase):
     __tablename__ = 'resource'
     name: Mapped[str]
     uuid: Mapped[UUID] = mapped_column(default=uuid4, nullable=False)
-    media_type: Mapped[str]
-    url: Mapped[str]
-    poster_url: Mapped[str] = mapped_column(default='')
-    duration: Mapped[float]
-    size: Mapped[Optional[int]] = mapped_column(default=0)
-    license: Mapped[License] = mapped_column(Enum(License), server_default="private")
+    license: Mapped[License] = mapped_column(Enum(License), server_default='private')
     toc: Mapped[Optional[list]] = mapped_column(JSON, nullable=True)
-    waveform: Mapped[Optional[list]] = mapped_column(JSON, nullable=True)
     collection_id: Mapped[int] = mapped_column(ForeignKey('collection.id'))
     collection: Mapped[Collection] = relationship(
         lazy='joined', innerjoin=True, viewonly=True
     )
 
     def __repr__(self):
-        return f'Resource(id={self.id}, name={self.name}, duration={self.duration})'
+        return f"Resource(id={self.id}, uuid='{self.uuid}' name='{self.name}')"
+
+
+class MediaType(enum.Enum):
+    video = 0
+    audio = 1
+    image = 2
+
+
+class MediaFile(base.BigIntAuditBase):
+    __tablename__ = 'media_file'
+    filename: Mapped[str]
+    type: Mapped[MediaType] = mapped_column(Enum(MediaType), server_default='video')
+    url: Mapped[str]
+    poster_url: Mapped[str] = mapped_column(default='')
+    uuid: Mapped[UUID] = mapped_column(default=uuid4, nullable=False)
+    media_type: Mapped[str]
+    size: Mapped[Optional[int]] = mapped_column(default=0)
+    duration: Mapped[float]
+    waveform: Mapped[Optional[list]] = mapped_column(JSON, nullable=True)
+    metadata: Mapped[dict] = mapped_column(JSON, nullable=True)
+    preview_images: Mapped[dict] = mapped_column(JSON, nullable=True)
+    resource_id: Mapped[int] = mapped_column(ForeignKey('resource.id'))
+    resource: Mapped[Resource] = relationship(
+        lazy='joined', innerjoin=True, viewonly=True
+    )
 
     def is_video(self):
         return self.media_type.startswith('video/')
 
     def is_audio(self):
         return self.media_type.startswith('audio/')
+
+    def get_url(self):
+        bucket_url = settings.s3.get_bucket_url()
+        return f'{bucket_url}/{self.filename}'
+
+    def __repr__(self):
+        return (
+            f"MediaFile(id={self.id}, uuid='{self.uuid}', filename='{self.filename}')"
+        )
+
+
+class DerivativeType(enum.Enum):
+    video_720p = 0
+    video_480p = 1
+    audio_128k = 2
+    poster_hd = 3
+    thumbnail_480 = 4
+    thumbnail_320 = 5
+    thumbnail_160 = 6
+
+
+class MediaFileDerivative(base.BigIntAuditBase):
+    """Seems to be too implicit."""
+
+    __tablename__ = 'media_file_derivative'
+    type: Mapped[DerivativeType] = mapped_column(
+        Enum(License), server_default='private'
+    )
+    media_type: Mapped[str]
+    media_file_id: Mapped[int] = mapped_column(ForeignKey('media_file.id'))
+    media_file: Mapped[MediaFile] = relationship(
+        lazy='joined', innerjoin=True, viewonly=True
+    )
+
+    def __repr__(self):
+        return f"MediaFileDerivative(id={self.id}, type='{self.type.name}', media_type='{self.media_type}')"

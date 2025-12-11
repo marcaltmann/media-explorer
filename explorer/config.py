@@ -7,6 +7,7 @@ from dataclasses import dataclass, field
 from functools import lru_cache
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Final, cast
+from urllib.parse import urljoin
 
 from advanced_alchemy.utils.text import slugify
 from litestar.data_extractors import RequestExtractorField
@@ -210,6 +211,9 @@ class S3Settings:
     """Endpoint URL including region."""
     S3_BUCKET_NAME: str = field(default_factory=get_env('S3_BUCKET_NAME', ''))
     """The bucket name."""
+
+    def get_bucket_url(self):
+        return urljoin(self.S3_ENDPOINT_URL, self.S3_BUCKET_NAME)
 
 
 @dataclass
