@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Any, Final, cast
 from urllib.parse import urljoin
 
+from boto3.session import Session
 from advanced_alchemy.utils.text import slugify
 from litestar.data_extractors import RequestExtractorField
 from litestar.serialization import decode_json, encode_json
@@ -211,6 +212,17 @@ class S3Settings:
     """Endpoint URL including region."""
     S3_BUCKET_NAME: str = field(default_factory=get_env('S3_BUCKET_NAME', ''))
     """The bucket name."""
+
+    def get_client(self):
+        session = Session()
+        s3_client = session.client(
+            service_name='s3',
+            aws_access_key_id=self.AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=self.AWS_SECRET_ACCESS_KEY,
+            endpoint_url=self.S3_ENDPOINT_URL,
+            region_name=self.AWS_DEFAULT_REGION,
+        )
+        return s3_client
 
     def get_bucket_url(self):
         return urljoin(self.S3_ENDPOINT_URL, self.S3_BUCKET_NAME)

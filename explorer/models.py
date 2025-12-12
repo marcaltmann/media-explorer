@@ -4,7 +4,7 @@ from urllib.parse import urljoin
 from uuid import UUID, uuid4
 
 from litestar.plugins.sqlalchemy import base
-from sqlalchemy import ForeignKey, func, text, select, String, JSON, Enum
+from sqlalchemy import ForeignKey, func, text, select, String, JSON, Boolean, Enum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from explorer.config import Settings
@@ -105,6 +105,7 @@ class DerivativeType(enum.Enum):
 
 class DerivativeFile(base.UUIDv7AuditBase):
     """Seems to be too implicit."""
+
     __tablename__ = 'derivative_file'
     type: Mapped[DerivativeType] = mapped_column(
         Enum(DerivativeType), server_default='video_720p'
@@ -114,6 +115,7 @@ class DerivativeFile(base.UUIDv7AuditBase):
     media_file: Mapped[MediaFile] = relationship(
         lazy='joined', innerjoin=True, viewonly=True
     )
+    is_stored: Mapped[bool] = mapped_column(server_default=text('f'))
 
     def __repr__(self):
         return f"DerivativeFile(id={self.id}, type='{self.type.name}', media_type='{self.media_type}')"

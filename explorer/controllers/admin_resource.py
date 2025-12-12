@@ -1,6 +1,5 @@
 from urllib.parse import urljoin
 
-import boto3.session
 from litestar import get, post
 from litestar.controller import Controller
 from litestar import Request
@@ -25,19 +24,10 @@ MAX_UPLOAD_SIZE = 1 * 1024**3  # 1GB
 
 def save_upload(upload: UploadFile) -> str:
     """Returns object store URL."""
-    session = boto3.session.Session()
-    endpoint_url = settings.s3.S3_ENDPOINT_URL
     bucket_name = settings.s3.S3_BUCKET_NAME
-    s3_client = session.client(
-        service_name='s3',
-        aws_access_key_id=settings.s3.AWS_ACCESS_KEY_ID,
-        aws_secret_access_key=settings.s3.AWS_SECRET_ACCESS_KEY,
-        endpoint_url=endpoint_url,
-        region_name=settings.s3.AWS_DEFAULT_REGION,
-    )
-
+    s3_client = settings.s3.get_client()
     s3_client.upload_fileobj(upload.file, bucket_name, upload.filename)
-    bucket_url = urljoin(endpoint_url, bucket_name)
+    bucket_url = urljoin(settings.s3.S3_ENDPOINT_URL, bucket_name)
     return f'{bucket_url}/{upload.filename}'
 
 
