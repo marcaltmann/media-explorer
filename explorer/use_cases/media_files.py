@@ -1,12 +1,14 @@
+import os
+
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from explorer.models import MediaFile, DerivativeFile, DerivativeType
-from explorer.utils.ffmpeg import create_thumbnail
+from explorer.utils.ffmpeg import generate_thumbnail
+from explorer.utils.s3 import store_file
 
 
 async def create_derivatives(
-    media_file: MediaFile, db_session: AsyncSession, s3_client
-) -> None:
+    media_file: MediaFile, db_session: AsyncSession) -> None:
     """
     Use case function for creating all the derivative files from
     a media file that has already been persisted, i.e. for which
@@ -23,22 +25,26 @@ async def create_derivatives(
     do not need to wait for the video derivatives.
     """
 
-    """
-    Steps:
-    Check if media file has url, otherwise fail.
-    Call ffmpeg function which returns? Maybe temporary file.
-    Save temporary file with s3.
-    Create a new Derivative file in the database.
-    """
-
+    # Check if media file has url, otherwise fail.
     assert media_file.url is not None
 
-    lg = create_thumbnail(media_file.url, 480)
-    md = create_thumbnail(media_file.url, 320)
-    sm = create_thumbnail(media_file.url, 160)
+    # Call ffmpeg function which returns temporary file path.
+    path_lg = generate_thumbnail(media_file.url, width=480)
+    path_md = generate_thumbnail(media_file.url, width=320)
+    path_sm = generate_thumbnail(media_file.url, width=160)
 
-    # s3 stuff -> maybe do not do it directly.
+    # Save temporary file with S3.
+    store_file(path_lg, f'{media_file.uuid}/thumb-lg.webp')
+    store_file(path_md, f'{media_file.uuid}/thumb-md.webp')
+    store_file(path_sm, f'{media_file.uuid}/thumb-sm.webp')
 
+    # Delete temporary files
+    os.unlink(path_lg)
+    os.unlink(path_md)
+    os.unlink(path_sm)
+
+    # Create a new Derivative file in the database.
+    # This is kind of stupid.
     large_file = DerivativeFile(
         type=DerivativeType.thumbnail_480,
         media_type='image/webp',

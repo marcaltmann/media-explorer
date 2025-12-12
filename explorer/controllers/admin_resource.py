@@ -1,5 +1,3 @@
-from urllib.parse import urljoin
-
 from litestar import get, post
 from litestar.controller import Controller
 from litestar import Request
@@ -14,21 +12,13 @@ from explorer.domain.resources.services import (
     format_to_media_type,
 )
 from explorer.models import Collection, Resource, License
+from explorer.utils.s3 import store_fileobj
 
 
 settings = Settings.from_env()
 
 
 MAX_UPLOAD_SIZE = 1 * 1024**3  # 1GB
-
-
-def save_upload(upload: UploadFile) -> str:
-    """Returns object store URL."""
-    bucket_name = settings.s3.S3_BUCKET_NAME
-    s3_client = settings.s3.get_client()
-    s3_client.upload_fileobj(upload.file, bucket_name, upload.filename)
-    bucket_url = urljoin(settings.s3.S3_ENDPOINT_URL, bucket_name)
-    return f'{bucket_url}/{upload.filename}'
 
 
 class AdminResourceController(Controller):
@@ -85,7 +75,7 @@ class AdminResourceController(Controller):
         collection_id = int(form.get('collection_id'))
 
         file: UploadFile = form.get('file')
-        url = save_upload(file)
+        url = store_fileobj(fileobj=file.file, filename=file.filename)
 
         data = probe_mediafile_metadata(url)
         duration = float(data['format']['duration'])

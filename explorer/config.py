@@ -213,7 +213,7 @@ class S3Settings:
     S3_BUCKET_NAME: str = field(default_factory=get_env('S3_BUCKET_NAME', ''))
     """The bucket name."""
 
-    def get_client(self):
+    def get_client(self) -> any:
         session = Session()
         s3_client = session.client(
             service_name='s3',
