@@ -27,12 +27,7 @@ async def seed_database(sqlalchemy_config: SQLAlchemyAsyncConfig) -> None:
                 session.add(
                     Resource(
                         name=resource['name'],
-                        media_type=resource['media_type'],
-                        duration=resource['duration'],
-                        url=resource['url'],
-                        poster_url=resource['poster_url'],
                         toc=resource['toc'],
-                        waveform=resource['waveform'],
                         collection_id=1,
                     )
                 )
@@ -40,10 +35,6 @@ async def seed_database(sqlalchemy_config: SQLAlchemyAsyncConfig) -> None:
                 session.add(
                     Resource(
                         name=resource['name'],
-                        media_type=resource['media_type'],
-                        duration=resource['duration'],
-                        url=resource['url'],
-                        poster_url=resource['poster_url'],
                         toc=resource['toc'],
                         collection_id=2,
                     )

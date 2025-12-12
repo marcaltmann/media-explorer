@@ -4,7 +4,7 @@ from urllib.parse import urljoin
 from uuid import UUID, uuid4
 
 from litestar.plugins.sqlalchemy import base
-from sqlalchemy import ForeignKey, func, select, String, JSON, Enum
+from sqlalchemy import ForeignKey, func, text, select, String, JSON, Enum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from explorer.config import Settings
@@ -64,14 +64,13 @@ class MediaFile(base.BigIntAuditBase):
     __tablename__ = 'media_file'
     filename: Mapped[str]
     type: Mapped[MediaType] = mapped_column(Enum(MediaType), server_default='video')
-    url: Mapped[str]
-    poster_url: Mapped[str] = mapped_column(default='')
+    url: Mapped[str] = mapped_column(server_default='')
+    poster_url: Mapped[str] = mapped_column(server_default='')
     uuid: Mapped[UUID] = mapped_column(default=uuid4, nullable=False)
-    media_type: Mapped[str]
-    size: Mapped[Optional[int]] = mapped_column(default=0)
-    duration: Mapped[float]
+    sub_type: Mapped[Optional[str]] = mapped_column(server_default='')
+    size: Mapped[Optional[int]] = mapped_column(server_default=text('0'))
+    duration: Mapped[float] = mapped_column(server_default=text('0'))
     waveform: Mapped[Optional[list]] = mapped_column(JSON, nullable=True)
-    metadata: Mapped[dict] = mapped_column(JSON, nullable=True)
     preview_images: Mapped[dict] = mapped_column(JSON, nullable=True)
     resource_id: Mapped[int] = mapped_column(ForeignKey('resource.id'))
     resource: Mapped[Resource] = relationship(
@@ -104,12 +103,11 @@ class DerivativeType(enum.Enum):
     thumbnail_160 = 6
 
 
-class MediaFileDerivative(base.BigIntAuditBase):
+class DerivativeFile(base.UUIDv7AuditBase):
     """Seems to be too implicit."""
-
-    __tablename__ = 'media_file_derivative'
+    __tablename__ = 'derivative_file'
     type: Mapped[DerivativeType] = mapped_column(
-        Enum(License), server_default='private'
+        Enum(DerivativeType), server_default='video_720p'
     )
     media_type: Mapped[str]
     media_file_id: Mapped[int] = mapped_column(ForeignKey('media_file.id'))
@@ -118,4 +116,4 @@ class MediaFileDerivative(base.BigIntAuditBase):
     )
 
     def __repr__(self):
-        return f"MediaFileDerivative(id={self.id}, type='{self.type.name}', media_type='{self.media_type}')"
+        return f"DerivativeFile(id={self.id}, type='{self.type.name}', media_type='{self.media_type}')"
