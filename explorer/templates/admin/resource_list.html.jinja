@@ -5,33 +5,57 @@
 
 {% block content %}
   <div class="a-container">
-    <h1 class="h2 u-mt">{{ count }} resources</h1>
+    <h1 class="h2">{{ count }} resources</h1>
     <nav>
       <a href="{{ url_for('admin-new-resource') }}">Add resource</a>
     </nav>
-    <ul class="base-list u-mt">
+
+    <table class="u-mt">
+      <thead>
+        <tr>
+          <th>Thumbnail</th>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Duration</th>
+          <th>Upload date</th>
+          <th>Published?</th>
+        </tr>
+      </thead>
+
+      <tbody>
       {% for resource in resources %}
-        <li class="media u-mt-small">
-          <img
-            class="media__image"
-            src="{{ resource.get_thumb_url('sm') }}"
-            loading="lazy"
-            alt="Thumbnail for {{ resource.name }}"
-            width="60"
-            height="60"
-          />
-          <div class="media__body">
-            <p>
-              <a
-                href="{{ url_for('admin-resource-detail', resource_id=resource.id) }}"
-                >{{ resource.name }}</a
-              >
-              {% if resource.is_video() %}Video{% else %}Audio{% endif %}
-              {{ resource.duration|duration_format }}
-            </p>
-          </div>
-        </li>
+        <tr>
+          <td>
+            <img
+              class="media__image"
+              src="{{ resource.get_thumb_url('sm') }}"
+              loading="lazy"
+              alt="thumbnail"
+              width="60"
+              height="60"
+            />
+          </td>
+          <td>
+            <a
+              href="{{ url_for('admin-resource-detail', resource_id=resource.id) }}"
+              >{{ resource.name }}</a
+            >
+          </td>
+          <td>
+            {% if resource.is_video() %}Video{% else %}Audio{% endif %}
+          </td>
+          <td>
+            {{ resource.duration|duration_format }}
+          </td>
+          <td>
+            {{ resource.created_at.strftime("%d/%m/%Y %H:%M") }}
+          </td>
+          <td>
+            {{ resource.is_published }}
+          </td>
+        </tr>
       {% endfor %}
-    </ul>
+      </tbody>
+    </table>
   </div>
 {% endblock %}

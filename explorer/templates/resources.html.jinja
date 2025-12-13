@@ -10,7 +10,11 @@
           <img
             class="media__image"
             src="{{ resource.get_thumb_url('md') }}"
-            srcset="{{ resource.get_thumb_url('sm') }} 160w, {{ resource.get_thumb_url('md') }} 320w, {{ resource.get_thumb_url('lg') }} 480w"
+            srcset="
+              {{ resource.get_thumb_url('sm') }}  160w,
+              {{ resource.get_thumb_url('md') }}  320w,
+              {{ resource.get_thumb_url('lg') }} 480w
+            "
             sizes="(max-width: 640px) 160px, (max-width: 1024px) 320px, 480px"
             loading="lazy"
             alt="Thumbnail for {{ resource.name }}"

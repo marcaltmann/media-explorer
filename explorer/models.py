@@ -44,6 +44,9 @@ class Resource(base.BigIntAuditBase):
     name: Mapped[str]
     uuid: Mapped[UUID] = mapped_column(default=uuid4, nullable=False)
     license: Mapped[License] = mapped_column(Enum(License), server_default='private')
+    is_published: Mapped[bool] = mapped_column(
+        Boolean, nullable=False, server_default=text('false')
+    )
     toc: Mapped[Optional[list]] = mapped_column(JSON, nullable=True)
     collection_id: Mapped[int] = mapped_column(ForeignKey('collection.id'))
     collection: Mapped[Collection] = relationship(
@@ -139,6 +142,7 @@ class MediaFile(base.BigIntAuditBase):
         )
  """
 
+
 class DerivativeType(enum.Enum):
     video_720p = 0
     video_480p = 1
@@ -161,7 +165,9 @@ class DerivativeFile(base.UUIDv7AuditBase):
     media_file: Mapped[MediaFile] = relationship(
         lazy='joined', innerjoin=True, viewonly=True
     )
-    is_stored: Mapped[bool] = mapped_column(server_default=text('false'))
+    is_stored: Mapped[bool] = mapped_column(
+        Boolean, nullable=False, server_default=text('false')
+    )
 
     def __repr__(self):
         return f"DerivativeFile(id={self.id}, type='{self.type.name}', media_type='{self.media_type}')"

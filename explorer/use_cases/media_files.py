@@ -7,8 +7,7 @@ from explorer.utils.ffmpeg import generate_thumbnail
 from explorer.utils.s3 import store_file
 
 
-async def generate_derivatives(
-    media_file: MediaFile, db_session: AsyncSession) -> None:
+async def generate_derivatives(media_file: MediaFile, db_session: AsyncSession) -> None:
     """
     Use case function for creating all the derivative files from
     a media file that has already been persisted, i.e. for which

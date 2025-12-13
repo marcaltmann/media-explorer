@@ -67,7 +67,7 @@
 .a-container {
   margin-inline: auto;
   max-width: 50rlh;
-  padding-inline: 1rlh;
+  padding: 1rlh 1rlh 2rlh;
 }
 
 dl {

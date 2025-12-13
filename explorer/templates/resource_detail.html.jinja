@@ -45,7 +45,10 @@
         data-id="{{ resource.id }}"
         data-duration="{{ resource.duration }}"
       >
-        <source src="{{ resource.media_file.get_url() }}" type="{{ resource.media_file.get_media_type() }}" />
+        <source
+          src="{{ resource.media_file.get_url() }}"
+          type="{{ resource.media_file.get_media_type() }}"
+        />
       </video>
     {% else %}
       <audio
@@ -57,7 +60,10 @@
         data-id="{{ resource.id }}"
         data-duration="{{ resource.duration }}"
       >
-        <source src="{{ resource.media_file.get_url() }}" type="{{ resource.media_file.get_media_type() }}" />
+        <source
+          src="{{ resource.media_file.get_url() }}"
+          type="{{ resource.media_file.get_media_type() }}"
+        />
       </audio>
     {% endif %}
 

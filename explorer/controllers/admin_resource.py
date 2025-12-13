@@ -70,7 +70,6 @@ class AdminResourceController(Controller):
     ) -> Redirect:
         form = await request.form()
         name: str = form.get('name')
-        license_value = int(form.get('license'))
         collection_id = int(form.get('collection_id'))
 
         file: UploadFile = form.get('file')
@@ -84,7 +83,6 @@ class AdminResourceController(Controller):
 
         resource = Resource(
             name=name,
-            license=License(license_value),
             collection_id=collection_id,
         )
         db_session.add(resource)
