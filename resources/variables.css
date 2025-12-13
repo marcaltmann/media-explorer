@@ -14,8 +14,9 @@
 }
 
 body.a-site {
-  --background-color-ui: #eee;
-  --background-color-content: #ddd;
-  --background-color-sidebar: #aaa;
+  --background-color-ui: #ccc;
+  --background-color-content: #eee;
+  --background-color-sidebar: var(--accent-color-dark);
+  --text-color-sidebar: #eee;
   --text-color: #222;
 }

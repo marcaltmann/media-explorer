@@ -52,11 +52,17 @@
   background-color: var(--background-color-sidebar);
   bottom: 0;
   box-sizing: border-box;
+  color: var(--text-color-sidebar);
   left: 0;
   padding: 1rlh 0.5rlh 1rlh 1rlh;
   position: fixed;
   top: 2rlh;
   width: 10rlh;
+}
+
+.a-site__sidebar a:any-link {
+  color: var(--text-color-sidebar);
+  text-decoration: none;
 }
 
 .a-site__content {
