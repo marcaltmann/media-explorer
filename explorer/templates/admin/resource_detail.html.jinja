@@ -17,11 +17,11 @@
       <dt><abbr title="Universally Unique Identifier">UUID</abbr></dt>
       <dd>{{ resource.uuid }}</dd>
       <dt>Media type</dt>
-      <dd>{{ resource.media_files.0.type.name }} / {{ resource.media_files.0.sub_type }}</dd>
+      <dd>{{ resource.media_file.type.name }} / {{ resource.media_file.sub_type }}</dd>
       <dt>Duration</dt>
-      <dd>{{ resource.media_files.0.duration|duration_format }}</dd>
+      <dd>{{ resource.media_file.duration|duration_format }}</dd>
       <dt>Size</dt>
-      <dd>{{ resource.media_files.0.size|filesizeformat }}</dd>
+      <dd>{{ resource.media_file.size|filesizeformat }}</dd>
       <dt>License</dt>
       <dd>{{ resource.license.name }}</dd>
       <dt>Collection</dt>

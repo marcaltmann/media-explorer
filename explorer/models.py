@@ -49,8 +49,8 @@ class Resource(base.BigIntAuditBase):
     collection: Mapped[Collection] = relationship(
         lazy='joined', innerjoin=True, viewonly=True
     )
-    media_files: Mapped[list[MediaFile]] = relationship(
-        back_populates='resource', lazy='selectin'
+    media_file: Mapped[MediaFile] = relationship(
+        back_populates='resource', lazy='selectin', uselist=False
     )
 
     def is_video(self) -> bool:
@@ -59,9 +59,9 @@ class Resource(base.BigIntAuditBase):
     def is_audio(self) -> bool:
         return False
 
-    def get_thumb_url(self) -> str:
-        if len(self.media_files) > 0:
-            return self.media_files[0].get_thumb_url()
+    def get_thumb_url(self, size: str) -> str:
+        if self.media_file is not None:
+            return self.media_file.get_thumb_url(size)
         else:
             return ''
 
@@ -113,15 +113,31 @@ class MediaFile(base.BigIntAuditBase):
         bucket_url = settings.s3.get_bucket_url()
         return f'{bucket_url}/{self.filename}'
 
-    def get_thumb_url(self) -> str:
+    def get_thumb_url(self, size: str) -> str:
         bucket_url = settings.s3.get_bucket_url()
-        return f'{bucket_url}/{self.uuid}/thumb-lg.webp'
+        return f'{bucket_url}/{self.uuid}/thumb-{size}.webp'
 
     def __repr__(self) -> str:
         return (
             f"MediaFile(id={self.id}, uuid='{self.uuid}', filename='{self.filename}')"
         )
 
+
+""" class PosterImage(base.BigIntAuditBase):
+    __tablename__ = 'poster_image'
+    filename: Mapped[str]
+    media_type: Mapped[str]
+    web_variants: Mapped[dict] = mapped_column(JSON, nullable=True)
+    media_file_id: Mapped[int] = mapped_column(ForeignKey('media_file.id'))
+    media_file: Mapped[Resource] = relationship(
+        lazy='joined', innerjoin=True, viewonly=True
+    )
+
+    def __repr__(self) -> str:
+        return (
+            f"PosterImage(id={self.id}, filename='{self.filename}', media_type='{self.media_type}')"
+        )
+ """
 
 class DerivativeType(enum.Enum):
     video_720p = 0
