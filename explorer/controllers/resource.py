@@ -21,7 +21,7 @@ class ResourceController(Controller):
         resources = result.scalars()
         await db_session.commit()
         return Template(
-            template_name='resources.html.jinja', context={'resources': resources}
+            template_name='web/resource_list.html.jinja', context={'resources': resources}
         )
 
     @get('/{resource_id:int}', name='resource-detail')
@@ -32,7 +32,7 @@ class ResourceController(Controller):
         await db_session.commit()
 
         return Template(
-            template_name='resource_detail.html.jinja', context={'resource': resource}
+            template_name='web/resource_detail.html.jinja', context={'resource': resource}
         )
 
     @get('/{resource_id:int}/toc', name='resource-toc', media_type=MediaType.JSON)

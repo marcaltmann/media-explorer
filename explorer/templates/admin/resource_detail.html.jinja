@@ -17,7 +17,9 @@
       <dt><abbr title="Universally Unique Identifier">UUID</abbr></dt>
       <dd>{{ resource.uuid }}</dd>
       <dt>Media type</dt>
-      <dd>{{ resource.media_file.type.name }} / {{ resource.media_file.sub_type }}</dd>
+      <dd>
+        {{ resource.media_file.type.name }} / {{ resource.media_file.sub_type }}
+      </dd>
       <dt>Duration</dt>
       <dd>{{ resource.media_file.duration|duration_format }}</dd>
       <dt>Size</dt>

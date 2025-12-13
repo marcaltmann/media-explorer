@@ -1,0 +1,32 @@
+.card {}
+
+.card__link {
+    text-decoration: none;
+}
+
+.card__image {
+    object-fit: contain;
+    width: 100%;
+}
+
+.card__body {
+    font-size: 0.875rem;
+    color: var(--text-color-dark);
+}
+
+.card__title {
+    color: var(--text-color);
+    font-size: 1.125rem;
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.card__list {
+    display: flex;
+    gap: 0.5rlh;
+    list-style-type: none;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-left: 0;
+}

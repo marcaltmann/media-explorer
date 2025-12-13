@@ -23,38 +23,30 @@
       </thead>
 
       <tbody>
-      {% for resource in resources %}
-        <tr>
-          <td>
-            <img
-              class="media__image"
-              src="{{ resource.get_thumb_url('sm') }}"
-              loading="lazy"
-              alt=""
-              width="25.5"
-              height="25.5"
-            />
-          </td>
-          <td>
-            <a
-              href="{{ url_for('admin-resource-detail', resource_id=resource.id) }}"
-              >{{ resource.name }}</a
-            >
-          </td>
-          <td>
-            {% if resource.is_video() %}Video{% else %}Audio{% endif %}
-          </td>
-          <td>
-            {{ resource.duration|duration_format }}
-          </td>
-          <td>
-            {{ resource.created_at.strftime("%d/%m/%Y %H:%M") }}
-          </td>
-          <td>
-            {{ resource.is_published }}
-          </td>
-        </tr>
-      {% endfor %}
+        {% for resource in resources %}
+          <tr>
+            <td>
+              <img
+                class="media__image"
+                src="{{ resource.get_thumb_url('sm') }}"
+                loading="lazy"
+                alt=""
+                width="25.5"
+                height="25.5"
+              />
+            </td>
+            <td>
+              <a
+                href="{{ url_for('admin-resource-detail', resource_id=resource.id) }}"
+                >{{ resource.name }}</a
+              >
+            </td>
+            <td>{% if resource.is_video() %}Video{% else %}Audio{% endif %}</td>
+            <td>{{ resource.duration|duration_format }}</td>
+            <td>{{ resource.created_at.strftime("%d/%m/%Y %H:%M") }}</td>
+            <td>{{ resource.is_published }}</td>
+          </tr>
+        {% endfor %}
       </tbody>
     </table>
   </div>

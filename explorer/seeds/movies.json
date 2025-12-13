@@ -30,45 +30,5 @@
         "url": "https://upload.wikimedia.org/wikipedia/commons/e/ee/The_General_%281926%29.webm",
         "poster_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/The_General_%281926%29.webm/800px--The_General_%281926%29.webm.jpg",
         "toc": null
-    },
-    {
-        "name": "Sherlock Jr. (1926)",
-        "media_type": "video/webm",
-        "duration": 2645.81,
-        "url": "https://upload.wikimedia.org/wikipedia/commons/9/95/Sherlock_Jr._%281924%29.webm",
-        "poster_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Sherlock_Jr._%281924%29.webm/800px--Sherlock_Jr._%281924%29.webm.jpg",
-        "toc": null
-    },
-    {
-        "name": "Steamboat Bill, Jr. (1928)",
-        "media_type": "video/webm",
-        "duration": 4205.83,
-        "url": "https://upload.wikimedia.org/wikipedia/commons/9/92/Steamboat_Bill_Jr._%281928%29_by_Charles_Riesner.webm",
-        "poster_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Steamboat_Bill_Jr._%281928%29_by_Charles_Riesner.webm/792px--Steamboat_Bill_Jr._%281928%29_by_Charles_Riesner.webm.jpg",
-        "toc": null
-    },
-    {
-        "name": "The Jazz Singer (1927)",
-        "media_type": "video/webm",
-        "duration": 5336.041,
-        "url": "https://upload.wikimedia.org/wikipedia/commons/2/2b/The_Jazz_Singer_%281927%29.webm",
-        "poster_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/The_Jazz_Singer_%281927%29.webm/800px--The_Jazz_Singer_%281927%29.webm.jpg",
-        "toc": null
-    },
-    {
-        "name": "The Gold Rush (1925)",
-        "media_type": "video/webm",
-        "duration": 5241.403,
-        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d4/The_Gold_Rush.webm",
-        "poster_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/The_Gold_Rush.webm/800px--The_Gold_Rush.webm.jpg",
-        "toc": null
-    },
-    {
-        "name": "Battleship Potemkin (1925)",
-        "media_type": "video/webm",
-        "duration": 4267.314,
-        "url": "https://upload.wikimedia.org/wikipedia/commons/7/74/Battleship_Potemkin_%281925%29_by_Sergei_Eisenstein.webm",
-        "poster_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Battleship_Potemkin_%281925%29_by_Sergei_Eisenstein.webm/800px--Battleship_Potemkin_%281925%29_by_Sergei_Eisenstein.webm.jpg",
-        "toc": null
     }
 ]

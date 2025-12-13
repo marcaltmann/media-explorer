@@ -1,0 +1,14 @@
+{% extends "base.html.jinja" %}
+{% block title %}Resources{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="u-mt">Resources</h1>
+
+    <ul class="base-list grid u-mt">
+      {% for resource in resources %}
+        {% include "web/_resource_card.html.jinja" %}
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}

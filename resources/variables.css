@@ -1,6 +1,6 @@
 :root {
   --accent-color: #49897d;
-  --accent-color-dark: #49897d;
+  --accent-color-dark: #2f5951;
   --secondary-color: #ffe448;
   --background-color-ui: #111;
   --background-color-content: #222;
@@ -8,6 +8,7 @@
   --line-length: 30rlh;
   --page-width: 60rlh;
   --text-color: #eee;
+  --text-color-dark: #ccc;
 
   font-size: 1.0625rem;
   line-height: 1.5rem;

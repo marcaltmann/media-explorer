@@ -4,6 +4,9 @@
 
 @import url("/resources/components/admin/table.css");
 
+@import url("/resources/components/web/card.css");
+
+
 .container {
   margin-inline: auto;
   max-width: var(--page-width);
@@ -178,8 +181,8 @@ main {
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rlh;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 2rlh;
 }
 
 .audio {
