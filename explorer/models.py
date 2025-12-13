@@ -63,14 +63,17 @@ class Resource(base.BigIntAuditBase):
         return False
 
     def get_thumb_url(self, size: str) -> str:
-        if self.media_file is not None:
-            return self.media_file.get_thumb_url(size)
-        else:
+        if self.media_file is None:
             return ''
+        else:
+            return self.media_file.get_thumb_url(size)
 
     @property
     def duration(self) -> float:
-        return 0.0
+        if self.media_file is None:
+            return 0.0
+        else:
+            return self.media_file.duration
 
     @property
     def size(self) -> float:

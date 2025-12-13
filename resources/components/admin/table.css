@@ -7,6 +7,10 @@
 .a-table thead {
     background-color: var(--accent-color-dark);
     color: var(--text-color-sidebar);
+
+    a:any-link {
+        color: var(--text-color-sidebar);
+    }
 }
 
 .a-table {
