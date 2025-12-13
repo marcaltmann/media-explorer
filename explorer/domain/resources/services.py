@@ -24,11 +24,12 @@ def probe_mediafile_metadata(url: str) -> dict:
     return json.loads(result.stdout)
 
 
-def format_to_media_type(format_name: str) -> str:
+def format_to_media_type(format_name: str) -> tuple[str, str]:
     """
     Uses this map to get the media type from ffmpeg format output:
     https://gist.github.com/DusanBrejka/35238dccb5cefcc804de1c5a218ee004
     """
     with open(Path(__file__).parent / 'ffmpeg_format_to_media_type.json') as f:
         map = json.load(f)
-        return map[format_name]
+        media_type = map[format_name]
+        return tuple(media_type.split('/'))

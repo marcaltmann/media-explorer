@@ -16,7 +16,7 @@ class ResourceController(Controller):
     async def resources(
         self, db_session: AsyncSession, db_engine: AsyncEngine
     ) -> Template:
-        statement = select(Resource).order_by(Resource.media_type.desc())
+        statement = select(Resource)  #.order_by(Resource.media_type.desc())
         result = await db_session.execute(statement)
         resources = result.scalars()
         await db_session.commit()

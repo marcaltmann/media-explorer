@@ -9,8 +9,9 @@
         <li class="media">
           <img
             class="media__image"
-            src="{{ resource.poster_url }}"
-            alt=""
+            src="{{ resource.get_thumb_url() }}"
+            loading="lazy"
+            alt="Thumbnail for {{ resource.name }}"
             width="240"
             height="240"
           />

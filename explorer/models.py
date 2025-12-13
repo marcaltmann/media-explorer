@@ -49,8 +49,31 @@ class Resource(base.BigIntAuditBase):
     collection: Mapped[Collection] = relationship(
         lazy='joined', innerjoin=True, viewonly=True
     )
+    media_files: Mapped[list[MediaFile]] = relationship(
+        back_populates='resource', lazy='selectin'
+    )
 
-    def __repr__(self):
+    def is_video(self) -> bool:
+        return True
+
+    def is_audio(self) -> bool:
+        return False
+
+    def get_thumb_url(self) -> str:
+        if len(self.media_files) > 0:
+            return self.media_files[0].get_thumb_url()
+        else:
+            return ''
+
+    @property
+    def duration(self) -> float:
+        return 0.0
+
+    @property
+    def size(self) -> float:
+        return 0.0
+
+    def __repr__(self) -> str:
         return f"Resource(id={self.id}, uuid='{self.uuid}' name='{self.name}')"
 
 
@@ -77,17 +100,24 @@ class MediaFile(base.BigIntAuditBase):
         lazy='joined', innerjoin=True, viewonly=True
     )
 
-    def is_video(self):
+    def get_media_type(self) -> str:
+        return f'{self.type.name}/{self.sub_type}'
+
+    def is_video(self) -> bool:
         return self.media_type.startswith('video/')
 
-    def is_audio(self):
+    def is_audio(self) -> bool:
         return self.media_type.startswith('audio/')
 
-    def get_url(self):
+    def get_url(self) -> str:
         bucket_url = settings.s3.get_bucket_url()
         return f'{bucket_url}/{self.filename}'
 
-    def __repr__(self):
+    def get_thumb_url(self) -> str:
+        bucket_url = settings.s3.get_bucket_url()
+        return f'{bucket_url}/{self.uuid}/thumb-lg.webp'
+
+    def __repr__(self) -> str:
         return (
             f"MediaFile(id={self.id}, uuid='{self.uuid}', filename='{self.filename}')"
         )
@@ -115,7 +145,7 @@ class DerivativeFile(base.UUIDv7AuditBase):
     media_file: Mapped[MediaFile] = relationship(
         lazy='joined', innerjoin=True, viewonly=True
     )
-    is_stored: Mapped[bool] = mapped_column(server_default=text('f'))
+    is_stored: Mapped[bool] = mapped_column(server_default=text('false'))
 
     def __repr__(self):
         return f"DerivativeFile(id={self.id}, type='{self.type.name}', media_type='{self.media_type}')"

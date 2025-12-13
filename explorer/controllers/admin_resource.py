@@ -11,9 +11,9 @@ from explorer.domain.resources.services import (
     probe_mediafile_metadata,
     format_to_media_type,
 )
-from explorer.models import Collection, Resource, License
+from explorer.models import Collection, Resource, MediaFile, License
 from explorer.utils.s3 import store_fileobj
-
+from explorer.use_cases.media_files import generate_derivatives
 
 settings = Settings.from_env()
 
@@ -70,7 +70,6 @@ class AdminResourceController(Controller):
     ) -> Redirect:
         form = await request.form()
         name: str = form.get('name')
-        # url: str = form.get("url")
         license_value = int(form.get('license'))
         collection_id = int(form.get('collection_id'))
 
@@ -85,14 +84,24 @@ class AdminResourceController(Controller):
 
         resource = Resource(
             name=name,
-            media_type=media_type,
-            url=url,
-            size=size,
-            duration=duration,
             license=License(license_value),
             collection_id=collection_id,
         )
         db_session.add(resource)
+        await db_session.flush()
+
+        media_file = MediaFile(
+            filename=file.filename,
+            type=media_type[0],
+            sub_type=media_type[1],
+            duration=duration,
+            size=size,
+            resource_id=resource.id,
+        )
+        db_session.add(media_file)
         await db_session.commit()
+
+        # Thumbnails
+        await generate_derivatives(media_file, db_session=db_session)
 
         return Redirect(path=f'/admin/resources/{resource.id}')

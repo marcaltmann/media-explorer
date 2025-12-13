@@ -7,7 +7,7 @@ from explorer.utils.ffmpeg import generate_thumbnail
 from explorer.utils.s3 import store_file
 
 
-async def create_derivatives(
+async def generate_derivatives(
     media_file: MediaFile, db_session: AsyncSession) -> None:
     """
     Use case function for creating all the derivative files from
@@ -25,13 +25,17 @@ async def create_derivatives(
     do not need to wait for the video derivatives.
     """
 
+    url = media_file.get_url()
+
     # Check if media file has url, otherwise fail.
-    assert media_file.url is not None
+    # This does not have any effect, there is no way to check if
+    # the media file has been persisted yet.
+    assert url is not None
 
     # Call ffmpeg function which returns temporary file path.
-    path_lg = generate_thumbnail(media_file.url, width=480)
-    path_md = generate_thumbnail(media_file.url, width=320)
-    path_sm = generate_thumbnail(media_file.url, width=160)
+    path_lg = generate_thumbnail(url, width=480)
+    path_md = generate_thumbnail(url, width=320)
+    path_sm = generate_thumbnail(url, width=160)
 
     # Save temporary file with S3.
     store_file(path_lg, f'{media_file.uuid}/thumb-lg.webp')
@@ -48,17 +52,17 @@ async def create_derivatives(
     large_file = DerivativeFile(
         type=DerivativeType.thumbnail_480,
         media_type='image/webp',
-        media_file=media_file,
+        media_file_id=media_file.id,
     )
     medium_file = DerivativeFile(
         type=DerivativeType.thumbnail_320,
         media_type='image/webp',
-        media_file=media_file,
+        media_file_id=media_file.id,
     )
     small_file = DerivativeFile(
         type=DerivativeType.thumbnail_160,
         media_type='image/webp',
-        media_file=media_file,
+        media_file_id=media_file.id,
     )
     db_session.add_all([large_file, medium_file, small_file])
     await db_session.commit()
