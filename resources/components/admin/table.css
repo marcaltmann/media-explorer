@@ -1,0 +1,50 @@
+.a-table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+}
+
+.a-table {
+    th {
+        text-align: left;
+    }
+
+    th, td {
+        padding: 0.25rlh 0.5rlh;
+    }
+
+    thead {
+        background-color: beige;
+    }
+
+    tbody {
+        font-size: 0.875rem;
+
+        tr:nth-child(odd) {
+            background-color: #ccc;
+        }
+
+        tr:nth-child(even) {
+            background-color: #ddd;
+        }
+    }
+
+    /* Name */
+    tr :nth-child(2) {
+        width: 30%;
+    }
+
+    tr :nth-child(3),
+    tr :nth-child(4),
+    tr :nth-child(6) {
+        width: 10%;
+    }
+
+    tr :nth-child(5) {
+        width: 20%;
+    }
+
+    img {
+        vertical-align: bottom;
+    }
+}

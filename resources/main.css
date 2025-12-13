@@ -1,20 +1,8 @@
+@import url("/resources/variables.css");
 @import url("/resources/utilities.css");
 @import url("/resources/admin.css");
 
-:root {
-  --accent-color: #49897d;
-  --accent-color-dark: #49897d;
-  --secondary-color: #ffe448;
-  --background-color-ui: #111;
-  --background-color-content: #222;
-  --header-width: 55rlh;
-  --line-length: 30rlh;
-  --page-width: 60rlh;
-  --text-color: #eee;
-
-  font-size: 1.0625rem;
-  line-height: 1.5rem;
-}
+@import url("/resources/components/admin/table.css");
 
 .container {
   margin-inline: auto;

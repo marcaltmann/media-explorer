@@ -49,7 +49,7 @@
 }
 
 .a-site__sidebar {
-  background-color: #555;
+  background-color: var(--background-color-sidebar);
   bottom: 0;
   box-sizing: border-box;
   left: 0;
