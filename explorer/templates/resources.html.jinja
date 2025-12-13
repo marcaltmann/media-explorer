@@ -19,7 +19,7 @@
             <p>
               <a
                 href="{{ url_for('resource-detail', resource_id=resource.id) }}"
-                >{{ resource.name }}</a
+                ><b>{{ resource.name }}</b></a
               ><br />
               {% if resource.is_video() %}Video{% else %}Audio{% endif %}<br />
               {{ resource.duration|duration_format }}

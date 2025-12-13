@@ -30,3 +30,7 @@
   display: flex;
   gap: 0.5rlh;
 }
+
+.u-font-bold {
+  font-weight: bold !important;
+}

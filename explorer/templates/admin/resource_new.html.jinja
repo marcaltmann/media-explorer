@@ -12,6 +12,11 @@
       enctype="multipart/form-data"
     >
       <div>
+        <label for="file">File:</label>
+        <input type="file" id="file" name="file" accept="video/*,audio/*" />
+      </div>
+
+      <div class="u-mt">
         <label for="name">Name:</label>
         <input
           id="name"
@@ -24,11 +29,6 @@
           minlength="2"
           maxlength="255"
         />
-      </div>
-
-      <div class="u-mt">
-        <label for="file">File:</label>
-        <input type="file" id="file" name="file" accept="video/*,audio/*" />
       </div>
 
       <div class="u-mt">
