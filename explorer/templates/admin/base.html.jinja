@@ -14,11 +14,9 @@
   </head>
 
   <body class="a-site a-site--small">
-    {% include "admin/header.html.jinja" %}
+    {% include "admin/sidebar.html.jinja" %}
 
-    <div class="a-site__sidebar">
-      {% include "admin/sidebar.html.jinja" %}
-    </div>
+    {% include "admin/header.html.jinja" %}
 
     <main class="a-site__content">
       {% block content %}
