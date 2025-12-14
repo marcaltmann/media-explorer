@@ -28,6 +28,7 @@ async def seed_database(sqlalchemy_config: SQLAlchemyAsyncConfig) -> None:
                     Resource(
                         name=resource['name'],
                         toc=resource['toc'],
+                        is_published=resource['is_published'],
                         collection_id=1,
                     )
                 )
@@ -36,6 +37,7 @@ async def seed_database(sqlalchemy_config: SQLAlchemyAsyncConfig) -> None:
                     Resource(
                         name=resource['name'],
                         toc=resource['toc'],
+                        is_published=resource['is_published'],
                         collection_id=2,
                     )
                 )

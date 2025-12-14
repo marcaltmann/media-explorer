@@ -25,8 +25,14 @@ class AdminResourceController(Controller):
     path = '/admin/resources'
 
     @get('', name='admin-resource-list')
-    async def admin_resource_list(self, db_session: AsyncSession) -> Template:
-        statement = select(Resource).order_by(Resource.created_at.desc())
+    async def admin_resource_list(self, db_session: AsyncSession, sort: str = 'name') -> Template:
+        if sort == 'date':
+            statement = select(Resource).order_by(Resource.created_at.desc())
+        elif sort == 'is_published':
+            statement = select(Resource).order_by(Resource.is_published.asc())
+        else:
+            statement = select(Resource).order_by(Resource.name.asc())
+
         result = await db_session.execute(statement)
         resources = result.scalars()
 

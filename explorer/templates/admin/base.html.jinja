@@ -13,10 +13,12 @@
     {% endblock %}
   </head>
 
-  <body class="a-site">
+  <body class="a-site a-site--small">
     {% include "admin/header.html.jinja" %}
 
-    <div class="a-site__sidebar">{% include "admin/sidebar.html.jinja" %}</div>
+    <div class="a-site__sidebar">
+      {% include "admin/sidebar.html.jinja" %}
+    </div>
 
     <main class="a-site__content">
       {% block content %}

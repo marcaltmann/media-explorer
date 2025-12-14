@@ -60,6 +60,15 @@
   width: 10rlh;
 }
 
+.a-site--small .a-site__sidebar {
+  padding: 1rlh 0.5rlh 1rlh;
+  width: 2.25rlh;
+}
+
+.a-site--small .a-site__sidebar b {
+  display: none;
+}
+
 .a-site__sidebar a:any-link {
   color: var(--text-color-sidebar);
   text-decoration: none;
@@ -70,10 +79,28 @@
   padding-top: 2rlh;
 }
 
+.a-site--small .a-site__content {
+  padding-left: 2.25rlh;
+}
+
 .a-container {
   margin-inline: auto;
   max-width: 50rlh;
   padding: 1rlh 1rlh 2rlh;
+}
+
+.a-menu {
+
+}
+
+.a-menu__link {
+  display: flex;
+  gap: 0.25rlh;
+}
+
+.a-menu__icon {
+  width: 1rlh;
+  fill: var(--text-color-sidebar);
 }
 
 dl {

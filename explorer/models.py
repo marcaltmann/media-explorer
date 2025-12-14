@@ -4,7 +4,7 @@ from urllib.parse import urljoin
 from uuid import UUID, uuid4
 
 from litestar.plugins.sqlalchemy import base
-from sqlalchemy import ForeignKey, func, text, select, String, JSON, Boolean, Enum
+from sqlalchemy import ForeignKey, func, text, select, String, Text, JSON, Boolean, Enum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from explorer.config import Settings
@@ -42,6 +42,7 @@ class License(enum.Enum):
 class Resource(base.BigIntAuditBase):
     __tablename__ = 'resource'
     name: Mapped[str]
+    description: Mapped[str] = mapped_column(Text, nullable=False, server_default='')
     uuid: Mapped[UUID] = mapped_column(default=uuid4, nullable=False)
     license: Mapped[License] = mapped_column(Enum(License), server_default='private')
     is_published: Mapped[bool] = mapped_column(

@@ -34,6 +34,10 @@
         }
     }
 
+    tr td:nth-child(1) {
+        width: 5%;
+    }
+
     /* Name */
     tr :nth-child(2) {
         width: 30%;

@@ -5,6 +5,7 @@
         "duration": 204.54,
         "url": "/media/hsk5a01-1.mp3",
         "poster_url": "/media/hsk5a.jpg",
+        "is_published": true,
         "toc": [
             {"name": "头", "position": 10},
             {"name": "第一对夫妻", "position": 18.5},
@@ -20,6 +21,7 @@
         "duration": 77.19,
         "url": "/media/hsk5a01-2.mp3",
         "poster_url": "/media/hsk5a.jpg",
+        "is_published": true,
         "toc": null,
         "waveform": []
     },
@@ -29,6 +31,7 @@
         "duration": 213.368163,
         "url": "/media/hsk5aworkbook01-1.mp3",
         "poster_url": "/media/hsk5a.jpg",
+        "is_published": true,
         "toc": [
             {"name": "1", "position": 25},
             {"name": "2", "position": 60},

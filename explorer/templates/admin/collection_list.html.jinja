@@ -7,21 +7,32 @@
     <nav>
       <a href="{{ url_for('admin-new-collection') }}">Create collection</a>
     </nav>
-    <ul class="base-list u-mt">
-      {% for collection in collection_list %}
-        <li class="media u-mt-small">
-          <img class="media__image" src="" alt="" width="60" height="60" />
-          <div class="media__body">
-            <p>
+
+    <table class="a-table u-mt">
+      <thead>
+        <tr>
+          <th></th>
+          <th><a href="?sort=name">Name</a></th>
+          <th><a href="?sort=num_resources">Resources</a></th>
+          <th>Color</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for collection in collection_list %}
+          <tr>
+            <td></td>
+            <td>
               <a
                 href="{{ url_for('admin-collection-detail', collection_id=collection.id) }}"
                 >{{ collection.name }}</a
               >
-              {{ collection.resources|length }} resources {{ collection.color }}
-            </p>
-          </div>
-        </li>
-      {% endfor %}
-    </ul>
+            </td>
+            <td>{{ collection.resources|length }} resources</td>
+            <td>{{ collection.color }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
 {% endblock %}
