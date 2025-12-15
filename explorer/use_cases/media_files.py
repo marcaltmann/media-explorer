@@ -9,6 +9,8 @@ from explorer.utils.s3 import store_file
 
 async def generate_derivatives(media_file: MediaFile, db_session: AsyncSession) -> None:
     """
+    Is this a real use case function? Could be, but maybe it is merely
+    a part of a use case function.
     Use case function for creating all the derivative files from
     a media file that has already been persisted, i.e. for which
     we already have a URL.

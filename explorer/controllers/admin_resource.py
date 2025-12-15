@@ -25,7 +25,9 @@ class AdminResourceController(Controller):
     path = '/admin/resources'
 
     @get('', name='admin-resource-list')
-    async def admin_resource_list(self, db_session: AsyncSession, sort: str = 'name') -> Template:
+    async def admin_resource_list(
+        self, db_session: AsyncSession, sort: str = 'name'
+    ) -> Template:
         if sort == 'date':
             statement = select(Resource).order_by(Resource.created_at.desc())
         elif sort == 'is_published':

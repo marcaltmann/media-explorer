@@ -18,7 +18,8 @@ class CollectionController(Controller):
         await db_session.commit()
 
         return Template(
-            template_name='web/collection_list.html.jinja', context={'collections': collections}
+            template_name='web/collection_list.html.jinja',
+            context={'collections': collections},
         )
 
     @get('/{collection_id:int}', name='collection-detail')
