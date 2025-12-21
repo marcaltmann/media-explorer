@@ -50,6 +50,15 @@
       </div>
 
       <div class="u-mt">
+        <label for="category">Categories:</label>
+        <select name="category_id" id="category" multiple size="4">
+          {% for category in category_list %}
+            <option value="{{ category.id }}">{{ category.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="u-mt">
         <button class="button" type="submit">Add resource</button>
       </div>
     </form>

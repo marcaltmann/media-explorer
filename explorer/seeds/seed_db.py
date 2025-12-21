@@ -4,7 +4,7 @@ from pathlib import Path
 from litestar.plugins.sqlalchemy import SQLAlchemyAsyncConfig
 from sqlalchemy import func, select
 
-from explorer.models import Collection, Resource
+from explorer.models import Collection, Resource, Category
 
 
 async def seed_database(sqlalchemy_config: SQLAlchemyAsyncConfig) -> None:
@@ -23,6 +23,12 @@ async def seed_database(sqlalchemy_config: SQLAlchemyAsyncConfig) -> None:
             session.add_all([lesson_collection, movie_collection])
             await session.commit()
 
+            movie_category = Category(name='Movie')
+            lesson_category = Category(name='Lesson')
+            feature_category = Category(name='Feature film')
+            session.add_all([movie_category, lesson_category, feature_category])
+            await session.commit()
+
             for resource in lessons:
                 session.add(
                     Resource(
@@ -30,6 +36,7 @@ async def seed_database(sqlalchemy_config: SQLAlchemyAsyncConfig) -> None:
                         toc=resource['toc'],
                         is_published=resource['is_published'],
                         collection_id=1,
+                        categories=[lesson_category],
                     )
                 )
             for resource in movies:
@@ -39,6 +46,7 @@ async def seed_database(sqlalchemy_config: SQLAlchemyAsyncConfig) -> None:
                         toc=resource['toc'],
                         is_published=resource['is_published'],
                         collection_id=2,
+                        categories=[movie_category, feature_category],
                     )
                 )
             await session.commit()

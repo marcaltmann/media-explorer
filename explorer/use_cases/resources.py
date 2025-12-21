@@ -42,7 +42,6 @@ class CreateResourceUseCase:
         return CreateResourceResponse(resource=resource, success=True)
 
 
-
 # Also, delete resource use case:
 #
 # - Delete poster image's stored files

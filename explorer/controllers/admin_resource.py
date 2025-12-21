@@ -11,7 +11,7 @@ from explorer.domain.resources.services import (
     probe_mediafile_metadata,
     format_to_media_type,
 )
-from explorer.models import Collection, Resource, MediaFile, License
+from explorer.models import Collection, Resource, MediaFile, License, Category
 from explorer.utils.s3 import store_fileobj
 from explorer.use_cases.media_files import generate_derivatives
 
@@ -67,9 +67,18 @@ class AdminResourceController(Controller):
         collection_list = result.scalars()
         await db_session.commit()
 
+        statement = select(Category).order_by(Category.name.asc())
+        result = await db_session.execute(statement)
+        category_list = result.scalars()
+        await db_session.commit()
+
         return Template(
             template_name='admin/resource_new.html.jinja',
-            context={'collection_list': collection_list, 'License': License},
+            context={
+                'collection_list': collection_list,
+                'category_list': category_list,
+                'License': License,
+            },
         )
 
     @post('/new', name='admin-create-resource', request_max_body_size=MAX_UPLOAD_SIZE)
@@ -80,6 +89,7 @@ class AdminResourceController(Controller):
         name: str = form.get('name')
         description: str = form.get('description')
         collection_id = int(form.get('collection_id'))
+        category_ids = form.getall('category_id')
 
         file: UploadFile = form.get('file')
         url = store_fileobj(fileobj=file.file, filename=file.filename)
@@ -90,10 +100,14 @@ class AdminResourceController(Controller):
         size = int(data['format']['size'])
         media_type = format_to_media_type(format)
 
+        categories = [await db_session.get(Category, int(id)) for id in category_ids]
+        await db_session.commit()
+
         resource = Resource(
             name=name,
             description=description,
             collection_id=collection_id,
+            categories=categories,
         )
         db_session.add(resource)
         await db_session.flush()

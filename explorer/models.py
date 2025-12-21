@@ -5,11 +5,23 @@ from uuid import UUID, uuid4
 
 from litestar.plugins.sqlalchemy import base
 from sqlalchemy import ForeignKey, func, text, select, String, Text, JSON, Boolean, Enum
+from sqlalchemy import Column
+from sqlalchemy import Table
+from sqlalchemy import Integer
+
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from explorer.config import Settings
 
 settings = Settings.from_env()
+
+
+association_table = Table(
+    'association_table',
+    base.BigIntAuditBase.metadata,
+    Column('resource_id', ForeignKey('resource.id'), primary_key=True),
+    Column('category_id', ForeignKey('category.id'), primary_key=True),
+)
 
 
 class Collection(base.BigIntAuditBase):
@@ -52,6 +64,9 @@ class Resource(base.BigIntAuditBase):
     collection_id: Mapped[int] = mapped_column(ForeignKey('collection.id'))
     collection: Mapped[Collection] = relationship(
         lazy='joined', innerjoin=True, viewonly=True
+    )
+    categories: Mapped[list[Category]] = relationship(
+        secondary=association_table, back_populates='resources'
     )
     media_file: Mapped[MediaFile] = relationship(
         back_populates='resource', lazy='selectin', uselist=False
@@ -175,3 +190,16 @@ class DerivativeFile(base.UUIDv7AuditBase):
 
     def __repr__(self):
         return f"DerivativeFile(id={self.id}, type='{self.type.name}', media_type='{self.media_type}')"
+
+
+class Category(base.BigIntAuditBase):
+    __tablename__ = 'category'
+
+    name: Mapped[str]
+    wikidata_id: Mapped[Optional[str]] = mapped_column(server_default='')
+    resources: Mapped[list[Resource]] = relationship(
+        secondary=association_table, back_populates='categories'
+    )
+
+    def __repr__(self) -> str:
+        return f"Category(id={self.id}, name='{self.name}')"
