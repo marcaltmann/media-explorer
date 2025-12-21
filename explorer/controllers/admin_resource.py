@@ -55,9 +55,11 @@ class AdminResourceController(Controller):
         resource = await db_session.get(Resource, resource_id)
         await db_session.commit()
 
+        categories = await resource.awaitable_attrs.categories
+
         return Template(
             template_name='admin/resource_detail.html.jinja',
-            context={'resource': resource},
+            context={'resource': resource, 'categories': categories},
         )
 
     @get('/new', name='admin-new-resource')

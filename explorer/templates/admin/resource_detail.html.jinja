@@ -37,6 +37,11 @@
       </dd>
       <dt>Categories</dt>
       <dd>
+        <ul>
+          {% for cat in categories %}
+          <li><a href="#">{{ cat.name }}</a></li>
+          {% endfor %}
+        </ul>
       </dd>
     </dl>
   </div>
