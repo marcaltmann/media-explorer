@@ -14,14 +14,17 @@ from litestar.static_files import create_static_files_router
 from litestar.template.config import TemplateConfig
 from litestar_vite import ViteConfig, VitePlugin
 
+from explorer.controllers import (
+    AdminCategoryController,
+    AdminCollectionController,
+    AdminResourceController,
+)
 from explorer.controllers.welcome import WelcomeController
 from explorer.controllers.page import PageController
 from explorer.controllers.collection import CollectionController
 from explorer.controllers.resource import ResourceController
 from explorer.controllers.search import SearchController
 from explorer.controllers.admin import AdminController
-from explorer.controllers.admin_collection import AdminCollectionController
-from explorer.controllers.admin_resource import AdminResourceController
 from explorer.controllers.organization import OrganizationController
 from explorer.controllers.api import ApiController
 from explorer.seeds.seed_db import seed_database
@@ -56,6 +59,7 @@ app = Litestar(
     route_handlers=[
         WelcomeController,
         AdminController,
+        AdminCategoryController,
         AdminCollectionController,
         AdminResourceController,
         OrganizationController,

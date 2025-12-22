@@ -196,6 +196,7 @@ class Category(base.BigIntAuditBase):
     __tablename__ = 'category'
 
     name: Mapped[str]
+    description: Mapped[str] = mapped_column(Text, nullable=False, server_default='')
     wikidata_id: Mapped[Optional[str]] = mapped_column(server_default='')
     resources: Mapped[list[Resource]] = relationship(
         secondary=association_table, back_populates='categories'

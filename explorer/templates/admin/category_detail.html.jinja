@@ -1,0 +1,27 @@
+{% extends "admin/base.html.jinja" %}
+{% block title %}{{ category.name }}{% endblock %}
+
+{% block content %}
+  <div class="a-container">
+    <h1>{{ category.name }}</h1>
+
+    <p class="u-mt-small">
+      <a href=""
+        >View in app</a
+      >
+    </p>
+
+    <dl class="u-ll u-mt">
+      <dt>Name</dt>
+      <dd>{{ category.name }}</dd>
+      <dt>Description</dt>
+      <dd>{{ category.description }}</dd>
+      <dt>Wikidata ID</dt>
+      <dd>
+        <a href="https://www.wikidata.org/wiki/{{ category.wikidata_id }}">{{ category.wikidata_id }}</a>
+      </dd>
+      <dt>Resources</dt>
+      <dd></dd>
+    </dl>
+  </div>
+{% endblock %}
