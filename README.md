@@ -11,3 +11,9 @@
 ```bash
 uv run -m litestar run
 ```
+
+## Run tests
+
+```bash
+uv run -m pytest
+```

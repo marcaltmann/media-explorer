@@ -36,7 +36,7 @@ from explorer.config import Settings
 settings = Settings.from_env()
 
 object_store_host = settings.s3.S3_ENDPOINT_URL
-csp_value = f"default-src 'self'; img-src 'self' {object_store_host}; media-src 'self' {object_store_host}"
+csp_value = f"default-src 'self'; img-src 'self' {object_store_host}; media-src 'self' {object_store_host}; frame-ancestors 'none'"
 
 
 session_config = AsyncSessionConfig(expire_on_commit=False)
