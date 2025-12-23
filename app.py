@@ -1,4 +1,3 @@
-from os import getenv
 from pathlib import Path
 
 from advanced_alchemy.extensions.litestar import (
@@ -10,11 +9,9 @@ from jinja2 import Environment, PackageLoader, select_autoescape
 from litestar import Litestar
 from litestar.contrib.jinja import JinjaTemplateEngine
 from litestar.datastructures import ResponseHeader
-from litestar.params import Parameter
 from litestar.static_files import create_static_files_router
 from litestar.template.config import TemplateConfig
 from litestar_vite import ViteConfig, VitePlugin
-
 
 from explorer.controllers import (
     AdminCategoryController,
@@ -32,11 +29,9 @@ from explorer.controllers.api import ApiController
 from explorer.seeds.seed_db import seed_database
 from explorer.utils.filters import duration_format
 from explorer.config import Settings
+from explorer.http import get_csp_header_value
 
 settings = Settings.from_env()
-
-object_store_host = settings.s3.S3_ENDPOINT_URL
-csp_value = f"default-src 'self'; img-src 'self' {object_store_host}; media-src 'self' {object_store_host}; frame-ancestors 'none'"
 
 
 session_config = AsyncSessionConfig(expire_on_commit=False)
@@ -83,7 +78,7 @@ app = Litestar(
     response_headers=[
         ResponseHeader(
             name='Content-Security-Policy',
-            value=csp_value,
+            value=get_csp_header_value(settings.s3.S3_ENDPOINT_URL),
             description='Basic CSP rules',
         )
     ],

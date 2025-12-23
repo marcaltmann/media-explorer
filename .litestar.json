@@ -1,0 +1,25 @@
+{
+  "assetUrl": "/static/",
+  "deployAssetUrl": null,
+  "bundleDir": "public",
+  "hotFile": "hot",
+  "resourceDir": "src",
+  "staticDir": "src/public",
+  "manifest": "manifest.json",
+  "mode": "template",
+  "proxyMode": "vite",
+  "port": 5173,
+  "host": "127.0.0.1",
+  "ssrOutDir": null,
+  "types": null,
+  "logging": {
+    "level": "normal",
+    "showPathsAbsolute": false,
+    "suppressNpmOutput": false,
+    "suppressViteBanner": false,
+    "timestamps": false
+  },
+  "spa": null,
+  "executor": "node",
+  "litestarVersion": "2.19.0"
+}
